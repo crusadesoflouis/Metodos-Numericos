@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <stdlib.h>
 #include <tuple>
 #include <vector>
@@ -9,29 +10,28 @@ typedef int origen;
 typedef int destino;
 typedef tuple<origen,destino> link;
 
-
-vector<link> leerSaltos(){
+vector<link> leerSaltos(fstream& archivo){
   int m; // m = total de links
-  cin >> m;
+  archivo >> m;
   vector<link> links;
   for (size_t i = 0; i < m; i++) {
     origen desde;
     destino hacia;
-    cin >> desde >> hacia;
+    archivo >> desde >> hacia;
     links.push_back(make_tuple(desde,hacia));
   }
   return links;
 }
 
-int leerCantidadDePaginas(){
+int leerCantidadDePaginas(fstream& archivo){
   int n; // n = total de paginas
-  cin >> n;
+  archivo >> n;
   return n;
 }
 
-void escribirSalida(int p, int ranking[], int cantidadPaginas){
-  cout << p << endl;
+void escribirSalida(fstream& archivo, float p, float ranking[], int cantidadPaginas){
+  archivo << p << endl;
   for (size_t i = 0; i < cantidadPaginas; i++) {
-    cout << ranking[i] << endl;
+    archivo << ranking[i] << endl;
   }
 }

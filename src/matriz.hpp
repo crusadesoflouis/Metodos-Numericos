@@ -22,11 +22,15 @@ class matriz {
 
     }
 
-    void rankear(int solucion[], int p){
+    void rankear(float solucion[], int p){
       
     }
   private:
-
+    /*
+    int cantidadDePaginas;
+    link uniones[cantidadDePaginas];
+    int matrizDeValores[cantidadDePaginas][cantidadDePaginas];
+    */
 };
 
 #endif
