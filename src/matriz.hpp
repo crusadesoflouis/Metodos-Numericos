@@ -19,7 +19,7 @@ class matriz {
 
   public:
     matriz(int cantidadPaginas,vector<link> links){
-
+      
     }
 
     void rankear(float solucion[], int p){
