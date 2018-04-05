@@ -13,17 +13,16 @@ typedef map<Columna, Valor> Fila;
 
 class matriz {
 public:
-    matriz();
+
 
     matriz(unsigned int n);
-
     void agregar_links(unsigned int fila, unsigned int col);
 
     void rankear(unsigned int p);
 
-    void multiplicacion(vector<Fila> &matriz_D);
+    void multiplicacion(vector<float> &matriz_D);
 
-    vector<Fila> restar(vector<Fila> &matriz_B);
+    vector<Fila> restar_identidad(vector<Fila> &matriz_B);
 
     vector<Fila> multiplicacion_escalar(vector<Fila> &matriz_B);
 
@@ -31,7 +30,7 @@ public:
 
     vector<float> buscar_solucion(vector<Fila> &matriz_B);
 
-    void mostrar(unsigned int, unsigned int);
+    void mostrar();
 
 private:
     vector<Fila> filas;

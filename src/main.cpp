@@ -4,18 +4,26 @@
 #include "matriz.h"
 
 void test_insertar() {
-    matriz B(10);
+    matriz B(3);
     B.agregar_links(1, 1);
     B.agregar_links(2, 1);
-    B.agregar_links(5, 1);
+    B.agregar_links(3, 1);
     B.agregar_links(1, 2);
-    B.agregar_links(7, 8);
-    B.agregar_links(7, 1);
-    B.agregar_links(5, 2);
-    B.agregar_links(3, 7);
-    B.agregar_links(1, 9);
     B.agregar_links(2, 2);
-    B.mostrar(1, 1);
+    B.agregar_links(3, 2);
+    B.agregar_links(1, 3);
+    B.agregar_links(2, 3);
+    B.agregar_links(3, 3);
+
+    vector<float> D;
+
+    D.push_back(1);
+    D.push_back(2);
+    D.push_back(0);
+
+    B.multiplicacion(D);
+    B.mostrar();
+
 }
 
 void test_cardinal() {
