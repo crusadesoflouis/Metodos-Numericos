@@ -11,9 +11,60 @@ matriz::matriz(unsigned int n) {
     }
 }
 
-vector<Fila> matriz::eliminacion_gausiana() {
-    vector<Fila> A(tamanio);
-    return A;
+
+
+
+void matriz::crear_identidad() {
+  for (unsigned int  i = 1; i < tamanio+1; i++) {
+    agregar_links(i,i);
+  }
+}
+
+float matriz::dame_elem_por_fila(Fila& F,unsigned int c){
+  std::map<Columna ,Valor>::iterator it;
+   it = F.find(c);
+   if (it != F.end()) {
+     return it->second;
+   }
+  else{
+       return 0;
+  }
+}
+
+void matriz::resta_filas(Fila& A ,Fila B,float consante) {
+
+   for (unsigned int i = 0; i < A.size(); i++) {
+     float elem_inferior = dame_elem_por_fila(A,i);
+     float elem_superior = dame_elem_por_fila(B,i);
+     elem_inferior = elem_inferior - (consante*elem_superior);
+     if (elem_inferior == 0) {
+       pair<Columna, Valor> entry = make_pair(i,elem_inferior);
+       A.insert(entry);
+     }
+     else{
+       A.at(i) = elem_inferior;
+     }
+   }
+}
+
+
+void matriz::eliminacion_gausiana(matriz &L) {
+
+  for (unsigned int  j = 1; j < tamanio-1; j++) {
+    for (unsigned int  i = j+1; i < tamanio; i++) {
+      // como la matriz es estrictamente diagonal dominante
+      // nuestro a_j_j nunca va a ser cero
+      float a_i_j = dame_elem_matriz(i,j);
+      float a_j_j = dame_elem_matriz(j,j);
+      float cociente = (a_i_j/a_j_j);
+      L.agregar_elemento(i,j,cociente);
+      //resta de diccionarios
+      resta_filas(filas[j],filas[i],cociente);
+    }
+  }
+
+
+
 }
 
 void matriz::rankear(unsigned int p) {
@@ -30,15 +81,7 @@ void matriz::mostrar() {
       }
       else{
         for (unsigned int j = 0; j < tamanio; j++) {
-          std::map<Columna ,Valor>::iterator it;
-           it = filas[i].find(j);
-
-           if (it != filas[i].end()) {
-             std::cout << it->second << " ";
-           }
-          else{
-               std::cout << "0 ";
-          }
+        cout << dame_elem_matriz(i,j) << " ";
         }
         std::cout << '\n';
     }
@@ -46,8 +89,28 @@ void matriz::mostrar() {
 }
 
 
+
+
+    float matriz::dame_elem_matriz(unsigned int f, unsigned int c){
+      std::map<Columna ,Valor>::iterator it;
+       it = filas[f].find(c);
+       if (it != filas[f].end()) {
+         return it->second;
+       }
+      else{
+           return 0;
+      }
+    }
+
+
 void matriz::agregar_links(unsigned int fila, unsigned int col) {
     pair<Columna, Valor> entry = make_pair(col - 1, 1);
+    filas[fila - 1].insert(entry);
+}
+
+
+void matriz::agregar_elemento(unsigned int fila, unsigned int col,float valor) {
+    pair<Columna, Valor> entry = make_pair(col - 1,valor);
     filas[fila - 1].insert(entry);
 }
 

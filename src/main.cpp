@@ -22,7 +22,18 @@ void test_insertar() {
     D.push_back(0);
 
     B.multiplicacion(D);
+
     B.mostrar();
+
+
+    matriz I(5);
+
+    I.crear_identidad();
+    I.mostrar();
+
+
+
+
 
 }
 
