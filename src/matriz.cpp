@@ -5,6 +5,7 @@ matriz::matriz() {
 
 matriz::matriz(unsigned int n) {
     filas.resize(n);
+    tamanio = n;
 
     for (int i = 0; i < n; i++) {
         Fila fila;
@@ -23,6 +24,28 @@ void matriz::rankear(unsigned int p) {
 
 void matriz::mostrar(unsigned int fila, unsigned int columna) {
     std::cout << filas[fila - 1].at(columna - 1) << '\n';
+    for (unsigned int  i = 0; i < tamanio; i++) {
+      if (filas[i].empty() == true) {
+        for (unsigned int  k = 0; k < tamanio; k++) {
+          std::cout << "0 ";
+        }
+      std::cout << '\n';
+      }
+      else{
+        for (unsigned int j = 0; j < tamanio; j++) {
+          std::map<Columna ,Valor>::iterator it;
+           it = filas[i].find(j);
+
+           if (it != filas[i].end()) {
+             std::cout << it->second << " ";
+           }
+          else{
+               std::cout << "0 ";
+          }
+        }
+        std::cout << '\n';
+    }
+  }
 }
 
 

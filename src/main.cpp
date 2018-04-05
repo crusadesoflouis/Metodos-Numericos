@@ -4,8 +4,17 @@
 #include "matriz.h"
 
 void test_insertar() {
-    matriz B(3);
+    matriz B(10);
     B.agregar_links(1, 1);
+    B.agregar_links(2, 1);
+    B.agregar_links(5, 1);
+    B.agregar_links(1, 2);
+    B.agregar_links(7, 8);
+    B.agregar_links(7, 1);
+    B.agregar_links(5, 2);
+    B.agregar_links(3, 7);
+    B.agregar_links(1, 9);
+    B.agregar_links(2, 2);
     B.mostrar(1, 1);
 }
 
