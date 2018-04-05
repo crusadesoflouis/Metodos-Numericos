@@ -61,6 +61,7 @@ void matriz::eliminacion_gausiana(matriz &L) {
       //resta de diccionarios
       resta_filas(filas[j],filas[i],cociente);
     }
+
   }
 
 

@@ -26,12 +26,31 @@ void test_insertar() {
     B.mostrar();
 
 
-    matriz I(5);
-
-    I.crear_identidad();
-    I.mostrar();
 
 
+    matriz L(3);
+    matriz U(3);
+    U.agregar_elemento(1, 1,4);
+    U.agregar_elemento(2, 1,2);
+    U.agregar_elemento(3, 1,1);
+    U.agregar_elemento(1, 2,1);
+    U.agregar_elemento(2, 2,3);
+    U.agregar_elemento(3, 2,1);
+    U.agregar_elemento(1, 3,1);
+    U.agregar_elemento(2, 3,1);
+    U.agregar_elemento(3, 3,3);
+
+    U.mostrar();
+
+    L.crear_identidad();
+
+    L.mostrar();
+
+    U.eliminacion_gausiana(L);
+
+    U.mostrar();
+
+    L.mostrar();
 
 
 
