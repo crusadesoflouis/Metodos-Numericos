@@ -1,5 +1,4 @@
 #ifndef _matriz_h__
-#define __matriz_h__
 
 #include <iostream>
 #include <map>
@@ -7,26 +6,36 @@
 #include <stdio.h>
 
 using namespace std;
-typedef unsigned int columna;
-typedef float valor;
-typedef float constante;
-typedef map<columna,valor> link;
+typedef unsigned int Columna;
+typedef float Valor;
+typedef float Constante;
+typedef map<Columna, Valor> Fila;
 
 class matriz {
-  public:
+public:
     matriz();
-    matriz(int n);
-    void agregar_links(int fila, int col);
-    void rankear(int p);
-    void multiplicacion(vector<link> &matriz_D);
-    vector<link> restar(vector<link> matriz_B);
-    vector<link> multiplicacion_escalar(vector<link> matriz_B);
-    vector<link> eliminasion_gausiana();
-    vector<float> buscar_solucion(vector<link> matriz_B);
-    void mostrar(int,int);
-    private:
-      vector<link> links;
-      int tamanio;
+
+    matriz(unsigned int n);
+
+    void agregar_links(unsigned int fila, unsigned int col);
+
+    void rankear(unsigned int p);
+
+    void multiplicacion(vector<Fila> &matriz_D);
+
+    vector<Fila> restar(vector<Fila> &matriz_B);
+
+    vector<Fila> multiplicacion_escalar(vector<Fila> &matriz_B);
+
+    vector<Fila> eliminacion_gausiana();
+
+    vector<float> buscar_solucion(vector<Fila> &matriz_B);
+
+    void mostrar(unsigned int, unsigned int);
+
+private:
+    vector<Fila> filas;
+    int tamanio;
 };
 
 #endif
