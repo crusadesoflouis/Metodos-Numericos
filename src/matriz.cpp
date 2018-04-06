@@ -65,12 +65,9 @@ void matriz::eliminacion_gausiana(matriz &L) {
 
 vector<float> matriz::solucion_lower() {
     vector<float> y;
-
     y.push_back(this->dame_elem_matriz(1, 1));
-
     for (unsigned int i = 2; i <= tamanio; i++) {
         float suma_parcial = 0;
-
         for (unsigned int j = 1; j <= y.size(); j++) {
             float elem_matriz = this->dame_elem_matriz(i, j);
             elem_matriz = elem_matriz * y[j - 1];
@@ -85,23 +82,23 @@ vector<float> matriz::solucion_lower() {
 
 vector<float> matriz::solucion_upper(vector<float>& y) {
     vector<float> x;
-
     x.push_back(y[tamanio - 1]/this->dame_elem_matriz(tamanio, tamanio));
-
     for (unsigned int i = tamanio - 1; i >= 1; i--) {
         float suma_parcial = 0;
-
         for (unsigned int j = 1; j <= x.size(); j++) {
             float elem_matriz = this->dame_elem_matriz(i, i+j);
             elem_matriz = elem_matriz * x[x.size() - j];
             suma_parcial = suma_parcial + elem_matriz;
         }
-
-        float resultado = (y[i] - suma_parcial)/this->dame_elem_matriz(i, i);
+        float resultado = (y[i-1] - suma_parcial)/this->dame_elem_matriz(i, i);
         x.push_back(resultado);
     }
 
-    return x;
+    std::vector<float> reverse_x;
+    for (unsigned int  i = 1; i <= tamanio; i++) {
+      reverse_x.push_back(x[tamanio-i]);
+    }
+    return reverse_x;
 }
 
 Fila &matriz::dame_fila(unsigned int f) {
@@ -109,6 +106,9 @@ Fila &matriz::dame_fila(unsigned int f) {
 }
 
 void matriz::rankear(unsigned int p) {
+
+
+
 }
 
 void matriz::mostrar() {
@@ -188,6 +188,14 @@ void matriz::multiplicacion_escalar(int escalar) {
       it->second *= escalar;
     }
   }
+}
+
+
+
+
+
+vector<float>  matriz::suma_columnas() {
+  vector<float> A;
 }
 
 vector<float> matriz::buscar_solucion(vector<Fila> &matriz_B) {

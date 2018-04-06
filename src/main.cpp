@@ -53,23 +53,31 @@ void test_insertar() {
     U.agregar_elemento(3, 3,10);
 
     U.mostrar();
+    //
+    // L.crear_identidad();
+    //
+    // L.mostrar();
+    //
+    // U.eliminacion_gausiana(L);
+    //
+    // U.mostrar();
+    //
+    // L.mostrar();
+    //
+    // std::cout << "lower" << '\n';
+    // vector<float> solucion_lower = L.solucion_lower();
+    // print_vector(solucion_lower);
+    //
+    //
+    //
+    // std::cout << "upper" << '\n';
+    // vector<float> solucion_upper = U.solucion_upper(solucion_lower);
+    // print_vector(solucion_upper);
 
-    L.crear_identidad();
 
-    L.mostrar();
-
-    U.eliminacion_gausiana(L);
-
+    // U.multiplicacion_escalar(3);
+    U.restar_identidad();
     U.mostrar();
-
-    L.mostrar();
-
-    vector<float> solucion_lower = L.solucion_lower();
-    print_vector(solucion_lower);
-
-    vector<float> solucion_upper = U.solucion_upper(solucion_lower);
-    print_vector(solucion_upper);
-
 }
 
 void print_vector(vector<float> vector) {
