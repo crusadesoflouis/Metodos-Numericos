@@ -3,8 +3,10 @@
 
 #include "matriz.h"
 
+void print_vector(vector<float> vector);
+
 void test_insertar() {
-    matriz B(3);
+    /*matriz B(3);
     B.agregar_links(1, 1);
     B.agregar_links(2, 1);
     B.agregar_links(3, 1);
@@ -23,14 +25,14 @@ void test_insertar() {
 
     B.multiplicacion(D);
 
-    B.mostrar();
+    B.mostrar();*/
 
 
 
 
     matriz L(3);
     matriz U(3);
-    U.agregar_elemento(1, 1,4);
+    /*U.agregar_elemento(1, 1,4);
     U.agregar_elemento(2, 1,2);
     U.agregar_elemento(3, 1,1);
     U.agregar_elemento(1, 2,1);
@@ -38,7 +40,17 @@ void test_insertar() {
     U.agregar_elemento(3, 2,1);
     U.agregar_elemento(1, 3,1);
     U.agregar_elemento(2, 3,1);
-    U.agregar_elemento(3, 3,3);
+    U.agregar_elemento(3, 3,3);*/
+
+    U.agregar_elemento(1, 1,8);
+    U.agregar_elemento(2, 1,3);
+    U.agregar_elemento(3, 1,4);
+    U.agregar_elemento(1, 2,3);
+    U.agregar_elemento(2, 2,10);
+    U.agregar_elemento(3, 2,2);
+    U.agregar_elemento(1, 3,5);
+    U.agregar_elemento(2, 3,4);
+    U.agregar_elemento(3, 3,10);
 
     U.mostrar();
 
@@ -52,8 +64,16 @@ void test_insertar() {
 
     L.mostrar();
 
+    vector<float> solucion_lower = L.solucion_lower();
+    print_vector(solucion_lower);
 
+}
 
+void print_vector(vector<float> vector) {
+    for (float i : vector) {
+        cout << i << ' ';
+    }
+    cout << "\n";
 }
 
 void test_cardinal() {
