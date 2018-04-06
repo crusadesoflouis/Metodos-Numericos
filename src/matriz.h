@@ -53,6 +53,8 @@ public:
 
     vector<float> solucion_lower();
 
+    vector<float> solucion_upper(vector<float> &y);
+
 private:
     vector<Fila> filas;
     unsigned int tamanio;
@@ -62,8 +64,6 @@ private:
     float dame_elem_por_fila(Fila &F, unsigned int c);
 
     Fila & dame_fila(unsigned int f);
-
-    vector<float> solucion_upper(vector<float> &y);
 
 };
 

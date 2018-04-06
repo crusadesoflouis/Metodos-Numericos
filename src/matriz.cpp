@@ -83,20 +83,25 @@ vector<float> matriz::solucion_lower() {
     return y;
 }
 
-vector<float> matriz::solucion_upper(vector<float> &y) {
+vector<float> matriz::solucion_upper(vector<float>& y) {
     vector<float> x;
 
-    for (unsigned int i = 1; i <= tamanio; i++) {
-        for (unsigned int j = 1; j <= i; j++) {
-            float suma_parcial = 0;
+    x.push_back(y[tamanio - 1]/this->dame_elem_matriz(tamanio, tamanio));
 
-            for (unsigned int k = 0; k <= y.size(); k++) {
-                suma_parcial = suma_parcial + (this->dame_elem_matriz(i, k) * y[k]);
-            }
+    for (unsigned int i = tamanio - 1; i >= 1; i--) {
+        float suma_parcial = 0;
 
-            x.push_back((y[i] - suma_parcial) / this->dame_elem_matriz(i, i));
+        for (unsigned int j = 1; j <= x.size(); j++) {
+            float elem_matriz = this->dame_elem_matriz(i, i+j);
+            elem_matriz = elem_matriz * x[x.size() - j];
+            suma_parcial = suma_parcial + elem_matriz;
         }
+
+        float resultado = (y[i] - suma_parcial)/this->dame_elem_matriz(i, i);
+        x.push_back(resultado);
     }
+
+    return x;
 }
 
 Fila &matriz::dame_fila(unsigned int f) {

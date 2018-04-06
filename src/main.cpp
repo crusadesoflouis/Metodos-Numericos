@@ -67,6 +67,9 @@ void test_insertar() {
     vector<float> solucion_lower = L.solucion_lower();
     print_vector(solucion_lower);
 
+    vector<float> solucion_upper = U.solucion_upper(solucion_lower);
+    print_vector(solucion_upper);
+
 }
 
 void print_vector(vector<float> vector) {
