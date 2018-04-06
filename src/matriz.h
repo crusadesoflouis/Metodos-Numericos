@@ -28,14 +28,15 @@ public:
 
     void crear_identidad();
 
+    vector<float> suma_columnas();
 
-    void rankear(unsigned int p);
+    vector<float> rankear(float p);
 
     void multiplicacion(vector<float> &matriz_D);
 
     void restar_identidad();
 
-    void multiplicacion_escalar(int escalar);
+    void multiplicacion_escalar(float escalar);
 
     //L debe venir inicializada con unos en la diagonal
     void eliminacion_gausiana(matriz &L);
@@ -47,9 +48,6 @@ public:
 
     float dame_elem_matriz(unsigned int f, unsigned int c);
     //funciones auxiliares
-
-
-    vector<float> solucion_lower(matriz &L);
 
     vector<float> solucion_lower();
 

@@ -105,8 +105,18 @@ Fila &matriz::dame_fila(unsigned int f) {
     return filas[f - 1];
 }
 
-void matriz::rankear(unsigned int p) {
+vector<float> matriz::rankear(float p) {
 
+  vector<float> D = suma_columnas();
+  this->multiplicacion(D);
+  this->multiplicacion_escalar(p);
+  this->restar_identidad();
+  this->multiplicacion_escalar(-1);
+  matriz L(tamanio);
+  L.crear_identidad();
+  this->eliminacion_gausiana(L);
+  vector<float> Y = L.solucion_lower();
+  return this->solucion_upper(Y);
 
 
 }
@@ -182,7 +192,7 @@ void matriz::restar_identidad() {
   }
 }
 
-void matriz::multiplicacion_escalar(int escalar) {
+void matriz::multiplicacion_escalar(float escalar) {
   for (size_t i = 0; i < tamanio; i++) {
     for (map<Columna,Valor>::iterator it=filas[i].begin(); it!=filas[i].end(); ++it) {
       it->second *= escalar;
@@ -196,6 +206,23 @@ void matriz::multiplicacion_escalar(int escalar) {
 
 vector<float>  matriz::suma_columnas() {
   vector<float> A;
+  for (unsigned int  j = 0; j < tamanio; j++) {
+    float sumatoria = 0;
+    for (unsigned int  i = 0; i < tamanio; i++) {
+      std::map<Columna,Valor>::iterator it;
+      it = filas[i].find(j);
+      if (it != filas[i].end())
+        sumatoria = sumatoria  + it->second;
+      }
+
+      if (sumatoria !=0) {
+        A.push_back(1/sumatoria);
+      }
+      else{
+        A.push_back(0);
+      }
+  }
+  return A;
 }
 
 vector<float> matriz::buscar_solucion(vector<Fila> &matriz_B) {

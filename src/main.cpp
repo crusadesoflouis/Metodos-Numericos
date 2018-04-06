@@ -42,17 +42,17 @@ void test_insertar() {
     U.agregar_elemento(2, 3,1);
     U.agregar_elemento(3, 3,3);*/
 
-    U.agregar_elemento(1, 1,8);
-    U.agregar_elemento(2, 1,3);
-    U.agregar_elemento(3, 1,4);
-    U.agregar_elemento(1, 2,3);
-    U.agregar_elemento(2, 2,10);
-    U.agregar_elemento(3, 2,2);
-    U.agregar_elemento(1, 3,5);
-    U.agregar_elemento(2, 3,4);
-    U.agregar_elemento(3, 3,10);
+    U.agregar_elemento(1, 1,0);
+    U.agregar_elemento(2, 1,1);
+    U.agregar_elemento(3, 1,1);
+    U.agregar_elemento(1, 2,1);
+    U.agregar_elemento(2, 2,0);
+    U.agregar_elemento(3, 2,1);
+    U.agregar_elemento(1, 3,1);
+    U.agregar_elemento(2, 3,1);
+    U.agregar_elemento(3, 3,0);
 
-    U.mostrar();
+    // U.mostrar();
     //
     // L.crear_identidad();
     //
@@ -76,9 +76,38 @@ void test_insertar() {
 
 
     // U.multiplicacion_escalar(3);
-    U.restar_identidad();
-    U.mostrar();
+    // U.restar_identidad();
+    // U.mostrar();
+
+    vector<float> Sumatoria = U.rankear(0.25);
+    print_vector(Sumatoria);
+
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void print_vector(vector<float> vector) {
     for (float i : vector) {
