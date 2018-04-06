@@ -169,14 +169,25 @@ void matriz::multiplicacion(vector<float> &matriz_D) {
     }
 }
 
-vector<Fila> matriz::restar_identidad(vector<Fila> &matriz_B) {
-    vector<Fila> A(tamanio);
-    return A;
+void matriz::restar_identidad() {
+  for (size_t i = 0; i < tamanio; i++) {
+    map<Columna,Valor>::iterator it = filas[i].find(i);
+    if(it != filas[i].end()){
+      // si esta resto 1 al valor que encontre
+      it->second -= 1;
+    }else{
+      // no esta, agrego un -1
+      filas[i].insert(make_pair(i,-1));
+    }
+  }
 }
 
-vector<Fila> matriz::multiplicacion_escalar(vector<Fila> &matriz_B) {
-    vector<Fila> A(tamanio);
-    return A;
+void matriz::multiplicacion_escalar(int escalar) {
+  for (size_t i = 0; i < tamanio; i++) {
+    for (map<Columna,Valor>::iterator it=filas[i].begin(); it!=filas[i].end(); ++it) {
+      it->second *= escalar;
+    }
+  }
 }
 
 vector<float> matriz::buscar_solucion(vector<Fila> &matriz_B) {

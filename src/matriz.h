@@ -33,9 +33,9 @@ public:
 
     void multiplicacion(vector<float> &matriz_D);
 
-    vector<Fila> restar_identidad(vector<Fila> &matriz_B);
+    void restar_identidad();
 
-    vector<Fila> multiplicacion_escalar(vector<Fila> &matriz_B);
+    void multiplicacion_escalar(int escalar);
 
     //L debe venir inicializada con unos en la diagonal
     void eliminacion_gausiana(matriz &L);
