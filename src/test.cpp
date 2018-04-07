@@ -1,7 +1,11 @@
-#include <iostream>
-#include "mini_test.h"
 
-#include "matriz.h"
+#include "mini_test.h"
+#include <iostream>
+#include <stdlib.h>
+#include "entradaSalida.cpp"
+#include "matriz.cpp"
+#include <vector>
+#include <string>
 
 void print_vector(vector<float> vector);
 
@@ -82,7 +86,7 @@ void test_insertar() {
     vector<float> Sumatoria = U.rankear(0.25);
     print_vector(Sumatoria);
 
-    
+
 }
 
 

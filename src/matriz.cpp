@@ -1,5 +1,7 @@
 #include "matriz.h"
+#include <cmath>
 
+float EPSILON = 0.0001;
 
 matriz::matriz(unsigned int n) {
     filas.resize(n);
@@ -59,7 +61,7 @@ void matriz::eliminacion_gausiana(matriz &L) {
             // como la matriz es estrictamente diagonal dominante
             // nuestro a_j_j nunca va a ser cero
             float a_i_j = dame_elem_matriz(i, j);
-            if (a_i_j != 0){
+            if (abs(a_i_j) > EPSILON){
               float a_j_j = dame_elem_matriz(j, j);
               float cociente = (a_i_j / a_j_j);
               L.agregar_elemento(i, j, cociente);
@@ -67,6 +69,7 @@ void matriz::eliminacion_gausiana(matriz &L) {
               resta_filas(dame_fila(i), dame_fila(j), cociente);
             }
         }
+        // std::cout << j << '\n';
 
     }
 }

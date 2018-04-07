@@ -5,6 +5,7 @@
 #include <vector>
 #include <stdio.h>
 #include <utility>
+#include <cmath>
 
 using namespace std;
 typedef unsigned int Columna;
