@@ -10,6 +10,13 @@ matriz::matriz(unsigned int n) {
     }
 }
 
+matriz::matriz(unsigned int n, vector<link> links){
+  tamanio = n;
+  filas.resize(n);
+  for (int i = 0; i < links.size(); i++) {
+    filas[get<0>(links[i])-1].insert(make_pair(get<1>(links[i])-1,1));
+  }
+}
 
 void matriz::crear_identidad() {
     for (unsigned int i = 1; i < tamanio + 1; i++) {
@@ -47,17 +54,18 @@ void matriz::resta_filas(Fila &A, Fila B, float constante) {
 
 
 void matriz::eliminacion_gausiana(matriz &L) {
-
     for (unsigned int j = 1; j <= tamanio - 1; j++) {
         for (unsigned int i = j + 1; i <= tamanio; i++) {
             // como la matriz es estrictamente diagonal dominante
             // nuestro a_j_j nunca va a ser cero
             float a_i_j = dame_elem_matriz(i, j);
-            float a_j_j = dame_elem_matriz(j, j);
-            float cociente = (a_i_j / a_j_j);
-            L.agregar_elemento(i, j, cociente);
-            //resta de diccionarios
-            resta_filas(dame_fila(i), dame_fila(j), cociente);
+            if (a_i_j != 0){
+              float a_j_j = dame_elem_matriz(j, j);
+              float cociente = (a_i_j / a_j_j);
+              L.agregar_elemento(i, j, cociente);
+              //resta de diccionarios
+              resta_filas(dame_fila(i), dame_fila(j), cociente);
+            }
         }
 
     }

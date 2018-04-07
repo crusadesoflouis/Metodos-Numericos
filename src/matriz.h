@@ -22,6 +22,8 @@ public:
 
     matriz(unsigned int n);
 
+    matriz(unsigned int n, vector<link> links);
+
     void agregar_links(unsigned int fila, unsigned int col);
 
     void agregar_elemento(unsigned int fila, unsigned int col, float valor);

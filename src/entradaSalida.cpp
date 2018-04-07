@@ -23,13 +23,13 @@ vector<link> leerSaltos(fstream& archivo){
   return links;
 }
 
-int leerCantidadDePaginas(fstream& archivo){
-  int n; // n = total de paginas
+unsigned int leerCantidadDePaginas(fstream& archivo){
+  unsigned int n; // n = total de paginas
   archivo >> n;
   return n;
 }
 
-void escribirSalida(fstream& archivo, float p, float ranking[], int cantidadPaginas){
+void escribirSalida(fstream& archivo, float p, vector<float> ranking, int cantidadPaginas){
   archivo << p << endl;
   for (size_t i = 0; i < cantidadPaginas; i++) {
     archivo << ranking[i] << endl;
