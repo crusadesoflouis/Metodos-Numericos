@@ -19,7 +19,7 @@ int main(int argc, char const *argv[]) {
     vector<float> solucion = matrix.rankear(p); // no le paso la cantidad de paginas porque tiene que ser un atributo interno de matriz
     // escribo la salida
     string nombreArchivo = (string) argv[1];
-    nombreArchivo = nombreArchivo + ".out";
+    nombreArchivo = nombreArchivo + ".out2";
     fstream archivoSalida(nombreArchivo,fstream::in | fstream::out | fstream::trunc);
     escribirSalida(archivoSalida,p,solucion,cantidadPaginas);
     return 0;
