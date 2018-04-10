@@ -3,6 +3,7 @@
 
 float EPSILON = 0.0001;
 
+// constructor de una matriz de tamaño n llena de ceros
 matriz::matriz(unsigned int n) {
     filas.resize(n);
     tamanio = n;
@@ -12,6 +13,7 @@ matriz::matriz(unsigned int n) {
     }
 }
 
+// constructor de una matriz de tamaño n con unos en los indices de los links
 matriz::matriz(unsigned int n, vector<link> links){
   tamanio = n;
   filas.resize(n);
@@ -20,12 +22,14 @@ matriz::matriz(unsigned int n, vector<link> links){
   }
 }
 
+// crea la matriz identidad
 void matriz::crear_identidad() {
     for (unsigned int i = 1; i < tamanio + 1; i++) {
         agregar_links(i, i);
     }
 }
 
+// devuelve el elemento c de la fila f
 float matriz::dame_elem_por_fila(Fila &F, unsigned int c) {
     std::map<Columna, Valor>::iterator it;
     it = F.find(c - 1);
@@ -36,6 +40,7 @@ float matriz::dame_elem_por_fila(Fila &F, unsigned int c) {
     }
 }
 
+// combinacion lineal de las fila A y B. se modifica A. A <- A - constante*B
 void matriz::resta_filas(Fila &A, Fila B, float constante) {
     //TODO: REFACTOR (no pasar filas, pasar indice de las filas).
     for (unsigned int i = 1; i <= tamanio; i++) {
@@ -118,18 +123,23 @@ Fila &matriz::dame_fila(unsigned int f) {
 
 vector<float> matriz::rankear(float p) {
 
+  // calculo la matriz diagonal
   vector<float> D = suma_columnas();
+  // hago W*D
   this->multiplicacion(D);
+  // hago p*W*D
   this->multiplicacion_escalar(p);
+  // hago p*W*D-I
   this->restar_identidad();
+  // hago I-p*W*D
   this->multiplicacion_escalar(-1);
+  // hago la matriz L y la U
   matriz L(tamanio);
   L.crear_identidad();
   this->eliminacion_gausiana(L);
+  // resuelvo LU x = e
   vector<float> Y = L.solucion_lower();
   return this->solucion_upper(Y);
-
-
 }
 
 void matriz::mostrar() {
@@ -210,10 +220,6 @@ void matriz::multiplicacion_escalar(float escalar) {
     }
   }
 }
-
-
-
-
 
 vector<float>  matriz::suma_columnas() {
   vector<float> A;
