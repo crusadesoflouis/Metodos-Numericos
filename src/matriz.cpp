@@ -14,10 +14,10 @@ matriz::matriz(unsigned int n) {
 }
 
 // constructor de una matriz de tamaño n con unos en los indices de los links
-matriz::matriz(unsigned int n, vector<link> links){
+matriz::matriz(unsigned int n, link links[], int m){
   tamanio = n;
   filas.resize(n);
-  for (int i = 0; i < links.size(); i++) {
+  for (int i = 0; i < m; i++) {
     filas[get<0>(links[i])-1].insert(make_pair(get<1>(links[i])-1,1));
   }
 }
