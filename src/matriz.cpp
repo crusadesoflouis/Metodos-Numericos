@@ -208,7 +208,9 @@ void matriz::multiplicacion(vector<float> &matriz_D) {
                 //la clave está en la matriz
                 if (matriz_D[i] != 0) {
                     // El elemento de la diagonal es =! a cero
-                    it->second = it->second * matriz_D[i];
+                    if (abs(it->second * matriz_D[i]) > EPSILON) {
+                      it->second = it->second * matriz_D[i];
+                    }
                 } else {
                     filas[j].erase(it);
                 }
