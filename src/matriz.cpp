@@ -1,8 +1,9 @@
 #include "matriz.h"
 #include <cmath>
 
-float EPSILON = 0.0001;
+float EPSILON = 0.00000001;
 
+// constructor de una matriz de tamaño n llena de ceros
 matriz::matriz(unsigned int n) {
     filas.resize(n);
     tamanio = n;
@@ -12,20 +13,23 @@ matriz::matriz(unsigned int n) {
     }
 }
 
-matriz::matriz(unsigned int n, vector<link> links){
+// constructor de una matriz de tamaño n con unos en los indices de los links
+matriz::matriz(unsigned int n, link links[], int m){
   tamanio = n;
   filas.resize(n);
-  for (int i = 0; i < links.size(); i++) {
+  for (int i = 0; i < m; i++) {
     filas[get<0>(links[i])-1].insert(make_pair(get<1>(links[i])-1,1));
   }
 }
 
+// crea la matriz identidad
 void matriz::crear_identidad() {
     for (unsigned int i = 1; i < tamanio + 1; i++) {
         agregar_links(i, i);
     }
 }
 
+// devuelve el elemento c de la fila f
 float matriz::dame_elem_por_fila(Fila &F, unsigned int c) {
     std::map<Columna, Valor>::iterator it;
     it = F.find(c - 1);
@@ -36,6 +40,7 @@ float matriz::dame_elem_por_fila(Fila &F, unsigned int c) {
     }
 }
 
+// combinacion lineal de las fila A y B. se modifica A. A <- A - constante*B
 void matriz::resta_filas(Fila &A, Fila B, float constante) {
     //TODO: REFACTOR (no pasar filas, pasar indice de las filas).
     for (unsigned int i = 1; i <= tamanio; i++) {
@@ -117,19 +122,41 @@ Fila &matriz::dame_fila(unsigned int f) {
 }
 
 vector<float> matriz::rankear(float p) {
-
-  vector<float> D = suma_columnas();
+  std::cout << "W" << '\n';
+  this->mostrar();
+  // calculo la matriz diagonal
+  vector<float> D = suma_filas();
+  std::cout << "D" << '\n';
+  for (size_t i = 0; i < tamanio; i++) {
+    std::cout << D[i] << '\n';
+  }
+  // hago W*D
   this->multiplicacion(D);
+  std::cout << "W*D" << '\n';
+  this->mostrar();
+  // hago p*W*D
   this->multiplicacion_escalar(p);
+  std::cout << "p*W*D" << '\n';
+  this->mostrar();
+  // hago p*W*D-I
   this->restar_identidad();
+  std::cout << "p*W*D-I" << '\n';
+  this->mostrar();
+  // hago I-p*W*D
   this->multiplicacion_escalar(-1);
+  std::cout << "I-p*W*D" << '\n';
+  this->mostrar();
+  // hago la matriz L y la U
   matriz L(tamanio);
   L.crear_identidad();
   this->eliminacion_gausiana(L);
+  std::cout << "L" << '\n';
+  L.mostrar();
+  std::cout << "U" << '\n';
+  this->mostrar();
+  // resuelvo LU x = e
   vector<float> Y = L.solucion_lower();
   return this->solucion_upper(Y);
-
-
 }
 
 void matriz::mostrar() {
@@ -211,10 +238,6 @@ void matriz::multiplicacion_escalar(float escalar) {
   }
 }
 
-
-
-
-
 vector<float>  matriz::suma_columnas() {
   vector<float> A;
   for (unsigned int  j = 0; j < tamanio; j++) {
@@ -234,6 +257,20 @@ vector<float>  matriz::suma_columnas() {
       }
   }
   return A;
+}
+
+vector<float> matriz::suma_filas(){
+  vector<float> res;
+  for (size_t i = 0; i < tamanio; i++) {
+    float sumatoria = 0;
+    std::map<Columna,Valor>::iterator it = filas[i].begin();
+    while (it != filas[i].end()) {
+      sumatoria += it->second;
+      ++it;
+    }
+    res.push_back((sumatoria != 0)? 1/sumatoria : 0);
+  }
+  return res;
 }
 
 vector<float> matriz::buscar_solucion(vector<Fila> &matriz_B) {

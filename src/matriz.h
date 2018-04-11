@@ -23,7 +23,7 @@ public:
 
     matriz(unsigned int n);
 
-    matriz(unsigned int n, vector<link> links);
+    matriz(unsigned int n, link links[], int m);
 
     void agregar_links(unsigned int fila, unsigned int col);
 
@@ -32,6 +32,8 @@ public:
     void crear_identidad();
 
     vector<float> suma_columnas();
+
+    vector<float> suma_filas();
 
     vector<float> rankear(float p);
 
