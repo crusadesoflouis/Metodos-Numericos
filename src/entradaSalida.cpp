@@ -10,17 +10,13 @@ typedef int origen;
 typedef int destino;
 typedef tuple<origen,destino> link;
 
-vector<link> leerSaltos(fstream& archivo){
-  int m; // m = total de links
-  archivo >> m;
-  vector<link> links;
+void leerSaltos(fstream& archivo, link links[], int m){
   for (size_t i = 0; i < m; i++) {
     origen desde;
     destino hacia;
     archivo >> desde >> hacia;
-    links.push_back(make_tuple(desde,hacia));
+    links[i] = make_tuple(desde,hacia);
   }
-  return links;
 }
 
 unsigned int leerCantidadDePaginas(fstream& archivo){

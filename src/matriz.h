@@ -33,6 +33,8 @@ public:
 
     vector<float> suma_columnas();
 
+    vector<float> suma_filas();
+
     vector<float> rankear(float p);
 
     void multiplicacion(vector<float> &matriz_D);
