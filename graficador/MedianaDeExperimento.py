@@ -1,53 +1,22 @@
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import pylab as pl
-import random
 import numpy as np
-# script que dado un documento de texto con
-f = open('resultados.txt', 'r')
-g = open('estandar.txt', 'w')
-tamanio = 26
-g.write(str(tamanio)+'\n')
-g.write(f.readline())
-
-for value in range(0,tamanio):
-    titulo = f.readline()
-    #g.write(titulo)
-    resultados = []
-    for value in range(0,10):
-        resultados.append(int(f.readline()))
-    mean = np.mean(resultados[0:10])
-    parteEntera= int(mean)
-    g.write(str(parteEntera)+'\n')
-
-
-
-g.write(f.readline())
-
-for value in range(0,tamanio):
-    titulo = f.readline()
-    #g.write(titulo)
-    resultados = []
-    for value in range(0,10):
-        resultados.append(int(f.readline()))
-    mean = np.mean(resultados[0:10])
-    parteEntera= int(mean)
-    g.write(str(parteEntera)+'\n')
-
-
-
-
-
-g.write(f.readline())
-
-for value in range(0,tamanio):
-    titulo = f.readline()
-    #g.write(titulo)
-    resultados = []
-    f.readline()
-    for value in range(0,10):
-        resultados.append(int(f.readline()))
-    mean = np.mean(resultados[0:10])
-    parteEntera= int(mean)
-    g.write(str(parteEntera)+'\n')
+import csv
+with open('datos.csv', 'wb') as csvfile:
+    fieldnames = ['Tamanio', 'Cantidad_Elementos', 'Densidad','Tiempo']
+    base = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    base.writeheader()
+    f = open("out.txt","r")
+    g = open("median.txt","w")
+    for i in range(50,1550,50):
+        tamanio = f.readline()
+        g.write(tamanio)
+        for j in [0.05,0.1,0.2,0.3]:
+            CantidadElementos = f.readline()
+            densidad = f.readline()
+            g.write(CantidadElementos)
+            g.write(densidad)
+            resultados = []
+            for k in range(0,10):
+                resultados.append(float(f.readline()))
+            mean = np.mean(resultados)
+            g.write(str(mean)+"\n")
+            base.writerow({'Tamanio': tamanio,'Cantidad_Elementos': CantidadElementos,'Densidad':densidad, 'Tiempo': mean})

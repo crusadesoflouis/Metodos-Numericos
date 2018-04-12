@@ -1,4 +1,4 @@
-for i in $(seq 50 50 1500)
+for i in $(seq 50 50 1550)
 do
 	echo $i >>out.txt
 	for j in 0.05 0.1 0.2 0.3
