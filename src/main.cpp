@@ -33,9 +33,9 @@ int main(int argc, char const *argv[]) {
       solucion[i] /= suma;
     }
     // escribo la salida
-    string nombreArchivo = (string) argv[1];
-    nombreArchivo = nombreArchivo + ".out2";
-    fstream archivoSalida(nombreArchivo,fstream::in | fstream::out | fstream::trunc);
-    escribirSalida(archivoSalida,p,solucion,cantidadPaginas);
+    // string nombreArchivo = (string) argv[1];
+    // nombreArchivo = nombreArchivo + ".out2";
+    // fstream archivoSalida(nombreArchivo,fstream::in | fstream::out | fstream::trunc);
+    // escribirSalida(archivoSalida,p,solucion,cantidadPaginas);
     return 0;
 }
