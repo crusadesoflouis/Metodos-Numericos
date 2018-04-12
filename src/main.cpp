@@ -4,7 +4,7 @@
 #include "matriz.cpp"
 #include <vector>
 #include <string>
-
+#include <ctime>
 using namespace std;
 
 int main(int argc, char const *argv[]) {
@@ -19,7 +19,11 @@ int main(int argc, char const *argv[]) {
     archivo.close();
     // construyo la matriz y resuelvo el problema
     matriz matrix = matriz(cantidadPaginas, links,m);
+     clock_t t;
+     t = clock();
     vector<float> solucion = matrix.rankear(p); // no le paso la cantidad de paginas porque tiene que ser un atributo interno de matriz
+    t = clock() - t;
+    std::cout << ((float)t/CLOCKS_PER_SEC) << '\n';
     // normalizo el vector
     float suma = 0;
     for (size_t i = 0; i < cantidadPaginas; i++) {
