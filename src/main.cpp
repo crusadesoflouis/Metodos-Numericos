@@ -19,11 +19,7 @@ int main(int argc, char const *argv[]) {
     archivo.close();
     // construyo la matriz y resuelvo el problema
     matriz matrix = matriz(cantidadPaginas, links,m);
-     clock_t t;
-     t = clock();
     vector<float> solucion = matrix.rankear(p); // no le paso la cantidad de paginas porque tiene que ser un atributo interno de matriz
-    t = clock() - t;
-    std::cout << ((float)t/CLOCKS_PER_SEC) << '\n';
     // normalizo el vector
     float suma = 0;
     for (size_t i = 0; i < cantidadPaginas; i++) {
@@ -33,9 +29,9 @@ int main(int argc, char const *argv[]) {
       solucion[i] /= suma;
     }
     // escribo la salida
-    // string nombreArchivo = (string) argv[1];
-    // nombreArchivo = nombreArchivo + ".out2";
-    // fstream archivoSalida(nombreArchivo,fstream::in | fstream::out | fstream::trunc);
-    // escribirSalida(archivoSalida,p,solucion,cantidadPaginas);
+    string nombreArchivo = (string) argv[1];
+    nombreArchivo = nombreArchivo + ".out";
+    fstream archivoSalida(nombreArchivo,fstream::in | fstream::out | fstream::trunc);
+    escribirSalida(archivoSalida,p,solucion,cantidadPaginas);
     return 0;
 }

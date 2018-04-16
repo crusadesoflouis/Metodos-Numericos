@@ -120,43 +120,22 @@ Fila &matriz::dame_fila(unsigned int f) {
 }
 
 vector<float> matriz::rankear(float p) {
-
-  
-  // std::cout << "W" << '\n';
-  //this->mostrar();
   // calculo la matriz diagonal
   vector<float> D = suma_columnas();
-  // std::cout << "D" << '\n';
-  /*for (size_t i = 0; i < tamanio; i++) {
-    std::cout << D[i] << '\n';
-  }*/
   // hago W*D
   this->multiplicacion(D);
-  // std::cout << "W*D" << '\n';
-  //this->mostrar();
   // hago p*W*D
   this->multiplicacion_escalar(p);
-  // std::cout << "p*W*D" << '\n';
-  //this->mostrar();
   // hago p*W*D-I
   this->restar_identidad();
-  // std::cout << "p*W*D-I" << '\n';
-  //this->mostrar();
   // hago I-p*W*D
   this->multiplicacion_escalar(-1);
-  // std::cout << "I-p*W*D" << '\n';
-  //this->mostrar();
   // hago la matriz L y la U
   matriz L(tamanio);
   L.crear_identidad();
   this->eliminacion_gausiana(L);
-  // std::cout << "L" << '\n';
-  //L.mostrar();
-  // std::cout << "U" << '\n';
-  //this->mostrar();
   // resuelvo LU x = e
   vector<float> Y = L.solucion_lower();
-
   return this->solucion_upper(Y);
 }
 
