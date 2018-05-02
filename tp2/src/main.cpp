@@ -2,30 +2,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <tuple>
+#include "entradaSalida.cpp"
+
+using namespace std;
 
 int main (int argc, char **argv){
-  char *mvalue = NULL;
-  char *ivalue = NULL;
-  char *qvalue = NULL;
-  char *ovalue = NULL;
-  int c;
-  while ((c = getopt (argc, argv, "m:i:o:q:")) != -1)
-    switch (c){
-      case 'm':
-        mvalue = optarg;
-        break;
-      case 'i':
-        ivalue = optarg;
-        break;
-      case 'q':
-        qvalue = optarg;
-        break;
-      case 'o':
-        ovalue = optarg;
-        break;
-      default:
-        abort();
-    }
-  
+  bool metodoConPCA = false;
+  char *entrenamiento = NULL;
+  char *test = NULL;
+  char *salida = NULL;
+  leerArgumentos(argc,argv,metodoConPCA,&entrenamiento,&test,&salida);
+  vector<tuple<string,int>> imagenesParaEntrenar = leerArchivo(entrenamiento);
+  vector<tuple<string,int>> imagenesAClasificar = leerArchivo(test);
+  // hacerMagia();
+  vector<tuple<string,int>> solucion;
+  escribirArchivo(salida,solucion);
   return 0;
 }
