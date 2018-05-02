@@ -44,6 +44,7 @@ vector<tuple<string,int>> leerArchivo(char* nombreArchivo){
     getline((stringstream)lineaActual, id, ',');
     imagenes.push_back(make_tuple(path,stoi(id)));
   }
+  archivo.close();
   return imagenes;
 }
 
@@ -52,4 +53,5 @@ void escribirArchivo(char* nombreArchivo, vector<tuple<string,int>> solucion){
   for (size_t i = 0; i < solucion.size(); i++) {
     archivo << get<0>(solucion[i]) << ", " << get<1>(solucion[i]) << endl;
   }
+  archivo.close();
 }
