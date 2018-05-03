@@ -2,6 +2,7 @@
 #include <vector>
 #include <tuple>
 #include "entradaSalida.cpp"
+#include "clasificador.cpp"
 
 using namespace std;
 
@@ -11,10 +12,15 @@ int main (int argc, char **argv){
   char *test = NULL;
   char *salida = NULL;
   leerArgumentos(argc,argv,metodoConPCA,&entrenamiento,&test,&salida);
-  vector<tuple<string,int>> imagenesParaEntrenar = leerArchivo(entrenamiento);
-  vector<tuple<string,int>> imagenesAClasificar = leerArchivo(test);
-  // hacerMagia();
-  vector<tuple<string,int>> solucion;
+  vector<tuple<string,int>> nombresImagenesParaEntrenar = leerArchivo(entrenamiento);
+  vector<tuple<string,int>> nombresImagenesAClasificar = leerArchivo(test);
+  vector<tuple<uchar*,int>> imagenesParaEntrenar = cargarDatosDeImagenes(nombresImagenesParaEntrenar);
+  vector<tuple<uchar*,int>> imagenesAClasificar = cargarDatosDeImagenes(nombresImagenesAClasificar);
+
+  if(metodoConPCA){
+    // hacerPCA();
+  }
+  vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar, nombresImagenesAClasificar, 2);
   escribirArchivo(salida,solucion);
   return 0;
 }
