@@ -1,6 +1,5 @@
 #ifndef _imagen_h__
 
-#include <string>
 #include <math.h>
 #include "../ppmloader/ppmloader.cpp"
 
