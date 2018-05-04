@@ -1,37 +1,35 @@
-#include <stdlib.h>
-#include <vector>
-#include <tuple>
-#include <math.h>
 #include <map>
+#include <algorithm>
 
 using namespace std;
 
 typedef int id;
-typedef int dist;
+typedef double dist;
 typedef unsigned char uchar;
 
-vector<tuple<string,int>> knn(vector<tuple<uchar*,int>> baseDeDatos, vector<tuple<uchar*,int>> nueva, vector<tuple<string,int>> nombresNueva, int k){
+
+vector<tuple<string,int>> knn(vector<imagen> baseDeDatos, vector<imagen> nueva, int k){
   vector<tuple<string,int>> respuesta;
   for (size_t i = 0; i < nueva.size(); i++) {
-    vector<id,dist> masCercanos;
+    vector<tuple<id,dist>> masCercanos;
     for (size_t j = 0; j < baseDeDatos.size(); j++) {
       if(masCercanos.size() < k){ // si todavia no llene el vector agrego la imagen directamente
-        masCercanos.push_back(make_tuple(get<1>(baseDeDatos[j],distancia(get<0>(baseDeDatos[j]),nueva[i]))));
+        masCercanos.push_back(make_tuple(baseDeDatos[j].getId(),baseDeDatos[j].distancia(nueva[i])));
       }else{
         // ordeno para tener el de mayor distancia al final
-        masCercanos.sort(); // TODO: mejorar haciendo un insertion sort
-        if(distancia(get<0>(baseDeDatos[j]),nueva[i]) < get<1>(masCercanos.back())){ // hay uno mas cercano que el mas lejano
+        sort(masCercanos.begin(),masCercanos.end(),[] (tuple<id,dist> a, tuple<id,dist> b) { return get<1>(a) > get<1>(b); }); // TODO: mejorar haciendo un insertion sort
+        if(baseDeDatos[j].distancia(nueva[i]) < get<1>(masCercanos.back())){ // hay uno mas cercano que el mas lejano
           // saco el mas lejano
           masCercanos.pop_back();
           // agrego el nuevo
-          masCercanos.push_back(make_tuple(get<1>(baseDeDatos[j],distancia(get<0>(baseDeDatos[j]),nueva[i]))));
+          masCercanos.push_back(make_tuple(baseDeDatos[j].getId(),baseDeDatos[j].distancia(nueva[i])));
         }
       }
     }
     // veo la moda
     map<id,int> frecuencias;
     for (size_t l = 0; l < k; l++) {
-      if(frecuencias.count(get<0>(masCercanos[l]))) == 0){
+      if(frecuencias.count(get<0>(masCercanos[l])) == 0){
         frecuencias[get<0>(masCercanos[l])] = 1;
       }else{
         ++frecuencias[get<0>(masCercanos[l])];
@@ -45,14 +43,7 @@ vector<tuple<string,int>> knn(vector<tuple<uchar*,int>> baseDeDatos, vector<tupl
         claveMaximo = it->first;
       }
     }
-    respuesta.push_back(make_tuple(get<0>(nombresNueva[i]),claveMaximo));
+    respuesta.push_back(make_tuple(nueva[i].getPath(),claveMaximo));
   }
-}
-
-double distancia(uchar* v1, uchar* v2){
-  double respuesta = 0;
-  for (size_t i = 0; i < v1.size(); i++) {
-    respuesta += (v2-v1)*(v2-v1);
-  }
-  return sqrt(respuesta);
+  return respuesta;
 }

@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <vector>
 #include <tuple>
-// #include "entradaSalida.cpp"
-// #include "clasificador.cpp"
+#include "entradaSalida.cpp"
+#include "clasificador.cpp"
 #include "matrix.cpp"
 
 
@@ -21,21 +21,19 @@ matrix crear_matriz(int filas, int columnas, int valores[]){
 }
 
 int main (int argc, char **argv){
-  // bool metodoConPCA = false;
-  // char *entrenamiento = NULL;
-  // char *test = NULL;
-  // char *salida = NULL;
-  // leerArgumentos(argc,argv,metodoConPCA,&entrenamiento,&test,&salida);
-  // vector<tuple<string,int>> nombresImagenesParaEntrenar = leerArchivo(entrenamiento);
-  // vector<tuple<string,int>> nombresImagenesAClasificar = leerArchivo(test);
-  // vector<tuple<uchar*,int>> imagenesParaEntrenar = cargarDatosDeImagenes(nombresImagenesParaEntrenar);
-  // vector<tuple<uchar*,int>> imagenesAClasificar = cargarDatosDeImagenes(nombresImagenesAClasificar);
-  //
-  // if(metodoConPCA){
-    // hacerPCA();
-  // }
-  // vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar, nombresImagenesAClasificar, 2);
-  // escribirArchivo(salida,solucion);
+  bool metodoConPCA = false;
+  char *entrenamiento = NULL;
+  char *test = NULL;
+  char *salida = NULL;
+  leerArgumentos(argc,argv,metodoConPCA,&entrenamiento,&test,&salida);
+  vector<imagen> imagenesParaEntrenar = leerArchivo(entrenamiento);
+  vector<imagen> imagenesAClasificar = leerArchivo(test);
+
+  if(metodoConPCA){
+    //hacerPCA();
+  }
+  vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,2);
+  escribirArchivo(salida,solucion);
 
   // main para prueba de matrix
   int arr[] = {1, 5, 4,
