@@ -38,8 +38,9 @@ vector<imagen> leerArchivo(char* nombreArchivo){
     getline(archivo, lineaActual);
     string path;
     string id;
-    getline((stringstream)lineaActual, path, ',');
-    getline((stringstream)lineaActual, id, ',');
+    stringstream linea(lineaActual);
+    getline(linea, path, ',');
+    getline(linea, id, ',');
     imagenes.push_back(imagen(path,stoi(id)));
   }
   archivo.close();
