@@ -2,6 +2,54 @@
 #include "matrix.h"
 float EPSILON = 0.001;
 
+
+
+//funciones auxiliares
+
+
+
+float norma_Inf(matrix &v){
+  float max = 0;
+  for (unsigned int  i = 0; i < v.dame_filas(); i++) {
+    if (abs(v.dame_elem_matrix(i,0)) > max) {
+      max = abs(v.dame_elem_matrix(i,0));
+    }
+  }
+  return max;
+}
+
+float norma_euclidea_cuadrada(matrix &A,matrix &B){
+  matrix R(1,1);
+  R.multiplicacion(A,B);
+  return R.dame_elem_matrix(0,0);
+}
+
+float metodo_potencia(matrix &B,matrix &x , int repeticiones,matrix &autovector){
+  matrix v = x;
+  for (unsigned int  i = 0; i < repeticiones; i++) {
+    autovector.multiplicacion(B,v);
+    float norma_maxima = norma_Inf(autovector);
+    autovector.division_escalar(norma_maxima);
+    v = autovector;
+  }
+  v.mostrar();
+  return 0;
+  // matrix traspuesta(v.dame_columnas(),v.dame_filas());
+  // traspuesta.trasponer(v);
+  // float norma_cuadrada norma_euclidea_cuadrada(traspuesta,v);
+  //
+  //   matrix C(B.dame_filas(),1)
+  //   C.multiplicacion(B,v);
+  //   matrix D(1,1);
+  //   D.multiplicacion(traspuesta,C);
+  //
+  //   autovector = v;
+  //   return D.dame_elem_matrix(0,0);
+}
+
+
+
+
 // constructor de una matrix de tamaño n llena de ceros
 
 matrix::~matrix(){}
@@ -103,5 +151,10 @@ float matrix::dame_elem_matrix(unsigned int fila, unsigned int columna) {
 
 
 void matrix::agregar_elemento(uint fila, uint columna, float elemento){
+    if (abs(elemento)< EPSILON) {
+      matriz[fila][columna] = 0;
+    }
+  else{
     matriz[fila][columna] = elemento;
+  }
 }
