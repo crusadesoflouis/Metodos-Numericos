@@ -2,8 +2,8 @@
 #include <vector>
 #include <tuple>
 #include <cmath>
-// #include "entradaSalida.cpp"
-// #include "clasificador.cpp"
+#include "entradaSalida.cpp"
+#include "clasificador.cpp"
 #include "matrix.cpp"
 
 
@@ -22,19 +22,19 @@ matrix crear_matriz(int filas, int columnas, float valores[]){
 }
 
 int main (int argc, char **argv){
-  // bool metodoConPCA = false;
-  // char *entrenamiento = NULL;
-  // char *test = NULL;
-  // char *salida = NULL;
-  // leerArgumentos(argc,argv,metodoConPCA,&entrenamiento,&test,&salida);
-  // vector<imagen> imagenesParaEntrenar = leerArchivo(entrenamiento);
-  // vector<imagen> imagenesAClasificar = leerArchivo(test);
-  //
-  // if(metodoConPCA){
-  //   //hacerPCA();
-  // }
-  // vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,2);
-  // escribirArchivo(salida,solucion);
+  bool metodoConPCA = false;
+  char *entrenamiento = NULL;
+  char *test = NULL;
+  char *salida = NULL;
+  leerArgumentos(argc,argv,metodoConPCA,&entrenamiento,&test,&salida);
+  vector<imagen> imagenesParaEntrenar = leerArchivo(entrenamiento);
+  vector<imagen> imagenesAClasificar = leerArchivo(test);
+
+  if(metodoConPCA){
+    //hacerPCA();
+  }
+  vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,5);
+  escribirArchivo(salida,solucion);
 
   // main para prueba de matrix
   // int arr[] = {1, 5, 4,
@@ -74,17 +74,17 @@ int main (int argc, char **argv){
   //
   //
   //
-  float arr5[] = {1, 1, 1};
-
-  matrix V = crear_matriz(3, 1, arr5);
-  matrix V_T = crear_matriz(1, 3, arr5);
-
-  float arr6[]= {1, 0, 2,
-               0, 3, 0,
-               2, 0, 2};
-  matrix B = crear_matriz(3,3,arr6);
-  matrix autovalor(3,1);
-  float valor = metodo_potencia(B,V,5000000,autovalor);
+  // float arr5[] = {1, 1, 1};
+  //
+  // matrix V = crear_matriz(3, 1, arr5);
+  // matrix V_T = crear_matriz(1, 3, arr5);
+  //
+  // float arr6[]= {1, 0, 2,
+  //              0, 3, 0,
+  //              2, 0, 2};
+  // matrix B = crear_matriz(3,3,arr6);
+  // matrix autovalor(3,1);
+  // float valor = metodo_potencia(B,V,5000000,autovalor);
 
 
   // std::cout << norma_Inf(F) << '\n';

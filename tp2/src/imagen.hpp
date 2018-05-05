@@ -16,11 +16,11 @@ class imagen{
       width = 0;
       height = 0;
       PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
-      LoadPPMFile(&datos, &width, &height, &pt, nombre.c_str());
+      LoadPPMFile(&datos, &width, &height, &pt, ruta.c_str());
     }
 
     ~imagen(){
-      delete [] datos;
+      //delete [] datos;
     }
 
     int getId(){

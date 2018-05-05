@@ -32,16 +32,20 @@ void leerArgumentos(int argc, char **argv, bool &metodo, char **entrenamiento, c
 
 vector<imagen> leerArchivo(char* nombreArchivo){
   vector<imagen> imagenes;
-  fstream archivo(nombreArchivo, ios_base::in);
-  while (archivo.good()) {
+  ifstream archivo(nombreArchivo, ios_base::in);
+  while (!archivo.eof()) {
     string lineaActual;
-    getline(archivo, lineaActual);
+    getline(archivo,lineaActual);
+    if(lineaActual == ""){
+      break;
+    }
     string path;
     string id;
     stringstream linea(lineaActual);
     getline(linea, path, ',');
     getline(linea, id, ',');
-    imagenes.push_back(imagen(path,stoi(id)));
+    imagen actual = imagen(path,stoi(id));
+    imagenes.push_back(actual);
   }
   archivo.close();
   return imagenes;

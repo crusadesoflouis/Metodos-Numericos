@@ -17,7 +17,7 @@ vector<tuple<string,int>> knn(vector<imagen> baseDeDatos, vector<imagen> nueva, 
         masCercanos.push_back(make_tuple(baseDeDatos[j].getId(),baseDeDatos[j].distancia(nueva[i])));
       }else{
         // ordeno para tener el de mayor distancia al final
-        sort(masCercanos.begin(),masCercanos.end(),[] (tuple<id,dist> a, tuple<id,dist> b) { return get<1>(a) > get<1>(b); }); // TODO: mejorar haciendo un insertion sort
+        sort(masCercanos.begin(),masCercanos.end(),[] (tuple<id,dist> a, tuple<id,dist> b) { return get<1>(a) < get<1>(b); }); // TODO: mejorar haciendo un insertion sort
         if(baseDeDatos[j].distancia(nueva[i]) < get<1>(masCercanos.back())){ // hay uno mas cercano que el mas lejano
           // saco el mas lejano
           masCercanos.pop_back();
