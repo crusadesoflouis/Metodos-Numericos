@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <vector>
-//#include "entradaSalida.cpp"
-//#include "clasificador.cpp"
+#include <tuple>
+#include "entradaSalida.cpp"
+#include "clasificador.cpp"
 #include "matrix.cpp"
 
 
@@ -37,14 +38,20 @@ int main(int argc, char **argv) {
     //main para prueba de matrix
     //K = 2.4
     // float arr1[] = {-3, 0.1, 1,
-    //                 0.1, 5, 0.6,
+    //                 0.2, 5, 0.8,
     //                 1, 0.6, 2};
     // matrix B = crear_matriz(3, 3, arr1);
-
+    //
+    // matrix B1 = B.trasponer();
+    // B1.mostrar();
     // float arr2[] = {2,
     //                 2,
     //                 3};
     // matrix V = crear_matriz(3, 1, arr2);
+    // matrix V1 = V.trasponer();
+    // V.mostrar();
+    // V1.mostrar();
+
     //
     // matrix autovector(3, 1);
     // V.normalizar();
@@ -94,6 +101,7 @@ int main(int argc, char **argv) {
     // cout << "autovalor: " << valor <<'\n';
 
     // K = 253!!  30 a 50% en el autovector 0% en el autovalor
+    /*
     float arr5[] = {0, 1, 7,
                     1, 0, 0.1,
                     7, 0.1, 0};
@@ -111,6 +119,7 @@ int main(int argc, char **argv) {
 
     autovector.mostrar();
     cout << "autovalor: " << valor <<'\n';
+    */
 
     return 0;
 }

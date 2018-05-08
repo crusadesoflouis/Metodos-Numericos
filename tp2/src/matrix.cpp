@@ -34,8 +34,7 @@ float matrix::metodo_potencia(matrix &B, matrix &x, int repeticiones, matrix &au
         v = autovector;
     }
 
-    matrix transpuesta_v(v.dame_columnas(), v.dame_filas());
-    v.trasponer(transpuesta_v);
+    matrix transpuesta_v = v.trasponer();
     float norma_cuadrada = norma_euclidea_cuadrada(transpuesta_v, v);
 
     matrix C(B.dame_filas(), 1);
@@ -79,14 +78,14 @@ unsigned int matrix::dame_columnas() {
     return this->columnas;
 }
 
-
-// T tiene que llegar creada tiene que tener las dimensiones de la traspuesta de A e inicializada con 0
-void matrix::trasponer(matrix &T) {
-    for (size_t i = 0; i < filas; i++) {
-        for (size_t j = 0; j < columnas; j++) {
-            T.agregar_elemento(j, i, dame_elem_matrix(i, j));
-        }
+matrix matrix::trasponer() {
+  matrix traspuesta = matrix(this->columnas,this->filas);
+  for (size_t i = 0; i < filas; i++) {
+    for (size_t j = 0; j < columnas; j++) {
+      traspuesta.agregar_elemento(j, i, dame_elem_matrix(i, j));
     }
+  }
+  return traspuesta;
 }
 
 vector<float> matrix::vector_promedio() {

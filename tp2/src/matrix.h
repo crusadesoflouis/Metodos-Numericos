@@ -14,7 +14,7 @@ public:
     matrix(unsigned int n,unsigned int m);
     void agregar_elemento(uint fila, uint columna, float elemento);
     void mostrar();
-    void trasponer(matrix &T);
+    matrix trasponer();
     void resta_matrix_vector(vector<float> &v);
     void multiplicacion_escalar(float escalar);
     void division_escalar(float escalar);
