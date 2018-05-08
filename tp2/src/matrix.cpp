@@ -1,5 +1,5 @@
 #include <assert.h>
-#include <math.h>
+#include <cmath>
 #include "matrix.h"
 
 float EPSILON = 0.0001;
