@@ -16,12 +16,13 @@ public:
     void mostrar();
     void trasponer(matrix &T);
     void resta_matrix_vector(vector<float> &v);
-    void division_escalar(unsigned int escalar);
+    void division_escalar(float escalar);
     void multiplicacion(matrix &A,matrix &B);
     unsigned int dame_filas();
     unsigned int dame_columnas();
     float dame_elem_matrix(unsigned int fila, unsigned int columna);
     vector<float> vector_promedio();
+    void normalizar();
 private:
     vector<vector <float> > matriz;
     unsigned int filas;
