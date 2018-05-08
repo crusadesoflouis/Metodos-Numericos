@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <vector>
-//#include "entradaSalida.cpp"
-//#include "clasificador.cpp"
+#include <tuple>
+#include "entradaSalida.cpp"
+#include "clasificador.cpp"
 #include "matrix.cpp"
 
 
@@ -108,6 +109,7 @@ int main(int argc, char **argv) {
     // cout << "autovalor: " << valor <<'\n';
     //
     // K = 253!!  30 a 50% en el autovector 0% en el autovalor
+<<<<<<< HEAD
     // float arr5[] = {0, 1, 7,
     //                 1, 0, 0.1,
     //                 7, 0.1, 0};
@@ -132,6 +134,27 @@ int main(int argc, char **argv) {
     // vector_resultado.mostrar();
     // autovector.mostrar();
 
+=======
+    /*
+    float arr5[] = {0, 1, 7,
+                    1, 0, 0.1,
+                    7, 0.1, 0};
+    matrix B = crear_matriz(3, 3, arr5);
+
+    float arr6[] = {84,
+                    17,
+                    14};
+    matrix V = crear_matriz(3, 1, arr6);
+
+    matrix autovector(3, 1);
+    V.normalizar();
+
+    float valor = B.metodo_potencia(B, V, 5000000, autovector);
+
+    autovector.mostrar();
+    cout << "autovalor: " << valor <<'\n';
+    */
+>>>>>>> 2d72d29173a3a444d9791641adfb17d392572fb0
 
     return 0;
 }
