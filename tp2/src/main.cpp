@@ -48,9 +48,10 @@ int main(int argc, char **argv) {
     matrix autovector(3, 1);
     V.normalizar();
 
-    float valor = metodo_potencia(B, V, 500000, autovector);
+    float valor = B.metodo_potencia(B, V, 5000000, autovector);
 
     autovector.mostrar();
+    cout << "autovalor:" << valor;
 
     return 0;
 }

@@ -2,7 +2,7 @@
 #include <math.h>
 #include "matrix.h"
 
-float EPSILON = 0.001;
+float EPSILON = 0.0001;
 
 
 
@@ -26,25 +26,27 @@ float norma_euclidea_cuadrada(matrix &A, matrix &B) {
     return R.dame_elem_matrix(0, 0);
 }
 
-float metodo_potencia(matrix &B, matrix &x, int repeticiones, matrix &autovector) {
+float matrix::metodo_potencia(matrix &B, matrix &x, int repeticiones, matrix &autovector) {
     matrix v = x;
     for (unsigned int i = 0; i < repeticiones; i++) {
         autovector.multiplicacion(B, v);
         autovector.normalizar();
         v = autovector;
     }
-    return 0;
-    // matrix traspuesta(v.dame_columnas(),v.dame_filas());
-    // traspuesta.trasponer(v);
-    // float norma_cuadrada norma_euclidea_cuadrada(traspuesta,v);
-    //
-    //   matrix C(B.dame_filas(),1)
-    //   C.multiplicacion(B,v);
-    //   matrix D(1,1);
-    //   D.multiplicacion(traspuesta,C);
-    //
-    //   autovector = v;
-    //   return D.dame_elem_matrix(0,0);
+
+    matrix transpuesta_v(v.dame_columnas(), v.dame_filas());
+    v.trasponer(transpuesta_v);
+    float norma_cuadrada = norma_euclidea_cuadrada(transpuesta_v, v);
+
+    matrix C(B.dame_filas(), 1);
+    C.multiplicacion(B, v);
+    matrix D(1, 1);
+    D.multiplicacion(transpuesta_v, C);
+
+    autovector = v;
+
+    D.division_escalar(norma_cuadrada);
+    return D.dame_elem_matrix(0, 0);
 }
 
 
@@ -110,7 +112,8 @@ void matrix::resta_matrix_vector(vector<float> &v) {
 }
 
 void matrix::division_escalar(float escalar) {
-    assert(abs(escalar) > EPSILON);
+    //cout << escalar << "\n";
+    //assert(abs(escalar) > EPSILON);
     for (size_t i = 0; i < dame_filas(); i++) {
         for (size_t j = 0; j < dame_columnas(); j++) {
             float division = dame_elem_matrix(i, j) / escalar;
