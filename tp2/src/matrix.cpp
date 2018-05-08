@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <cmath>
 #include "matrix.h"
-
+#include <random>
 float EPSILON = 0.0001;
 
 
@@ -26,10 +26,10 @@ float norma_euclidea_cuadrada(matrix &A, matrix &B) {
     return R.dame_elem_matrix(0, 0);
 }
 
-float matrix::metodo_potencia(matrix &B, matrix &x, int repeticiones, matrix &autovector) {
+float matrix::metodo_potencia(matrix &x, int repeticiones, matrix &autovector) {
     matrix v = x;
     for (unsigned int i = 0; i < repeticiones; i++) {
-        autovector.multiplicacion(B, v);
+        autovector.multiplicacion((*this), v);
         autovector.normalizar();
         v = autovector;
     }
@@ -38,8 +38,8 @@ float matrix::metodo_potencia(matrix &B, matrix &x, int repeticiones, matrix &au
     v.trasponer(transpuesta_v);
     float norma_cuadrada = norma_euclidea_cuadrada(transpuesta_v, v);
 
-    matrix C(B.dame_filas(), 1);
-    C.multiplicacion(B, v);
+    matrix C((*this).dame_filas(), 1);
+    C.multiplicacion((*this), v);
     matrix D(1, 1);
     D.multiplicacion(transpuesta_v, C);
 
@@ -122,6 +122,18 @@ void matrix::division_escalar(float escalar) {
     }
 }
 
+
+void matrix::multiplicacion_escalar(float escalar) {
+    //cout << escalar << "\n";
+    //assert(abs(escalar) > EPSILON);
+    for (size_t i = 0; i < dame_filas(); i++) {
+        for (size_t j = 0; j < dame_columnas(); j++) {
+            float division = dame_elem_matrix(i, j) * escalar;
+            agregar_elemento(i, j, division);
+        }
+    }
+}
+
 float producto_interno(matrix &A, matrix &B, unsigned int fila, unsigned int columna) {
     float resultado = 0;
     for (size_t i = 0; i < A.dame_columnas(); i++) {
@@ -149,7 +161,6 @@ void matrix::mostrar() {
     std::cout << '\n';
 }
 
-
 float matrix::dame_elem_matrix(unsigned int fila, unsigned int columna) {
     return matriz[fila][columna];
 }
@@ -167,4 +178,31 @@ void matrix::normalizar() {
     assert(columnas == 1);
     float norma = norma_Inf(*this);
     division_escalar(norma);
+}
+
+void matrix::deflacion(matrix& U,matrix& D){
+  assert(dame_filas() == dame_columnas());
+  assert(dame_filas() == U.dame_columnas());
+  assert(U.dame_filas() == U.dame_columnas());
+  assert(D.dame_filas() == D.dame_columnas());
+  assert(D.dame_filas() == U.dame_columnas());
+
+  matrix autovector(dame_filas(),1);
+  matrix x_0(dame_filas(),1);
+  for (size_t i = 0; i < x_0.dame_filas(); i++) {
+  }
+  x_0.mostrar();
+// for (size_t i = 0; i < dame_filas(); i++) {
+//   float autovalor =  this->metodo_potencia(x_0,25,autovector);
+//
+// }
+
+}
+
+float dame_random() {
+  std::default_rando m_engine generator;
+  std::uniform_real_distribution<float> distribution(-100,100);
+  float number = distribution(generator);
+  x_0.agregar_elemento(i,0,number);
+  distribution.reset();
 }

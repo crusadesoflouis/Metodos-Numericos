@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <stdio.h>
-
+#include <cstdlib>
 using namespace std;
 class matrix {
 public:
@@ -24,7 +24,8 @@ public:
     float dame_elem_matrix(unsigned int fila, unsigned int columna);
     vector<float> vector_promedio();
     void normalizar();
-    float metodo_potencia(matrix &B, matrix &x, int repeticiones, matrix &autovector);
+    float metodo_potencia(matrix &x, int repeticiones, matrix &autovector);
+    void deflacion(matrix& autovectores,matrix& autovalores);
 private:
     vector<vector <float> > matriz;
     unsigned int filas;
