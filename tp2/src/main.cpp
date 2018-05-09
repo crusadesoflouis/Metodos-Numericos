@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <vector>
 #include <tuple>
-// #include "entradaSalida.cpp"
-// #include "clasificador.cpp"
+#include "entradaSalida.cpp"
+#include "clasificador.cpp"
 #include "matrix.cpp"
 
 
@@ -21,12 +21,8 @@ matrix crear_matriz(int filas, int columnas, float valores[]) {
 }
 
 int main(int argc, char **argv) {
-<<<<<<< HEAD
-    /*bool metodoConPCA = false;
-=======
   srand(time(NULL));
     bool metodoConPCA = false;
->>>>>>> 3e54c36cc78fb116a594506b80c11b3fef919433
     char *entrenamiento = NULL;
     char *test = NULL;
     char *salida = NULL;
@@ -113,20 +109,6 @@ int main(int argc, char **argv) {
     std::cout << "b_1_t" << '\n';
     std::cout << "v" << '\n';
     V.mostrar();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // float valor_1 = B_1.metodo_potencia(V_1, 25, autovector_1);
     // autovector_1.mostrar();
     // cout << "autovalor: " << valor_1 <<'\n';
@@ -206,7 +188,6 @@ int main(int argc, char **argv) {
     // autovector.multiplicacion_escalar(valor);
     // vector_resultado.mostrar();
     // autovector.mostrar();
-
 
     return 0;
 }

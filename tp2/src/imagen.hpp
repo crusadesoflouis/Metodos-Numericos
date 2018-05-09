@@ -43,6 +43,18 @@ class imagen{
       return height*width;
     }
 
+    int altura(){
+      return height;
+    }
+
+    int ancho(){
+      return width;
+    }
+
+    uchar* data(){
+      return datos;
+    }
+
   private:
     string ruta;
     uchar *datos;
