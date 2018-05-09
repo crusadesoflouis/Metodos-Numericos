@@ -70,6 +70,19 @@ matrix::matrix(unsigned int filas, unsigned int columnas) {
     this->columnas = columnas;
 }
 
+matrix::matrix(imagen img){
+  filas = img.altura();
+  columnas = img.ancho();
+  matriz.resize(filas);
+  int filaActual = 0;
+  for (size_t i = 0; i < img.tamanio(); i++) {
+    if(matriz[i].size() == img.ancho()){
+      ++filaActual;
+    }
+    matriz[i].push_back(img.data()[i]);
+  }
+}
+
 unsigned int matrix::dame_filas() {
     return this->filas;
 }
