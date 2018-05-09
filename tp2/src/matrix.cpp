@@ -4,7 +4,9 @@
 #include <random>
 float EPSILON = 0.0001;
 
-
+random_device randomDevice;
+mt19937 generator(randomDevice());
+uniform_real_distribution<float> distribution(-100,100);
 
 //funciones auxiliares
 
@@ -26,11 +28,27 @@ float norma_euclidea_cuadrada(matrix &A, matrix &B) {
     return R.dame_elem_matrix(0, 0);
 }
 
+
+float norma_2(matrix& A) {
+    assert(A.dame_columnas() == 1);
+    float sumatoria = 0;
+    for (size_t i = 0; i < A.dame_filas(); i++) {
+      sumatoria = sumatoria + pow(A.dame_elem_matrix(i,0),2);
+    }
+    return sqrt(sumatoria);
+}
+
+ matrix crear_canonico(uint filas,uint i){
+   matrix a(filas,1);
+   a.agregar_elemento(i,0,1);
+   return a;
+}
+
 float matrix::metodo_potencia(matrix &x, int repeticiones, matrix &autovector) {
     matrix v = x;
     for (unsigned int i = 0; i < repeticiones; i++) {
         autovector.multiplicacion((*this), v);
-        autovector.normalizar();
+        autovector.normalizar_2();
         v = autovector;
     }
 
@@ -48,8 +66,12 @@ float matrix::metodo_potencia(matrix &x, int repeticiones, matrix &autovector) {
     return D.dame_elem_matrix(0, 0);
 }
 
-
-
+float dame_random() {
+  float random;
+  do {
+    random = distribution(generator);
+  } while(abs(random) <= EPSILON);
+}
 
 // constructor de una matrix de tamaño n llena de ceros
 
@@ -178,8 +200,68 @@ void matrix::normalizar() {
     float norma = norma_Inf(*this);
     division_escalar(norma);
 }
+void matrix::normalizar_2() {
+    assert(columnas == 1);
+    float norma = norma_2(*this);
+    division_escalar(norma);
+}
 
-void matrix::deflacion(matrix& U,matrix& D){
+bool matrix::verificacion(matrix autovector, float autovalor){
+  matrix a(autovector.dame_filas(),1);
+  a.multiplicacion((*this),autovector),
+  autovector.multiplicacion_escalar(autovalor);
+  return autovector.comparar(a);
+}
+
+bool matrix::comparar(matrix& b){
+  matrix a(*this);
+  a.restar(b);
+  a.absoluto();
+  for (size_t i = 0; i < a.dame_filas(); i++) {
+    for (size_t j = 0; j < a.dame_columnas(); j++) {
+      float elemento = a.dame_elem_matrix(i,j);
+      if (elemento >= EPSILON) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+void matrix::restar(matrix&A){
+  assert(dame_filas() == A.dame_filas());
+  assert(dame_columnas() == A.dame_columnas());
+  for (size_t i = 0; i < dame_filas(); i++) {
+      for (size_t j = 0; j < dame_columnas(); j++) {
+          float elemento = A.dame_elem_matrix(i, j);
+          elemento = dame_elem_matrix(i, j) - elemento;
+          agregar_elemento(i, j, elemento);
+      }
+  }
+}
+
+
+
+void matrix::absoluto(){
+  for (size_t i = 0; i < dame_filas(); i++) {
+      for (size_t j = 0; j < dame_columnas(); j++) {
+          float elemento = abs(dame_elem_matrix(i, j));
+          agregar_elemento(i, j, elemento);
+      }
+  }
+}
+
+void matrix::deflacion(matrix &autovector, float autovalor){
+  autovector.normalizar_2();
+  matrix autovector_traspuesto = autovector.trasponer();
+  matrix B(dame_filas(),dame_columnas());
+  B.multiplicacion(autovector,autovector_traspuesto);
+  B.multiplicacion_escalar(autovalor);
+  restar(B);
+}
+
+
+void matrix::generacion_U_D(matrix& U,matrix& D){
   assert(dame_filas() == dame_columnas());
   assert(dame_filas() == U.dame_columnas());
   assert(U.dame_filas() == U.dame_columnas());
@@ -188,20 +270,56 @@ void matrix::deflacion(matrix& U,matrix& D){
 
   matrix autovector(dame_filas(),1);
   matrix x_0(dame_filas(),1);
-  for (size_t i = 0; i < x_0.dame_filas(); i++) {
+    for (size_t i = 0; i < dame_columnas(); i++) {
+      float autovalor = 0;
+      do {
+        //genera vector random
+        for (size_t i = 0; i < x_0.dame_filas(); i++) {
+          x_0.agregar_elemento(i,0,dame_random());
+        }
+        x_0.normalizar_2();
+        autovalor =  this->metodo_potencia(x_0,50,autovector);
+        // chequea que el y el autovalor sean correspondientes
+        // si lo son, salgo y proceso el siguiente autovector
+
+      } while(!verificacion(autovector,autovalor));
+
+      //si no son parecidos, cambiamos la semilla del vector
+      //hacer deflacion
+
+      U.rellenar_columna_con_vector(i, autovector);
+      D.agregar_elemento(i, i, autovalor);
+      this->deflacion(autovector,autovalor);
+
+    }
   }
-  x_0.mostrar();
-// for (size_t i = 0; i < dame_filas(); i++) {
-//   float autovalor =  this->metodo_potencia(x_0,25,autovector);
-//
-// }
 
-}
-
-float dame_random() {
-  std::default_rando m_engine generator;
-  std::uniform_real_distribution<float> distribution(-100,100);
-  float number = distribution(generator);
-  x_0.agregar_elemento(i,0,number);
-  distribution.reset();
-}
+  void matrix::rellenar_columna_con_vector(uint columna, matrix& V){
+    //asume que X (this) viene ya traspuesto
+    V.normalizar_2();
+    assert(V.dame_columnas() == 1);
+    assert(V.dame_filas() == dame_filas());
+    for (size_t i = 0; i < dame_filas(); i++) {
+      agregar_elemento(i, columna, V.dame_elem_matrix(i, 0));
+    }
+  }
+  //devuelve una matrix de nxm
+  void matrix::conversionUaV(matrix& U,matrix &D,matrix &V) {
+    for (size_t i = 0; i < U.dame_columnas(); i++) {
+      matrix  e_i = crear_canonico(U.dame_filas(),i);
+      // e_i.mostrar();
+      matrix u_i(U.dame_filas(),1);
+      u_i.multiplicacion(U,e_i);
+      // u_i.mostrar();
+      // D.mostrar();
+      float d_i_i = sqrt(abs(D.dame_elem_matrix(i,i)));
+      // std::cout << "d " << d_i_i<<'\n';
+      // mostrar();
+      matrix v_i(dame_filas(),1);
+      v_i.multiplicacion((*this),u_i);
+      // v_i.mostrar();
+      v_i.division_escalar(d_i_i);
+      v_i.normalizar_2();
+      V.rellenar_columna_con_vector(i,v_i);
+    }
+  }

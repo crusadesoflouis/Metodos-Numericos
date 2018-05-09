@@ -24,8 +24,16 @@ public:
     float dame_elem_matrix(unsigned int fila, unsigned int columna);
     vector<float> vector_promedio();
     void normalizar();
+    void normalizar_2();
     float metodo_potencia(matrix &x, int repeticiones, matrix &autovector);
-    void deflacion(matrix& autovectores,matrix& autovalores);
+    void generacion_U_D(matrix& autovectores,matrix& autovalores);
+    bool verificacion(matrix autovector, float lambda);
+    void restar(matrix&A);
+    void absoluto();
+    void conversionUaV(matrix& U,matrix &D,matrix &V);
+    bool comparar(matrix &b);
+    void rellenar_columna_con_vector(uint columna, matrix& V);
+    void deflacion(matrix &autovector, float autovalor);
 private:
     vector<vector <float> > matriz;
     unsigned int filas;

@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <vector>
 #include <tuple>
-#include "entradaSalida.cpp"
-#include "clasificador.cpp"
+// #include "entradaSalida.cpp"
+// #include "clasificador.cpp"
 #include "matrix.cpp"
 
 
@@ -21,7 +21,6 @@ matrix crear_matriz(int filas, int columnas, float valores[]) {
 }
 
 int main(int argc, char **argv) {
-  srand(time(NULL));
     /*bool metodoConPCA = false;
     char *entrenamiento = NULL;
     char *test = NULL;
@@ -38,21 +37,78 @@ int main(int argc, char **argv) {
 
     // main para prueba de matrix
     // K = 2.4 2%
-    float arr1[] = {-3, 0.1, 1,
-                    0.1, 5, 0.6,
-                    1, 0.6, 2};
-    matrix B_1 = crear_matriz(3, 3, arr1);
-
-    float arr2[] = {2,
-                    2,
-                    3};
-    matrix V_1 = crear_matriz(3, 1, arr2);
-
-    B_1.deflacion(B_1,B_1);
-
+    // float arr1[] = {-3, 0.1, 1,
+    //                 0.1, 5, 0.6,
+    //                 1, 0.6, 2};
+    // matrix B_1 = crear_matriz(3, 3, arr1);
+    //
+    // float arr2[] = {2,
+    //                 2,
+    //                 3};
+    // matrix V_1 = crear_matriz(3, 1, arr2);
+    //
+    // matrix U(3, 3);
+    // matrix D(3, 3);
+    // matrix B_1_T(B_1);
+    // B_1.generacion_U_D(U, D);
+    // U.mostrar();
+    // D.mostrar();
+    //
+    // matrix V(3,3);
+    // B_1_T.conversionUaV(U,D,V);
+    // std::cout << "b_1_t" << '\n';
+    // std::cout << "v" << '\n';
+    // V.mostrar();
+    //
+    //
     // matrix autovector_1(3, 1);
     // V_1.normalizar();
     //
+
+
+
+
+
+
+    float arr1[] = {1, 2, 1, 0,
+                    2, 2, 0, 0};
+
+    matrix B_1 = crear_matriz(2, 4, arr1);
+
+    // float arr2[] = {2,
+    //                 2,
+    //                 3};
+    // matrix V_1 = crear_matriz(3, 1, arr2);
+    matrix U(2, 2);
+    matrix D(2, 2);
+    matrix B_1_T(4,2);
+    B_1.mostrar();
+    B_1_T = B_1.trasponer();
+    std::cout << "mostrar trspuesta" << '\n';
+    B_1_T.mostrar();
+    B_1.generacion_U_D(U, D);
+    U.mostrar();
+    D.mostrar();
+
+    matrix V(4,4);
+    B_1_T.conversionUaV(U,D,V);
+    std::cout << "b_1_t" << '\n';
+    std::cout << "v" << '\n';
+    V.mostrar();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // float valor_1 = B_1.metodo_potencia(V_1, 25, autovector_1);
     // autovector_1.mostrar();
     // cout << "autovalor: " << valor_1 <<'\n';
@@ -109,7 +165,6 @@ int main(int argc, char **argv) {
     // cout << "autovalor: " << valor <<'\n';
     //
     // K = 253!!  30 a 50% en el autovector 0% en el autovalor
-<<<<<<< HEAD
     // float arr5[] = {0, 1, 7,
     //                 1, 0, 0.1,
     //                 7, 0.1, 0};
@@ -134,27 +189,6 @@ int main(int argc, char **argv) {
     // vector_resultado.mostrar();
     // autovector.mostrar();
 
-=======
-    /*
-    float arr5[] = {0, 1, 7,
-                    1, 0, 0.1,
-                    7, 0.1, 0};
-    matrix B = crear_matriz(3, 3, arr5);
-
-    float arr6[] = {84,
-                    17,
-                    14};
-    matrix V = crear_matriz(3, 1, arr6);
-
-    matrix autovector(3, 1);
-    V.normalizar();
-
-    float valor = B.metodo_potencia(B, V, 5000000, autovector);
-
-    autovector.mostrar();
-    cout << "autovalor: " << valor <<'\n';
-    */
->>>>>>> 2d72d29173a3a444d9791641adfb17d392572fb0
 
     return 0;
 }
