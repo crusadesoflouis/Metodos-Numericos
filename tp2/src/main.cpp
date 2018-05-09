@@ -21,7 +21,12 @@ matrix crear_matriz(int filas, int columnas, float valores[]) {
 }
 
 int main(int argc, char **argv) {
+<<<<<<< HEAD
     /*bool metodoConPCA = false;
+=======
+  srand(time(NULL));
+    bool metodoConPCA = false;
+>>>>>>> 3e54c36cc78fb116a594506b80c11b3fef919433
     char *entrenamiento = NULL;
     char *test = NULL;
     char *salida = NULL;
@@ -29,11 +34,24 @@ int main(int argc, char **argv) {
     vector<imagen> imagenesParaEntrenar = leerArchivo(entrenamiento);
     vector<imagen> imagenesAClasificar = leerArchivo(test);
 
+    /*
     if(metodoConPCA){
-      //hacerPCA();
+      for (size_t i = 0; i < imagenesAClasificar.size(); i++) {
+        matrix x = matrix(i);
+        vector<float> mu = x.vector_promedio();
+        x.resta_matrix_vector();
+        x.division_escalar(sqrt(x.dame_filas()-1));
+        matrix m = matrix(x.dame_filas(), x.dame_filas());
+        m.multiplicacion(x,x.trasponer());
+        matrix vectorInicial = matrix(x.dame_filas(),1,);
+        matriz autovectores = matrix(x.dame_filas(),x.dame_filas());
+        m.metodo_potencia(vectorInicial,1000,autovectores);
+        m.deflacion(autovectores);
+      }
     }
+    */
     vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,5);
-    escribirArchivo(salida,solucion);*/
+    escribirArchivo(salida,solucion);
 
     // main para prueba de matrix
     // K = 2.4 2%
