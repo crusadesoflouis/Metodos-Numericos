@@ -22,7 +22,7 @@ matrix crear_matriz(int filas, int columnas, float valores[]) {
 
 int main(int argc, char **argv) {
   srand(time(NULL));
-    /*bool metodoConPCA = false;
+    bool metodoConPCA = false;
     char *entrenamiento = NULL;
     char *test = NULL;
     char *salida = NULL;
@@ -30,11 +30,24 @@ int main(int argc, char **argv) {
     vector<imagen> imagenesParaEntrenar = leerArchivo(entrenamiento);
     vector<imagen> imagenesAClasificar = leerArchivo(test);
 
+    /*
     if(metodoConPCA){
-      //hacerPCA();
+      for (size_t i = 0; i < imagenesAClasificar.size(); i++) {
+        matrix x = matrix(i);
+        vector<float> mu = x.vector_promedio();
+        x.resta_matrix_vector();
+        x.division_escalar(sqrt(x.dame_filas()-1));
+        matrix m = matrix(x.dame_filas(), x.dame_filas());
+        m.multiplicacion(x,x.trasponer());
+        matrix vectorInicial = matrix(x.dame_filas(),1,);
+        matriz autovectores = matrix(x.dame_filas(),x.dame_filas());
+        m.metodo_potencia(vectorInicial,1000,autovectores);
+        m.deflacion(autovectores);
+      }
     }
+    */
     vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,5);
-    escribirArchivo(salida,solucion);*/
+    escribirArchivo(salida,solucion);
 
     // main para prueba de matrix
     // K = 2.4 2%
@@ -109,7 +122,6 @@ int main(int argc, char **argv) {
     // cout << "autovalor: " << valor <<'\n';
     //
     // K = 253!!  30 a 50% en el autovector 0% en el autovalor
-<<<<<<< HEAD
     // float arr5[] = {0, 1, 7,
     //                 1, 0, 0.1,
     //                 7, 0.1, 0};
@@ -133,8 +145,6 @@ int main(int argc, char **argv) {
     // autovector.multiplicacion_escalar(valor);
     // vector_resultado.mostrar();
     // autovector.mostrar();
-
-=======
     /*
     float arr5[] = {0, 1, 7,
                     1, 0, 0.1,
@@ -154,7 +164,6 @@ int main(int argc, char **argv) {
     autovector.mostrar();
     cout << "autovalor: " << valor <<'\n';
     */
->>>>>>> 2d72d29173a3a444d9791641adfb17d392572fb0
 
     return 0;
 }
