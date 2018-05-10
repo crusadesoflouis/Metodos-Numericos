@@ -92,16 +92,15 @@ matrix::matrix(unsigned int filas, unsigned int columnas) {
     this->columnas = columnas;
 }
 
-matrix::matrix(imagen img){
-  filas = img.altura();
-  columnas = img.ancho();
-  matriz.resize(filas);
-  int filaActual = 0;
-  for (size_t i = 0; i < img.tamanio(); i++) {
-    if(matriz[i].size() == img.ancho()){
-      ++filaActual;
+matrix::matrix(vector<imagen> imgs){
+  filas = imgs.size();
+  columnas = imgs[0].tamanio(); // asumo que todas las imagenes tienen el mismo tamaño
+  matriz.resize(imgs.size());
+  for (size_t i = 0; i < imgs.size(); i++) {
+    uchar* actual = imgs[i].data();
+    for (size_t j = 0; j < imgs[0].tamanio(); j++) {
+      matriz[i].push_back((float)actual[j]);
     }
-    matriz[i].push_back(img.data()[i]);
   }
 }
 

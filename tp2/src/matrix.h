@@ -12,7 +12,7 @@ public:
     // }
     ~matrix();
     matrix(unsigned int n,unsigned int m);
-    matrix(imagen i);
+    matrix(vector<imagen> imagenes);
     void agregar_elemento(uint fila, uint columna, float elemento);
     void mostrar();
     matrix trasponer();
