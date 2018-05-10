@@ -38,6 +38,9 @@ int main(int argc, char **argv) {
       matrix mx = matrix(x.dame_filas(),x.dame_filas());
       mx.multiplicacion(x,xt);
       mx.multiplicacion_escalar(x.dame_filas()-1);
+      matrix u = matrix(mx.dame_filas(),mx.dame_filas());
+      matrix d = matrix(mx.dame_filas(),mx.dame_filas());
+      mx.generacion_U_D(u,d);
     }
     vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,5);
     escribirArchivo(salida,solucion);
