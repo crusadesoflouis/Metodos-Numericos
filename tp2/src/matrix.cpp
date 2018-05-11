@@ -45,24 +45,30 @@ matrix crear_canonico(uint filas,uint i){
 
 float matrix::metodo_potencia(matrix &x, int repeticiones, matrix &autovector) {
   matrix v = x;
-  for (unsigned int i = 0; i < repeticiones; i++) {
+  unsigned int i = 0;
+  float autovalor = 0;
+  do{
+
     autovector.multiplicacion((*this), v);
     autovector.normalizar_2();
     v = autovector;
-  }
 
-  matrix transpuesta_v = v.trasponer();
-  float norma_cuadrada = norma_euclidea_cuadrada(transpuesta_v, v);
+	matrix transpuesta_v = v.trasponer();
+ 	float norma_cuadrada = norma_euclidea_cuadrada(transpuesta_v, v);
 
-  matrix C((*this).dame_filas(), 1);
-  C.multiplicacion((*this), v);
-  matrix D(1, 1);
-  D.multiplicacion(transpuesta_v, C);
+	matrix C((*this).dame_filas(), 1);
+	C.multiplicacion((*this), v);
+  	matrix D(1, 1);
+  	D.multiplicacion(transpuesta_v, C);
 
-  autovector = v;
+  	autovector = v;
 
-  D.division_escalar(norma_cuadrada);
-  return D.dame_elem_matrix(0, 0);
+	D.division_escalar(norma_cuadrada);
+	autovalor = D.dame_elem_matrix(0, 0);
+    ++i;
+  }while (i < repeticiones && !verificacion(autovector,autovalor));
+
+  return autovalor;
 }
 
 float dame_random() {
@@ -221,8 +227,6 @@ bool matrix::verificacion(matrix autovector, float autovalor){
   matrix a(autovector.dame_filas(),1);
   a.multiplicacion((*this),autovector),
   autovector.multiplicacion_escalar(autovalor);
-  a.mostrar();
-  autovector.mostrar();
   return autovector.comparar(a);
 }
 
@@ -283,20 +287,14 @@ void matrix::generacion_U_D(matrix& U,matrix& D){
   matrix x_0(dame_filas(),1);
   for (size_t i = 0; i < dame_columnas(); i++) {
     float autovalor = 0;
-    do {
-      //genera vector random
-      for (size_t i = 0; i < x_0.dame_filas(); i++) {
-        x_0.agregar_elemento(i,0,rand());
-      }
-      x_0.normalizar_2();
-      std::cout << "vector random " << '\n';
-      x_0.mostrar();
+    //genera vector random
+    // TODO: hacer un vector inicial con la media de la matriz
+    for (size_t i = 0; i < x_0.dame_filas(); i++) {
+	    x_0.agregar_elemento(i,0,rand()%100+1);
+    }
+    x_0.normalizar_2();
 
-      autovalor = this->metodo_potencia(x_0,50,autovector);
-      // chequea que el y el autovalor sean correspondientes
-      // si lo son, salgo y proceso el siguiente autovector
-
-    } while(!verificacion(autovector,autovalor));
+    autovalor = this->metodo_potencia(x_0,500,autovector);
 
     //si no son parecidos, cambiamos la semilla del vector
     //hacer deflacion

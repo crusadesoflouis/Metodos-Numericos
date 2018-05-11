@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     bool metodoConPCA = false;
     char *entrenamiento = NULL;
     char *test = NULL;
-    char *salida = NULL;
+	char *salida = NULL;
     leerArgumentos(argc,argv,metodoConPCA,&entrenamiento,&test,&salida);
     vector<imagen> imagenesParaEntrenar = leerArchivo(entrenamiento);
     vector<imagen> imagenesAClasificar = leerArchivo(test);
