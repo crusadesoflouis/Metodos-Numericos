@@ -32,16 +32,26 @@ int main(int argc, char **argv) {
 
     if(metodoConPCA){
       matrix x = matrix(imagenesParaEntrenar);
+      std::cout << "a" << '\n';
       vector<float> mu = x.vector_promedio();
+      std::cout << "b" << '\n';
       x.resta_matrix_vector(mu);
+      std::cout << "c" << '\n';
       matrix xt = x.trasponer();
+      std::cout << "d" << '\n';
       matrix mx = matrix(x.dame_filas(),x.dame_filas());
-      mx.multiplicacion(x,xt);
+      std::cout << "e" << '\n';
+      mx.multiplicacion(xt,x);
+      std::cout << "f" << '\n';
       mx.multiplicacion_escalar(x.dame_filas()-1);
+      std::cout << "g" << '\n';
       matrix u = matrix(mx.dame_filas(),mx.dame_filas());
       matrix d = matrix(mx.dame_filas(),mx.dame_filas());
       mx.generacion_U_D(u,d);
+      d.mostrar();
     }
+    /*
     vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,5);
     escribirArchivo(salida,solucion);
+    */
 }

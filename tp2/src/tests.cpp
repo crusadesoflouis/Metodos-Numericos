@@ -39,31 +39,31 @@ int main(int argc, char **argv) {
   // V_1.normalizar();
   //
 
-  float arr1[] = {1, 2, 1, 0,
-                  2, 2, 0, 0};
-
-  matrix B_1 = crear_matriz(2, 4, arr1);
-
-  // float arr2[] = {2,
-  //                 2,
-  //                 3};
-  // matrix V_1 = crear_matriz(3, 1, arr2);
-  matrix U(2, 2);
-  matrix D(2, 2);
-  matrix B_1_T(4,2);
-  B_1.mostrar();
-  B_1_T = B_1.trasponer();
-  std::cout << "mostrar trspuesta" << '\n';
-  B_1_T.mostrar();
-  B_1.generacion_U_D(U, D);
-  U.mostrar();
-  D.mostrar();
-
-  matrix V(4,4);
-  B_1_T.conversionUaV(U,D,V);
-  std::cout << "b_1_t" << '\n';
-  std::cout << "v" << '\n';
-  V.mostrar();
+  // float arr1[] = {1, 2, 1, 0,
+  //                 2, 2, 0, 0};
+  //
+  // matrix B_1 = crear_matriz(2, 4, arr1);
+  //
+  // // float arr2[] = {2,
+  // //                 2,
+  // //                 3};
+  // // matrix V_1 = crear_matriz(3, 1, arr2);
+  // matrix U(2, 2);
+  // matrix D(2, 2);
+  // matrix B_1_T(4,2);
+  // B_1.mostrar();
+  // B_1_T = B_1.trasponer();
+  // std::cout << "mostrar trspuesta" << '\n';
+  // B_1_T.mostrar();
+  // B_1.generacion_U_D(U, D);
+  // U.mostrar();
+  // D.mostrar();
+  //
+  // matrix V(4,4);
+  // B_1_T.conversionUaV(U,D,V);
+  // std::cout << "b_1_t" << '\n';
+  // std::cout << "v" << '\n';
+  // V.mostrar();
   // float valor_1 = B_1.metodo_potencia(V_1, 25, autovector_1);
   // autovector_1.mostrar();
   // cout << "autovalor: " << valor_1 <<'\n';
