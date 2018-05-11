@@ -29,7 +29,6 @@ int main(int argc, char **argv) {
     leerArgumentos(argc,argv,metodoConPCA,&entrenamiento,&test,&salida);
     vector<imagen> imagenesParaEntrenar = leerArchivo(entrenamiento);
     vector<imagen> imagenesAClasificar = leerArchivo(test);
-
     if(metodoConPCA){
       matrix x = matrix(imagenesParaEntrenar);
       std::cout << "a" << '\n';
@@ -41,14 +40,13 @@ int main(int argc, char **argv) {
       std::cout << "d" << '\n';
       matrix mx = matrix(x.dame_filas(),x.dame_filas());
       std::cout << "e" << '\n';
-      mx.multiplicacion(xt,x);
+      mx.multiplicacion(x,xt);
       std::cout << "f" << '\n';
       mx.multiplicacion_escalar(x.dame_filas()-1);
       std::cout << "g" << '\n';
       matrix u = matrix(mx.dame_filas(),mx.dame_filas());
       matrix d = matrix(mx.dame_filas(),mx.dame_filas());
       mx.generacion_U_D(u,d);
-      d.mostrar();
     }
     /*
     vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,5);

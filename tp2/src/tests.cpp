@@ -8,19 +8,38 @@
 
 using namespace std;
 
+matrix crear_matriz(int filas, int columnas, float valores[]) {
+    matrix nueva(filas, columnas);
+    int c = 0;
+    for (size_t i = 0; i < filas; i++) {
+        for (size_t j = 0; j < columnas; j++) {
+            nueva.agregar_elemento(i, j, valores[c]);
+            c++;
+        }
+    }
+    return nueva;
+}
+
 int main(int argc, char **argv) {
   // main para prueba de matrix
   // K = 2.4 2%
-  // float arr1[] = {-3, 0.1, 1,
-  //                 0.1, 5, 0.6,
-  //                 1, 0.6, 2};
-  // matrix B_1 = crear_matriz(3, 3, arr1);
-  //
-  // float arr2[] = {2,
-  //                 2,
-  //                 3};
-  // matrix V_1 = crear_matriz(3, 1, arr2);
-  //
+  float arr1[] = {12125, 151557, 124123,
+                  251235, 11245, 0123};
+
+  matrix B = crear_matriz(2, 3, arr1);
+
+  matrix Bt = B.trasponer();
+  matrix BBt = matrix(B.dame_filas(),B.dame_filas());
+
+  BBt.multiplicacion(B,Bt);
+  matrix u = matrix(BBt.dame_filas(),BBt.dame_filas());
+  matrix d = matrix(BBt.dame_filas(),BBt.dame_filas());
+  BBt.generacion_U_D(u,d);
+  matrix V = matrix(B.dame_columnas(),B.dame_columnas());
+  Bt.conversionUaV(u,d,V);
+  u.mostrar();
+  d.mostrar();
+  V.mostrar();
   // matrix U(3, 3);
   // matrix D(3, 3);
   // matrix B_1_T(B_1);

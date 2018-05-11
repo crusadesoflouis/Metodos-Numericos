@@ -2,7 +2,7 @@
 #include <cmath>
 #include "matrix.h"
 #include <random>
-float EPSILON = 0.01;
+float EPSILON = 0.001;
 
 random_device randomDevice;
 mt19937 generator(randomDevice());
@@ -92,8 +92,8 @@ matrix::matrix(unsigned int filas, unsigned int columnas) {
 }
 
 matrix::matrix(vector<imagen> imgs){
-  filas = imgs.size();
   columnas = imgs[0].tamanio(); // asumo que todas las imagenes tienen el mismo tamaño
+  filas = imgs.size();
   matriz.resize(imgs.size());
   for (size_t i = 0; i < imgs.size(); i++) {
     uchar* actual = imgs[i].data();
@@ -221,6 +221,8 @@ bool matrix::verificacion(matrix autovector, float autovalor){
   matrix a(autovector.dame_filas(),1);
   a.multiplicacion((*this),autovector),
   autovector.multiplicacion_escalar(autovalor);
+  a.mostrar();
+  autovector.mostrar();
   return autovector.comparar(a);
 }
 
@@ -284,10 +286,13 @@ void matrix::generacion_U_D(matrix& U,matrix& D){
     do {
       //genera vector random
       for (size_t i = 0; i < x_0.dame_filas(); i++) {
-        x_0.agregar_elemento(i,0,dame_random());
+        x_0.agregar_elemento(i,0,rand());
       }
       x_0.normalizar_2();
-      autovalor = this->metodo_potencia(x_0,500,autovector);
+      std::cout << "vector random " << '\n';
+      x_0.mostrar();
+
+      autovalor = this->metodo_potencia(x_0,50,autovector);
       // chequea que el y el autovalor sean correspondientes
       // si lo son, salgo y proceso el siguiente autovector
 
@@ -327,7 +332,7 @@ void matrix::conversionUaV(matrix& U,matrix &D,matrix &V) {
     v_i.multiplicacion((*this),u_i);
     // v_i.mostrar();
     v_i.division_escalar(d_i_i);
-    v_i.normalizar_2();
+    //v_i.normalizar_2();
     V.rellenar_columna_con_vector(i,v_i);
   }
 }
