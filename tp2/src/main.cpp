@@ -47,6 +47,7 @@ int main(int argc, char **argv) {
       matrix u = matrix(mx.dame_filas(),mx.dame_filas());
       matrix d = matrix(mx.dame_filas(),mx.dame_filas());
       mx.generacion_U_D(u,d);
+      d.mostrar();
     }
     /*
     vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,5);

@@ -285,7 +285,7 @@ void matrix::generacion_U_D(matrix& U,matrix& D){
 
   matrix autovector(dame_filas(),1);
   matrix x_0(dame_filas(),1);
-  for (size_t i = 0; i < dame_columnas(); i++) {
+  for (size_t i = 0; i < 15; i++) {
     float autovalor = 0;
     //genera vector random
     // TODO: hacer un vector inicial con la media de la matriz
