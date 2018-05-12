@@ -285,12 +285,12 @@ void matrix::generacion_U_D(matrix& U,matrix& D){
 
   matrix autovector(dame_filas(),1);
   matrix x_0(dame_filas(),1);
-  for (size_t i = 0; i < 15; i++) {
+  for (size_t i = 0; i < 4; i++) {
     float autovalor = 0;
     //genera vector random
     // TODO: hacer un vector inicial con la media de la matriz
-    for (size_t i = 0; i < x_0.dame_filas(); i++) {
-	    x_0.agregar_elemento(i,0,rand()%100+1);
+    for (size_t j = 0; j < x_0.dame_filas(); j++) {
+	    x_0.agregar_elemento(j,0,rand()%100+1);
     }
     x_0.normalizar_2();
 

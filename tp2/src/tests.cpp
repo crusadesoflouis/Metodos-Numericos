@@ -23,7 +23,7 @@ matrix crear_matriz(int filas, int columnas, float valores[]) {
 int main(int argc, char **argv) {
   // main para prueba de matrix
   // K = 2.4 2%
-  float arr1[] = {12125, 151557, 124123,
+  /*float arr1[] = {12125, 151557, 124123,
                   251235, 11245, 0123};
 
   matrix B = crear_matriz(2, 3, arr1);
@@ -39,7 +39,9 @@ int main(int argc, char **argv) {
   Bt.conversionUaV(u,d,V);
   u.mostrar();
   d.mostrar();
-  V.mostrar();
+  V.mostrar();*/
+  imagen a = imagen("../datosEntrenamiento/ImagenesCaras/s1/1.pgm",8);
+  a.guardar();
   // matrix U(3, 3);
   // matrix D(3, 3);
   // matrix B_1_T(B_1);

@@ -19,6 +19,10 @@ class imagen{
       LoadPPMFile(&datos, &width, &height, &pt, ruta.c_str());
     }
 
+    void guardar(){
+    	SavePPMFile("prueba.ppm",datos,width,height,pt,NULL);
+    }
+
     ~imagen(){
       //delete [] datos;
     }
