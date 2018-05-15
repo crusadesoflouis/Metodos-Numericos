@@ -23,10 +23,12 @@ matrix crear_matriz(int filas, int columnas, float valores[]) {
 int main(int argc, char **argv) {
   // main para prueba de matrix
   // K = 2.4 2%
-  /*float arr1[] = {12125, 151557, 124123,
-                  251235, 11245, 0123};
+  float arr1[] = {10, 15, 23, 4, 3, 2, 9, 15,
+                  31, 12, 26, 15, 11, 16, 21, 9,
+                  21, 10, 4, 9, 11, 15, 9, 8, 
+                  12, 21, 15, 33, 15, 11, 21, 31};
 
-  matrix B = crear_matriz(2, 3, arr1);
+  matrix B = crear_matriz(4, 8, arr1);
 
   matrix Bt = B.trasponer();
   matrix BBt = matrix(B.dame_filas(),B.dame_filas());
@@ -39,9 +41,9 @@ int main(int argc, char **argv) {
   Bt.conversionUaV(u,d,V);
   u.mostrar();
   d.mostrar();
-  V.mostrar();*/
-  imagen a = imagen("../datosEntrenamiento/ImagenesCaras/s1/1.pgm",8);
-  a.guardar();
+  V.mostrar();
+  //imagen a = imagen("../datosEntrenamiento/ImagenesCaras/s1/1.pgm",8);
+  //a.guardar();
   // matrix U(3, 3);
   // matrix D(3, 3);
   // matrix B_1_T(B_1);

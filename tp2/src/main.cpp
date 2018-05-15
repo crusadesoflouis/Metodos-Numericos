@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
       std::cout << "e" << '\n';
       mx.multiplicacion(x,xt);
       std::cout << "f" << '\n';
-      mx.multiplicacion_escalar(x.dame_filas()-1);
+      mx.division_escalar(x.dame_filas()-1);
       std::cout << "g" << '\n';
       matrix u = matrix(mx.dame_filas(),mx.dame_filas());
       matrix d = matrix(mx.dame_filas(),mx.dame_filas());
