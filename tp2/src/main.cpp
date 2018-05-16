@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
       matrix d = matrix(mx.dame_filas(),mx.dame_filas());
       mx.generacion_U_D(u,d);
       for (uint i = 0; i < 15; i++) {
-      	cout << "elemento " << d.dame_elem_matrix(i,i) << endl;
+      	cout << "elemento " << sqrt(d.dame_elem_matrix(i,i)) << endl;
       }
       //d.mostrar();
     }
