@@ -31,30 +31,32 @@ int main(int argc, char **argv) {
     vector<imagen> imagenesParaEntrenar = leerArchivo(entrenamiento);
     vector<imagen> imagenesAClasificar = leerArchivo(test);
     if(metodoConPCA){
+      // x nxm
       matrix x = matrix(imagenesParaEntrenar);
-      cout << "dimensiones (" << x.dame_filas() << "," << x.dame_columnas() << ")" << endl;
+      // mu mx1
       vector<float> mu = x.vector_promedio();
       x.resta_matrix_vector(mu);
       x.division_escalar(sqrt(x.dame_filas()-1));
+      // xt mxn
       matrix xt = x.trasponer();
-      cout << "dimensiones (" << xt.dame_filas() << "," << xt.dame_columnas() << ")" << endl;
+      // mx nxn ya que se multiplica x*xt
       matrix mx = matrix(x.dame_filas(),x.dame_filas());
-      cout << "dimensiones (" << mx.dame_filas() << "," << mx.dame_columnas() << ")" << endl;
       mx.multiplicacion(x,xt);
-      //mx.division_escalar(x.dame_filas()-1);
+      // u nxn
       matrix u = matrix(mx.dame_filas(),mx.dame_filas());
-      cout << "dimensiones (" << u.dame_filas() << "," << u.dame_columnas() << ")" << endl;
+      // d nxn
       matrix d = matrix(mx.dame_filas(),mx.dame_filas());
-      cout << "dimensiones (" << d.dame_filas() << "," << d.dame_columnas() << ")" << endl;
-      mx.generacion_U_D(u,d,mx.dame_filas());
-      matrix v = matrix(x.dame_columnas(),u.dame_columnas());
-      cout << "dimensiones (" << v.dame_filas() << "," << v.dame_columnas() << ")" << endl;
+      int alfa = 50;
+      mx.generacion_U_D(u,d,alfa);
+      // v m x alpha
+      matrix v = matrix(x.dame_columnas(),alfa);
       xt.conversionUaV(u,d,v);
+      // vt alpha x m
       v = v.trasponer();
-      cout << "dimensiones (" << v.dame_filas() << "," << v.dame_columnas() << ")" << endl;
       // aplico el cambio de base a las imagenes
       for(int i = 0; i < imagenesParaEntrenar.size(); ++i){
       	// aplico tc
+        // tc alpha x 1
       	matrix tc = aplicarTc(imagenesParaEntrenar[i], v);
       	imagenesParaEntrenar[i].setData(tc.dameMatriz());
       }
@@ -66,6 +68,6 @@ int main(int argc, char **argv) {
         imagenesAClasificar[i].setData(tc.dameMatriz());
       }
     }
-    vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,5);
+    vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,40);
     escribirArchivo(salida,solucion);
 }

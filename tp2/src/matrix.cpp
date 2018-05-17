@@ -316,7 +316,7 @@ void matrix::rellenar_columna_con_vector(uint columna, matrix& V){
 }
 //devuelve una matrix de nxm
 void matrix::conversionUaV(matrix& U,matrix &D,matrix &V) {
-  for (size_t i = 0; i < U.dame_columnas(); i++) {
+  for (size_t i = 0; i < V.dame_columnas(); i++) {
     matrix  e_i = crear_canonico(U.dame_filas(),i);
     // e_i.mostrar();
     matrix u_i(U.dame_filas(),1);

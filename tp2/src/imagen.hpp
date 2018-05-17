@@ -20,7 +20,7 @@ class imagen{
       for (int i = 0; i < width*height; ++i){
         datos.push_back((float)data[i]);
       }
-      delete [] data;
+      // delete [] data;
     }
 
     ~imagen(){
@@ -34,8 +34,8 @@ class imagen{
       return ruta;
     }
 
-    double distancia(imagen img){
-      double respuesta = 0;
+    float distancia(imagen img){
+      float respuesta = 0;
       for (size_t i = 0; i < this->tamanio(); i++) {
         respuesta += (img.datos[i]-this->datos[i])*(img.datos[i]-this->datos[i]);
       }
