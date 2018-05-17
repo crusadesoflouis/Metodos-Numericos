@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <tuple>
+#include <math.h>
 #include "entradaSalida.cpp"
 #include "clasificador.cpp"
 #include "matrix.cpp"
@@ -31,30 +32,36 @@ int main(int argc, char **argv) {
     vector<imagen> imagenesAClasificar = leerArchivo(test);
     if(metodoConPCA){
       matrix x = matrix(imagenesParaEntrenar);
-      std::cout << "a" << '\n';
       vector<float> mu = x.vector_promedio();
-      std::cout << "b" << '\n';
       x.resta_matrix_vector(mu);
-      std::cout << "c" << '\n';
       x.division_escalar(sqrt(x.dame_filas()-1));
       matrix xt = x.trasponer();
-      std::cout << "d" << '\n';
       matrix mx = matrix(x.dame_filas(),x.dame_filas());
-      std::cout << "e" << '\n';
       mx.multiplicacion(x,xt);
-      std::cout << "f" << '\n';
       //mx.division_escalar(x.dame_filas()-1);
-      std::cout << "g" << '\n';
       matrix u = matrix(mx.dame_filas(),mx.dame_filas());
       matrix d = matrix(mx.dame_filas(),mx.dame_filas());
-      mx.generacion_U_D(u,d);
-      for (uint i = 0; i < 15; i++) {
-      	cout << "elemento " << sqrt(d.dame_elem_matrix(i,i)) << endl;
+      mx.generacion_U_D(u,d,mx.dame_filas());
+      matrix v = matrix(u.dame_filas(),u.dame_columnas());
+      mx.conversionUaV(u,d,v);
+      v = v.trasponer();
+      // aplico el cambio de base a las imagenes
+      for(int i = 0; i < imagenesParaEntrenar.size(); ++i){
+      	// aplico tc
+      	matrix tc = aplicarTc(imagenesAClasificar[i], v);
+      	imagenesParaEntrenar[i].setData(tc.matrix2uchar());
       }
-      //d.mostrar();
+      for (int i = 0; i < imagenesAClasificar.size(); ++i){
+      	// calculo x(raya)*
+      	uchar* actual = imagenesAClasificar[i].data();
+      	for(int j = 0; j < imagenesAClasificar[i].tamanio(); ++j){
+      		actual[i] = (actual[i]-mu[i])/sqrt(mu.size()-1);
+      	}
+      	// aplico tc
+      	matrix tc = aplicarTc(imagenesAClasificar[i], v);
+      	imagenesAClasificar[i].setData(tc.matrix2uchar());
+      }
     }
-    /*
     vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,5);
     escribirArchivo(salida,solucion);
-    */
 }
