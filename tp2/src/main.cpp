@@ -32,19 +32,26 @@ int main(int argc, char **argv) {
     vector<imagen> imagenesAClasificar = leerArchivo(test);
     if(metodoConPCA){
       matrix x = matrix(imagenesParaEntrenar);
+      cout << "dimensiones (" << x.dame_filas() << "," << x.dame_columnas() << ")" << endl;
       vector<float> mu = x.vector_promedio();
       x.resta_matrix_vector(mu);
       x.division_escalar(sqrt(x.dame_filas()-1));
       matrix xt = x.trasponer();
+      cout << "dimensiones (" << xt.dame_filas() << "," << xt.dame_columnas() << ")" << endl;
       matrix mx = matrix(x.dame_filas(),x.dame_filas());
+      cout << "dimensiones (" << mx.dame_filas() << "," << mx.dame_columnas() << ")" << endl;
       mx.multiplicacion(x,xt);
       //mx.division_escalar(x.dame_filas()-1);
       matrix u = matrix(mx.dame_filas(),mx.dame_filas());
+      cout << "dimensiones (" << u.dame_filas() << "," << u.dame_columnas() << ")" << endl;
       matrix d = matrix(mx.dame_filas(),mx.dame_filas());
+      cout << "dimensiones (" << d.dame_filas() << "," << d.dame_columnas() << ")" << endl;
       mx.generacion_U_D(u,d,mx.dame_filas());
-      matrix v = matrix(u.dame_filas(),u.dame_columnas());
-      mx.conversionUaV(u,d,v);
+      matrix v = matrix(x.dame_columnas(),u.dame_columnas());
+      cout << "dimensiones (" << v.dame_filas() << "," << v.dame_columnas() << ")" << endl;
+      xt.conversionUaV(u,d,v);
       v = v.trasponer();
+      cout << "dimensiones (" << v.dame_filas() << "," << v.dame_columnas() << ")" << endl;
       // aplico el cambio de base a las imagenes
       for(int i = 0; i < imagenesParaEntrenar.size(); ++i){
       	// aplico tc

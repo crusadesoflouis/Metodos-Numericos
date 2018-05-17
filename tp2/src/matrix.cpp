@@ -339,6 +339,7 @@ matrix aplicarTc(imagen a, matrix &v){
   vector<imagen> aux;
   aux.push_back(a);
   matrix x = matrix(aux);
+  x = x.trasponer();
   matrix resultado = matrix(v.dame_filas(),x.dame_columnas());
   resultado.multiplicacion(v,x);
   return resultado;
