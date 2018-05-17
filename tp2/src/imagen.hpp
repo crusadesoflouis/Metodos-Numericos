@@ -17,6 +17,7 @@ class imagen{
       height = 0;
       PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
       LoadPPMFile(&datos, &width, &height, &pt, ruta.c_str());
+      
     }
 
     void guardar(){
@@ -47,13 +48,13 @@ class imagen{
       return height*width;
     }
 
-    uchar* data(){
+    double* data(){
       return datos;
     }
 
   private:
     string ruta;
-    uchar *datos;
+    double datos;
     int height;
     int width;
     int id;
