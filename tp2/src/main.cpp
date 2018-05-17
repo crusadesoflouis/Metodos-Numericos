@@ -48,18 +48,15 @@ int main(int argc, char **argv) {
       // aplico el cambio de base a las imagenes
       for(int i = 0; i < imagenesParaEntrenar.size(); ++i){
       	// aplico tc
-      	matrix tc = aplicarTc(imagenesAClasificar[i], v);
-      	imagenesParaEntrenar[i].setData(tc.matrix2uchar());
+      	matrix tc = aplicarTc(imagenesParaEntrenar[i], v);
+      	imagenesParaEntrenar[i].setData(tc.dameMatriz());
       }
       for (int i = 0; i < imagenesAClasificar.size(); ++i){
       	// calculo x(raya)*
-      	uchar* actual = imagenesAClasificar[i].data();
-      	for(int j = 0; j < imagenesAClasificar[i].tamanio(); ++j){
-      		actual[i] = (actual[i]-mu[i])/sqrt(mu.size()-1);
-      	}
-      	// aplico tc
-      	matrix tc = aplicarTc(imagenesAClasificar[i], v);
-      	imagenesAClasificar[i].setData(tc.matrix2uchar());
+        imagenesAClasificar[i].calcularXRaya(mu,imagenesParaEntrenar.size());
+        // aplico tc
+        matrix tc = aplicarTc(imagenesAClasificar[i], v);
+        imagenesAClasificar[i].setData(tc.dameMatriz());
       }
     }
     vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,5);

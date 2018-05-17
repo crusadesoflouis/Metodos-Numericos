@@ -102,7 +102,7 @@ matrix::matrix(vector<imagen> imgs){
   filas = imgs.size();
   matriz.resize(imgs.size());
   for (size_t i = 0; i < imgs.size(); i++) {
-    uchar* actual = imgs[i].data();
+    vector<float> actual = imgs[i].data();
     for (size_t j = 0; j < imgs[0].tamanio(); j++) {
       matriz[i].push_back((float)actual[j]);
     }
@@ -276,7 +276,7 @@ void matrix::deflacion(matrix &autovector, float autovalor){
 }
 
 
-void matrix::generacion_U_D(matrix& U,matrix& D){
+void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
   assert(dame_filas() == dame_columnas());
   assert(dame_filas() == U.dame_columnas());
   assert(U.dame_filas() == U.dame_columnas());
@@ -285,7 +285,7 @@ void matrix::generacion_U_D(matrix& U,matrix& D){
 
   matrix autovector(dame_filas(),1);
   matrix x_0(dame_filas(),1);
-  for (size_t i = 0; i < 15; i++) {
+  for (size_t i = 0; i < alfa; i++) {
     float autovalor = 0;
     //genera vector random
     // TODO: hacer un vector inicial con la media de la matriz
@@ -333,4 +333,17 @@ void matrix::conversionUaV(matrix& U,matrix &D,matrix &V) {
     //v_i.normalizar_2();
     V.rellenar_columna_con_vector(i,v_i);
   }
+}
+
+matrix aplicarTc(imagen a, matrix &v){
+  vector<imagen> aux;
+  aux.push_back(a);
+  matrix x = matrix(aux);
+  matrix resultado = matrix(v.dame_filas(),x.dame_columnas());
+  resultado.multiplicacion(v,x);
+  return resultado;
+}
+
+vector<vector<float>> matrix::dameMatriz(){
+  return matriz;
 }

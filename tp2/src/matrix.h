@@ -27,7 +27,7 @@ public:
     void normalizar();
     void normalizar_2();
     float metodo_potencia(matrix &x, int repeticiones, matrix &autovector);
-    void generacion_U_D(matrix& autovectores,matrix& autovalores);
+    void generacion_U_D(matrix& autovectores,matrix& autovalores, int alfa);
     bool verificacion(matrix autovector, float lambda);
     void restar(matrix&A);
     void absoluto();
@@ -35,6 +35,7 @@ public:
     bool comparar(matrix &b);
     void rellenar_columna_con_vector(uint columna, matrix& V);
     void deflacion(matrix &autovector, float autovalor);
+    vector<vector<float>> dameMatriz();
 private:
     vector<vector <float> > matriz;
     unsigned int filas;

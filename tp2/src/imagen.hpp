@@ -12,20 +12,18 @@ class imagen{
     imagen(string nombre, int identificador){
       id = identificador;
       ruta = nombre;
-      datos = NULL;
+      uchar *data = NULL;
       width = 0;
       height = 0;
       PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
-      LoadPPMFile(&datos, &width, &height, &pt, ruta.c_str());
-      
-    }
-
-    void guardar(){
-    	SavePPMFile("prueba.ppm",datos,width,height,pt,NULL);
+      LoadPPMFile(&data, &width, &height, &pt, ruta.c_str());
+      for (int i = 0; i < width*height; ++i){
+        datos.push_back((float)data[i]);
+      }
+      delete [] data;
     }
 
     ~imagen(){
-      //delete [] datos;
     }
 
     int getId(){
@@ -48,13 +46,27 @@ class imagen{
       return height*width;
     }
 
-    double* data(){
+    vector<float> data(){
       return datos;
+    }
+
+    void setData(vector<vector<float>> M_datos){
+      for (int i = 0; i < M_datos.size(); ++i){
+        for (int j = 0; j < M_datos.size(); ++j){
+          datos[i+j] = M_datos[i][j];
+        }
+      }
+    }
+
+    void calcularXRaya(vector<float> mu,int cantidadDeImagenes){
+      for(int i = 0; i < this->tamanio(); ++i){
+        datos[i] = (datos[i]-mu[i])/sqrt(cantidadDeImagenes-1);
+      }
     }
 
   private:
     string ruta;
-    double datos;
+    vector<float> datos;
     int height;
     int width;
     int id;
