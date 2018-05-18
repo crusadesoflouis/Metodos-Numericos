@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
       matrix u = matrix(mx.dame_filas(),mx.dame_filas());
       // d nxn
       matrix d = matrix(mx.dame_filas(),mx.dame_filas());
-      int alfa = 50;
+      int alfa = 300;
       mx.generacion_U_D(u,d,alfa);
       // v m x alpha
       matrix v = matrix(x.dame_columnas(),alfa);
@@ -54,13 +54,13 @@ int main(int argc, char **argv) {
       // vt alpha x m
       v = v.trasponer();
       // aplico el cambio de base a las imagenes
-      for(int i = 0; i < imagenesParaEntrenar.size(); ++i){
+      for(int i = 0; i < imagenesParaEntrenar.size(); i++){
       	// aplico tc
         // tc alpha x 1
       	matrix tc = aplicarTc(imagenesParaEntrenar[i], v);
       	imagenesParaEntrenar[i].setData(tc.dameMatriz());
       }
-      for (int i = 0; i < imagenesAClasificar.size(); ++i){
+      for (int i = 0; i < imagenesAClasificar.size(); i++){
       	// calculo x(raya)*
         imagenesAClasificar[i].calcularXRaya(mu,imagenesParaEntrenar.size());
         // aplico tc
@@ -68,6 +68,6 @@ int main(int argc, char **argv) {
         imagenesAClasificar[i].setData(tc.dameMatriz());
       }
     }
-    vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,40);
+    vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,10);
     escribirArchivo(salida,solucion);
 }

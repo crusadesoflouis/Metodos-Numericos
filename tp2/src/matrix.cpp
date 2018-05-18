@@ -181,6 +181,7 @@ float producto_interno(matrix &A, matrix &B, unsigned int fila, unsigned int col
 }
 
 void matrix::multiplicacion(matrix &A, matrix &B) {
+  assert(A.dame_columnas() == B.dame_filas());
   for (size_t i = 0; i < this->dame_filas(); i++) {
     for (size_t j = 0; j < this->dame_columnas(); j++) {
       this->agregar_elemento(i, j, producto_interno(A, B, i, j));

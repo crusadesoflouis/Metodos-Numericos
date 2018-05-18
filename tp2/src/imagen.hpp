@@ -52,7 +52,7 @@ class imagen{
 
     void setData(vector<vector<float>> M_datos){
       for (int i = 0; i < M_datos.size(); ++i){
-        for (int j = 0; j < M_datos.size(); ++j){
+        for (int j = 0; j < M_datos[i].size(); ++j){
           datos[i+j] = M_datos[i][j];
         }
       }
