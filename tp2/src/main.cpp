@@ -55,6 +55,7 @@ int main(int argc, char **argv) {
       v = v.trasponer();
       // aplico el cambio de base a las imagenes
       for(int i = 0; i < imagenesParaEntrenar.size(); i++){
+        imagenesParaEntrenar[i].calcularXRaya(mu,imagenesParaEntrenar.size());
       	// aplico tc
         // tc alpha x 1
       	matrix tc = aplicarTc(imagenesParaEntrenar[i], v);
