@@ -22,11 +22,11 @@ with open('test.csv', 'rb') as csvfile:
                         a = []
                         a = np.random.choice(matrix[i], k,replace=False)
                         for j in range(0,len(a)):
-                            writer_traine.writerow([a[j],str(i+1),''])
+                            writer_traine.writerow([a[j],' '+str(i+1),''])
                         for j in range(0,len(a)):
                             matrix[i].remove(a[j])
                         for j in range(0,len(matrix[i])):
-                            writer_test.writerow([matrix[i][j],str(i+1),''])
+                            writer_test.writerow([matrix[i][j],' '+str(i+1),''])
                 else:
                     for i in range(0,len(matrix)):
                         a = []
