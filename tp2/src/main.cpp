@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
       matrix u = matrix(mx.dame_filas(),mx.dame_filas());
       // d nxn
       matrix d = matrix(mx.dame_filas(),mx.dame_filas());
-      int alfa = 50;
+      int alfa = 41;
       mx.generacion_U_D(u,d,alfa);
       // v m x alpha
       matrix v = matrix(x.dame_columnas(),alfa);
@@ -69,6 +69,6 @@ int main(int argc, char **argv) {
         imagenesAClasificar[i].setData(tc.dameMatriz());
       }
     }
-    vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,8);
+    vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,10);
     escribirArchivo(salida,solucion);
 }
