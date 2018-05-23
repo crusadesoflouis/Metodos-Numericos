@@ -1,6 +1,6 @@
 import numpy as np
 import csv
-k = 5
+k = 9
 rand = True
 matrix = [[] for i in range(41)]
 with open('test.csv', 'rb') as csvfile:
@@ -13,9 +13,9 @@ with open('test.csv', 'rb') as csvfile:
             row = reader.next()
     except StopIteration:
 
-        with open('5_elements_0.csv', 'wb') as csvfile:
+        with open('9_elements_1.csv', 'wb') as csvfile:
             writer_test = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            with open('5_elements_1.csv', 'wb') as csvfile:
+            with open('9_elements_9.csv', 'wb') as csvfile:
                 writer_traine = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 if rand:
                     for i in range(0,len(matrix)):
