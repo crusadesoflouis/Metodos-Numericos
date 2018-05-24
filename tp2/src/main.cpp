@@ -69,6 +69,6 @@ int main(int argc, char **argv) {
         imagenesAClasificar[i].setData(tc.dameMatriz());
       }
     }
-    vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,10);
+    vector<tuple<string,int>> solucion = knn(imagenesParaEntrenar,imagenesAClasificar,9);
     escribirArchivo(salida,solucion);
 }
