@@ -1,6 +1,9 @@
 import numpy as np
 import csv
-k = 9
+
+for enie in range(1,11):
+    pass
+k = 1
 rand = True
 matrix = [[] for i in range(41)]
 with open('test.csv', 'rb') as csvfile:
@@ -13,9 +16,9 @@ with open('test.csv', 'rb') as csvfile:
             row = reader.next()
     except StopIteration:
 
-        with open('9_elements_1.csv', 'wb') as csvfile:
+        with open('1_elements_9_'+str(enie)+'.csv', 'wb') as csvfile:
             writer_test = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            with open('9_elements_9.csv', 'wb') as csvfile:
+            with open('1_elements_1.csv'+str(enie)+', 'wb') as csvfile:
                 writer_traine = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 if rand:
                     for i in range(0,len(matrix)):

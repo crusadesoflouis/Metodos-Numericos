@@ -1,0 +1,459 @@
+k: 1
+iteracion: 1
+k_1_train_1_it1.csv
+k_1_test_9_it1.csv
+k_1_pred_9_it1.csv
+1.54291
+iteracion: 2
+k_1_train_1_it2.csv
+k_1_test_9_it2.csv
+k_1_pred_9_it2.csv
+1.55447
+iteracion: 3
+k_1_train_1_it3.csv
+k_1_test_9_it3.csv
+k_1_pred_9_it3.csv
+1.5476
+iteracion: 4
+k_1_train_1_it4.csv
+k_1_test_9_it4.csv
+k_1_pred_9_it4.csv
+1.55511
+iteracion: 5
+k_1_train_1_it5.csv
+k_1_test_9_it5.csv
+k_1_pred_9_it5.csv
+1.56271
+iteracion: 6
+k_1_train_1_it6.csv
+k_1_test_9_it6.csv
+k_1_pred_9_it6.csv
+1.55799
+iteracion: 7
+k_1_train_1_it7.csv
+k_1_test_9_it7.csv
+k_1_pred_9_it7.csv
+1.57582
+iteracion: 8
+k_1_train_1_it8.csv
+k_1_test_9_it8.csv
+k_1_pred_9_it8.csv
+1.53842
+iteracion: 9
+k_1_train_1_it9.csv
+k_1_test_9_it9.csv
+k_1_pred_9_it9.csv
+1.56375
+iteracion: 10
+k_1_train_1_it10.csv
+k_1_test_9_it10.csv
+k_1_pred_9_it10.csv
+1.55823
+k: 2
+iteracion: 1
+k_2_train_2_it1.csv
+k_2_test_8_it1.csv
+k_2_pred_8_it1.csv
+2.69423
+iteracion: 2
+k_2_train_2_it2.csv
+k_2_test_8_it2.csv
+k_2_pred_8_it2.csv
+2.69409
+iteracion: 3
+k_2_train_2_it3.csv
+k_2_test_8_it3.csv
+k_2_pred_8_it3.csv
+2.70433
+iteracion: 4
+k_2_train_2_it4.csv
+k_2_test_8_it4.csv
+k_2_pred_8_it4.csv
+2.68966
+iteracion: 5
+k_2_train_2_it5.csv
+k_2_test_8_it5.csv
+k_2_pred_8_it5.csv
+2.68544
+iteracion: 6
+k_2_train_2_it6.csv
+k_2_test_8_it6.csv
+k_2_pred_8_it6.csv
+2.73174
+iteracion: 7
+k_2_train_2_it7.csv
+k_2_test_8_it7.csv
+k_2_pred_8_it7.csv
+2.68562
+iteracion: 8
+k_2_train_2_it8.csv
+k_2_test_8_it8.csv
+k_2_pred_8_it8.csv
+2.71963
+iteracion: 9
+k_2_train_2_it9.csv
+k_2_test_8_it9.csv
+k_2_pred_8_it9.csv
+2.69534
+iteracion: 10
+k_2_train_2_it10.csv
+k_2_test_8_it10.csv
+k_2_pred_8_it10.csv
+2.69219
+k: 3
+iteracion: 1
+k_3_train_3_it1.csv
+k_3_test_7_it1.csv
+k_3_pred_7_it1.csv
+4.20782
+iteracion: 2
+k_3_train_3_it2.csv
+k_3_test_7_it2.csv
+k_3_pred_7_it2.csv
+4.20113
+iteracion: 3
+k_3_train_3_it3.csv
+k_3_test_7_it3.csv
+k_3_pred_7_it3.csv
+4.20008
+iteracion: 4
+k_3_train_3_it4.csv
+k_3_test_7_it4.csv
+k_3_pred_7_it4.csv
+4.18487
+iteracion: 5
+k_3_train_3_it5.csv
+k_3_test_7_it5.csv
+k_3_pred_7_it5.csv
+4.22894
+iteracion: 6
+k_3_train_3_it6.csv
+k_3_test_7_it6.csv
+k_3_pred_7_it6.csv
+4.18858
+iteracion: 7
+k_3_train_3_it7.csv
+k_3_test_7_it7.csv
+k_3_pred_7_it7.csv
+4.18914
+iteracion: 8
+k_3_train_3_it8.csv
+k_3_test_7_it8.csv
+k_3_pred_7_it8.csv
+4.21415
+iteracion: 9
+k_3_train_3_it9.csv
+k_3_test_7_it9.csv
+k_3_pred_7_it9.csv
+4.20958
+iteracion: 10
+k_3_train_3_it10.csv
+k_3_test_7_it10.csv
+k_3_pred_7_it10.csv
+4.19163
+k: 4
+iteracion: 1
+k_4_train_4_it1.csv
+k_4_test_6_it1.csv
+k_4_pred_6_it1.csv
+5.74631
+iteracion: 2
+k_4_train_4_it2.csv
+k_4_test_6_it2.csv
+k_4_pred_6_it2.csv
+5.72041
+iteracion: 3
+k_4_train_4_it3.csv
+k_4_test_6_it3.csv
+k_4_pred_6_it3.csv
+5.71451
+iteracion: 4
+k_4_train_4_it4.csv
+k_4_test_6_it4.csv
+k_4_pred_6_it4.csv
+5.6989
+iteracion: 5
+k_4_train_4_it5.csv
+k_4_test_6_it5.csv
+k_4_pred_6_it5.csv
+5.77129
+iteracion: 6
+k_4_train_4_it6.csv
+k_4_test_6_it6.csv
+k_4_pred_6_it6.csv
+5.73702
+iteracion: 7
+k_4_train_4_it7.csv
+k_4_test_6_it7.csv
+k_4_pred_6_it7.csv
+5.70195
+iteracion: 8
+k_4_train_4_it8.csv
+k_4_test_6_it8.csv
+k_4_pred_6_it8.csv
+5.79414
+iteracion: 9
+k_4_train_4_it9.csv
+k_4_test_6_it9.csv
+k_4_pred_6_it9.csv
+5.71676
+iteracion: 10
+k_4_train_4_it10.csv
+k_4_test_6_it10.csv
+k_4_pred_6_it10.csv
+5.67223
+k: 5
+iteracion: 1
+k_5_train_5_it1.csv
+k_5_test_5_it1.csv
+k_5_pred_5_it1.csv
+7.59079
+iteracion: 2
+k_5_train_5_it2.csv
+k_5_test_5_it2.csv
+k_5_pred_5_it2.csv
+7.63759
+iteracion: 3
+k_5_train_5_it3.csv
+k_5_test_5_it3.csv
+k_5_pred_5_it3.csv
+7.65684
+iteracion: 4
+k_5_train_5_it4.csv
+k_5_test_5_it4.csv
+k_5_pred_5_it4.csv
+7.62886
+iteracion: 5
+k_5_train_5_it5.csv
+k_5_test_5_it5.csv
+k_5_pred_5_it5.csv
+7.65128
+iteracion: 6
+k_5_train_5_it6.csv
+k_5_test_5_it6.csv
+k_5_pred_5_it6.csv
+7.58182
+iteracion: 7
+k_5_train_5_it7.csv
+k_5_test_5_it7.csv
+k_5_pred_5_it7.csv
+7.60172
+iteracion: 8
+k_5_train_5_it8.csv
+k_5_test_5_it8.csv
+k_5_pred_5_it8.csv
+7.61534
+iteracion: 9
+k_5_train_5_it9.csv
+k_5_test_5_it9.csv
+k_5_pred_5_it9.csv
+7.66726
+iteracion: 10
+k_5_train_5_it10.csv
+k_5_test_5_it10.csv
+k_5_pred_5_it10.csv
+7.57717
+k: 6
+iteracion: 1
+k_6_train_6_it1.csv
+k_6_test_4_it1.csv
+k_6_pred_4_it1.csv
+9.62234
+iteracion: 2
+k_6_train_6_it2.csv
+k_6_test_4_it2.csv
+k_6_pred_4_it2.csv
+9.69606
+iteracion: 3
+k_6_train_6_it3.csv
+k_6_test_4_it3.csv
+k_6_pred_4_it3.csv
+9.70627
+iteracion: 4
+k_6_train_6_it4.csv
+k_6_test_4_it4.csv
+k_6_pred_4_it4.csv
+9.66798
+iteracion: 5
+k_6_train_6_it5.csv
+k_6_test_4_it5.csv
+k_6_pred_4_it5.csv
+9.63817
+iteracion: 6
+k_6_train_6_it6.csv
+k_6_test_4_it6.csv
+k_6_pred_4_it6.csv
+9.63589
+iteracion: 7
+k_6_train_6_it7.csv
+k_6_test_4_it7.csv
+k_6_pred_4_it7.csv
+9.7596
+iteracion: 8
+k_6_train_6_it8.csv
+k_6_test_4_it8.csv
+k_6_pred_4_it8.csv
+9.73649
+iteracion: 9
+k_6_train_6_it9.csv
+k_6_test_4_it9.csv
+k_6_pred_4_it9.csv
+9.68511
+iteracion: 10
+k_6_train_6_it10.csv
+k_6_test_4_it10.csv
+k_6_pred_4_it10.csv
+9.66774
+k: 7
+iteracion: 1
+k_7_train_7_it1.csv
+k_7_test_3_it1.csv
+k_7_pred_3_it1.csv
+12.1888
+iteracion: 2
+k_7_train_7_it2.csv
+k_7_test_3_it2.csv
+k_7_pred_3_it2.csv
+12.1838
+iteracion: 3
+k_7_train_7_it3.csv
+k_7_test_3_it3.csv
+k_7_pred_3_it3.csv
+12.148
+iteracion: 4
+k_7_train_7_it4.csv
+k_7_test_3_it4.csv
+k_7_pred_3_it4.csv
+12.1642
+iteracion: 5
+k_7_train_7_it5.csv
+k_7_test_3_it5.csv
+k_7_pred_3_it5.csv
+12.0977
+iteracion: 6
+k_7_train_7_it6.csv
+k_7_test_3_it6.csv
+k_7_pred_3_it6.csv
+12.2274
+iteracion: 7
+k_7_train_7_it7.csv
+k_7_test_3_it7.csv
+k_7_pred_3_it7.csv
+12.1455
+iteracion: 8
+k_7_train_7_it8.csv
+k_7_test_3_it8.csv
+k_7_pred_3_it8.csv
+12.1829
+iteracion: 9
+k_7_train_7_it9.csv
+k_7_test_3_it9.csv
+k_7_pred_3_it9.csv
+12.1501
+iteracion: 10
+k_7_train_7_it10.csv
+k_7_test_3_it10.csv
+k_7_pred_3_it10.csv
+12.2624
+k: 8
+iteracion: 1
+k_8_train_8_it1.csv
+k_8_test_2_it1.csv
+k_8_pred_2_it1.csv
+14.7777
+iteracion: 2
+k_8_train_8_it2.csv
+k_8_test_2_it2.csv
+k_8_pred_2_it2.csv
+14.6762
+iteracion: 3
+k_8_train_8_it3.csv
+k_8_test_2_it3.csv
+k_8_pred_2_it3.csv
+14.6992
+iteracion: 4
+k_8_train_8_it4.csv
+k_8_test_2_it4.csv
+k_8_pred_2_it4.csv
+14.6809
+iteracion: 5
+k_8_train_8_it5.csv
+k_8_test_2_it5.csv
+k_8_pred_2_it5.csv
+14.6535
+iteracion: 6
+k_8_train_8_it6.csv
+k_8_test_2_it6.csv
+k_8_pred_2_it6.csv
+14.6877
+iteracion: 7
+k_8_train_8_it7.csv
+k_8_test_2_it7.csv
+k_8_pred_2_it7.csv
+14.7441
+iteracion: 8
+k_8_train_8_it8.csv
+k_8_test_2_it8.csv
+k_8_pred_2_it8.csv
+14.7313
+iteracion: 9
+k_8_train_8_it9.csv
+k_8_test_2_it9.csv
+k_8_pred_2_it9.csv
+14.7085
+iteracion: 10
+k_8_train_8_it10.csv
+k_8_test_2_it10.csv
+k_8_pred_2_it10.csv
+14.7071
+k: 9
+iteracion: 1
+k_9_train_9_it1.csv
+k_9_test_1_it1.csv
+k_9_pred_1_it1.csv
+17.7399
+iteracion: 2
+k_9_train_9_it2.csv
+k_9_test_1_it2.csv
+k_9_pred_1_it2.csv
+17.7267
+iteracion: 3
+k_9_train_9_it3.csv
+k_9_test_1_it3.csv
+k_9_pred_1_it3.csv
+17.5722
+iteracion: 4
+k_9_train_9_it4.csv
+k_9_test_1_it4.csv
+k_9_pred_1_it4.csv
+17.8259
+iteracion: 5
+k_9_train_9_it5.csv
+k_9_test_1_it5.csv
+k_9_pred_1_it5.csv
+17.5753
+iteracion: 6
+k_9_train_9_it6.csv
+k_9_test_1_it6.csv
+k_9_pred_1_it6.csv
+17.9122
+iteracion: 7
+k_9_train_9_it7.csv
+k_9_test_1_it7.csv
+k_9_pred_1_it7.csv
+17.6308
+iteracion: 8
+k_9_train_9_it8.csv
+k_9_test_1_it8.csv
+k_9_pred_1_it8.csv
+17.7036
+iteracion: 9
+k_9_train_9_it9.csv
+k_9_test_1_it9.csv
+k_9_pred_1_it9.csv
+17.5862
+iteracion: 10
+k_9_train_9_it10.csv
+k_9_test_1_it10.csv
+k_9_pred_1_it10.csv
+17.6337
