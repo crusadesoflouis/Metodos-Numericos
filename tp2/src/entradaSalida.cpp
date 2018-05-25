@@ -9,12 +9,15 @@
 
 using namespace std;
 
-void leerArgumentos(int argc, char **argv, bool &metodo, char **entrenamiento, char **test, char **resultado){
+void leerArgumentos(int argc, char **argv, bool &pca, bool &alternativo, char **entrenamiento, char **test, char **resultado){
   int c;
   while ((c = getopt (argc, argv, "m:i:o:q:")) != -1)
     switch (c){
       case 'm':
-        metodo = *optarg == '1';
+        pca = *optarg == '1';
+        break;
+      case 'a':
+        alternativo = *optarg == '1';
         break;
       case 'i':
         *entrenamiento = optarg;
