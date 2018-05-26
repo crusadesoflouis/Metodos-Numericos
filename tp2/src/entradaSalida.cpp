@@ -11,7 +11,7 @@ using namespace std;
 
 void leerArgumentos(int argc, char **argv, bool &pca, bool &alternativo, char **entrenamiento, char **test, char **resultado){
   int c;
-  while ((c = getopt (argc, argv, "m:i:o:q:")) != -1)
+  while ((c = getopt (argc, argv, "m:i:o:q:a")) != -1)
     switch (c){
       case 'm':
         pca = *optarg == '1';
