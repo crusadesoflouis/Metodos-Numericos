@@ -12,16 +12,6 @@ uniform_real_distribution<float> distribution(-100,100);
 
 
 
-float norma_Inf(matrix &v) {
-  float max = 0;
-  for (unsigned int i = 0; i < v.dame_filas(); i++) {
-    if (abs(v.dame_elem_matrix(i, 0)) > max) {
-      max = abs(v.dame_elem_matrix(i, 0));
-    }
-  }
-  return max;
-}
-
 float norma_euclidea_cuadrada(matrix &A, matrix &B) {
   matrix R(1, 1);
   R.multiplicacion(A, B);
@@ -69,13 +59,6 @@ float matrix::metodo_potencia(matrix &x, int repeticiones, matrix &autovector) {
   }while (i < repeticiones && !verificacion(autovector,autovalor));
 
   return autovalor;
-}
-
-float dame_random() {
-  float random;
-  do {
-    random = distribution(generator);
-  } while(abs(random) <= EPSILON);
 }
 
 // constructor de una matrix de tamaño n llena de ceros
@@ -127,27 +110,6 @@ matrix matrix::trasponer() {
   return traspuesta;
 }
 
-vector<float> matrix::vector_promedio() {
-  vector<float> promedio;
-  promedio.resize(dame_columnas());
-  for (size_t i = 0; i < columnas; i++) {
-    float sumatoria = 0;
-    for (size_t j = 0; j < filas; j++) {
-      sumatoria = sumatoria + dame_elem_matrix(j, i);
-    }
-    promedio[i] = sumatoria / dame_filas();
-  }
-  return promedio;
-}
-
-void matrix::resta_matrix_vector(vector<float> &v) {
-  for (size_t j = 0; j < dame_columnas(); j++) {
-    for (size_t i = 0; i < dame_filas(); i++) {
-      float elemento = dame_elem_matrix(i, j);
-      agregar_elemento(i, j, elemento - v[j]);
-    }
-  }
-}
 
 void matrix::division_escalar(float escalar) {
   //cout << escalar << "\n";
@@ -213,11 +175,7 @@ void matrix::agregar_elemento(uint fila, uint columna, float elemento) {
   }
 }
 
-void matrix::normalizar() {
-  assert(columnas == 1);
-  float norma = norma_Inf(*this);
-  division_escalar(norma);
-}
+
 void matrix::normalizar_2() {
   assert(columnas == 1);
   float norma = norma_2(*this);
@@ -334,16 +292,6 @@ void matrix::conversionUaV(matrix& U,matrix &D,matrix &V) {
     //v_i.normalizar_2();
     V.rellenar_columna_con_vector(i,v_i);
   }
-}
-
-matrix aplicarTc(imagen a, matrix &v){
-  vector<imagen> aux;
-  aux.push_back(a);
-  matrix x = matrix(aux);
-  x = x.trasponer();
-  matrix resultado = matrix(v.dame_filas(),x.dame_columnas());
-  resultado.multiplicacion(v,x);
-  return resultado;
 }
 
 vector<vector<float>> matrix::dameMatriz(){

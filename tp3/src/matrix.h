@@ -7,35 +7,36 @@
 using namespace std;
 class matrix {
 public:
-    // Fila& operator[] (unsigned int  x) {
-    //   return filas[x];
-    // }
+    // funciones esenciales para poder manejarnos con las matrices
     ~matrix();
     matrix(unsigned int n,unsigned int m);
     matrix(vector<imagen> imagenes);
     void agregar_elemento(uint fila, uint columna, float elemento);
-    void mostrar();
+    float dame_elem_matrix(unsigned int fila, unsigned int columna);
+    unsigned int dame_columnas();
+    unsigned int dame_filas();
+    vector<vector<float>> dameMatriz();
+    // funciones que operan con matrices
     matrix trasponer();
-    void resta_matrix_vector(vector<float> &v);
+    void multiplicacion(matrix &A,matrix &B);
+    void restar(matrix&A);
     void multiplicacion_escalar(float escalar);
     void division_escalar(float escalar);
-    void multiplicacion(matrix &A,matrix &B);
-    unsigned int dame_filas();
-    unsigned int dame_columnas();
-    float dame_elem_matrix(unsigned int fila, unsigned int columna);
-    vector<float> vector_promedio();
-    void normalizar();
+    // normas
     void normalizar_2();
+    // funciones para diagonalizar una matriz
     float metodo_potencia(matrix &x, int repeticiones, matrix &autovector);
-    void generacion_U_D(matrix& autovectores,matrix& autovalores, int alfa);
-    bool verificacion(matrix autovector, float lambda);
-    void restar(matrix&A);
-    void absoluto();
-    void conversionUaV(matrix& U,matrix &D,matrix &V);
-    bool comparar(matrix &b);
-    void rellenar_columna_con_vector(uint columna, matrix& V);
     void deflacion(matrix &autovector, float autovalor);
-    vector<vector<float>> dameMatriz();
+    void generacion_U_D(matrix& autovectores,matrix& autovalores, int alfa);
+    void conversionUaV(matrix& U,matrix &D,matrix &V);
+    // funciones complementarias
+    bool verificacion(matrix autovector, float lambda);
+    bool comparar(matrix &b);
+    void absoluto();
+    void rellenar_columna_con_vector(uint columna, matrix& V);
+    
+    //nos sirve para poder ver las matrices
+    void mostrar();
 private:
     vector<vector <float> > matriz;
     unsigned int filas;
