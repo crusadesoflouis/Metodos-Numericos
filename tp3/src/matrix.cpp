@@ -2,6 +2,9 @@
 #include <cmath>
 #include "matrix.h"
 #include <random>
+#include <fstream>
+#include <stdlib.h>
+
 float EPSILON = 0.00001;
 
 random_device randomDevice;
@@ -78,6 +81,22 @@ matrix::matrix(unsigned int filas, unsigned int columnas) {
   }
   this->filas = filas;
   this->columnas = columnas;
+}
+
+matrix::matrix(char* nombreArchivo){
+  fstream archivo;
+  archivo.open(nombreArchivo);
+  archivo >> filas;
+  columnas = filas;
+  matriz.resize(filas);
+  for (size_t i = 0; i < filas; i++) {
+    for (size_t j = 0; j < columnas; j++) {
+      float actual;
+      archivo >> actual;
+      matriz[i].push_back(actual);
+    }
+  }
+  archivo.close();
 }
 
 // matrix::matrix(vector<imagen> imgs){
