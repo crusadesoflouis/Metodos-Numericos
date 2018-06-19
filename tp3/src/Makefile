@@ -1,6 +1,6 @@
 all:
-	g++ -std=gnu++11 main.cpp -ggdb -O3 -o tp2
+	g++ -std=gnu++11 main.cpp -ggdb -O3 -o tp3
 test:
 	g++ -std=gnu++11 tests.cpp -ggdb -o test
 clean:
-	rm -f tp2
+	rm -f tp2 test
