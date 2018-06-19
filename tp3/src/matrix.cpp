@@ -4,7 +4,8 @@
 #include <random>
 #include <fstream>
 #include <stdlib.h>
-
+#include "../ppmloader/ppmloader.cpp"
+#include <cstring>
 float EPSILON = 0.00001;
 
 random_device randomDevice;
@@ -86,14 +87,30 @@ matrix::matrix(unsigned int filas, unsigned int columnas) {
 matrix::matrix(char* nombreArchivo){
   fstream archivo;
   archivo.open(nombreArchivo);
-  archivo >> filas;
-  columnas = filas;
-  matriz.resize(filas);
-  for (size_t i = 0; i < filas; i++) {
-    for (size_t j = 0; j < columnas; j++) {
-      float actual;
-      archivo >> actual;
-      matriz[i].push_back(actual);
+  if(nombreArchivo[strlen(nombreArchivo)-3] == 'c' && nombreArchivo[strlen(nombreArchivo)-2] == 's' && nombreArchivo[strlen(nombreArchivo)-1] == 'v'){ // TODO: ver si hay alguna forma mas copada de ver esto
+    archivo >> filas;
+    columnas = filas;
+    matriz.resize(filas);
+    for (size_t i = 0; i < filas; i++) {
+      for (size_t j = 0; j < columnas; j++) {
+        float actual;
+        archivo >> actual;
+        matriz[i].push_back(actual);
+      }
+    }
+  }else{
+    uchar *data = NULL;
+    int width = 0;
+    int height = 0;
+    PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
+    LoadPPMFile(&data, &width, &height, &pt, nombreArchivo);
+    columnas = width;
+    filas = height;
+    matriz.resize(filas);
+    for (size_t i = 0; i < filas; i++) {
+      for (size_t j = 0; j < columnas; j++) {
+        matriz[i].push_back((float) data[i+j]);
+      }
     }
   }
   archivo.close();
