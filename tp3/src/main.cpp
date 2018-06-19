@@ -2,8 +2,7 @@
 #include <vector>
 #include <tuple>
 #include <math.h>
-#include "entradaSalida.cpp"
-#include "clasificador.cpp"
+//#include "entradaSalida.cpp"
 #include "matrix.cpp"
 
 
@@ -21,12 +20,14 @@ matrix crear_matriz(int filas, int columnas, float valores[]) {
     return nueva;
 }
 
-int main(int argc, char **argv) {
+int main() {
 
     // supongo que B = A*A^t entonces B pertenece a R^nxn
-    matrix B(3,3,[1, 2, 3,
-                  2, 3, 4,
-                  3, 5, 9]);
+    float arr1[] = {1,2,3,
+                    2,3,4,
+                    3,4,9};
+
+    matrix B = crear_matriz(3,3,arr1);
     B.mostrar();
     
     matrix D(3,3);

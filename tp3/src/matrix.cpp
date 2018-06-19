@@ -80,17 +80,17 @@ matrix::matrix(unsigned int filas, unsigned int columnas) {
   this->columnas = columnas;
 }
 
-matrix::matrix(vector<imagen> imgs){
-  columnas = imgs[0].tamanio(); // asumo que todas las imagenes tienen el mismo tamaño
-  filas = imgs.size();
-  matriz.resize(imgs.size());
-  for (size_t i = 0; i < imgs.size(); i++) {
-    vector<float> actual = imgs[i].data();
-    for (size_t j = 0; j < imgs[0].tamanio(); j++) {
-      matriz[i].push_back((float)actual[j]);
-    }
-  }
-}
+// matrix::matrix(vector<imagen> imgs){
+//   columnas = imgs[0].tamanio(); // asumo que todas las imagenes tienen el mismo tamaño
+//   filas = imgs.size();
+//   matriz.resize(imgs.size());
+//   for (size_t i = 0; i < imgs.size(); i++) {
+//     vector<float> actual = imgs[i].data();
+//     for (size_t j = 0; j < imgs[0].tamanio(); j++) {
+//       matriz[i].push_back((float)actual[j]);
+//     }
+//   }
+// }
 
 unsigned int matrix::dame_filas() {
   return this->filas;
