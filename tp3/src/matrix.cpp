@@ -396,7 +396,37 @@ void matrix::SCML(matrix& U,matrix &S,matrix &V,matrix &b){
     suma(v_i);
   }
 }
+void matrix::Cuadrados_Minimos(matrix &B,matrix &b){
+    matrix B_t = B.trasponer();
+    //B_t.mostrar();
+    
+    matrix A(B_t.dame_filas(),B.dame_columnas());  
+    A.multiplicacion(B_t,B);
 
+    //A.mostrar();
+    
+    matrix D(A.dame_filas(),A.dame_columnas());
+    matrix V(A.dame_filas(),A.dame_columnas());
+    
+
+    A.generacion_U_D(V,D,3);
+    //D.mostrar();
+    //V.mostrar();
+    
+    matrix S(D.dame_filas(),D.dame_columnas());
+    S.matriz_Sigma(D);
+    //S.mostrar();
+
+    matrix U(B.dame_filas(),S.dame_rango());
+    // a la mtrix D tenemos que sacarle la raiz
+    B.conversionUaV(V,S,U);
+    
+    //U.mostrar();
+    U = U.trasponer();
+    SCML(U,S,V,b);
+
+    mostrar();
+}
 
 vector<vector<float>> matrix::dameMatriz(){
   return matriz;

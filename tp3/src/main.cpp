@@ -39,37 +39,7 @@ int main() {
     b.mostrar();
     matrix B = crear_matriz(5,3,arr1);
     B.mostrar();
-    matrix B_t = B.trasponer();
-    B_t.mostrar();
-    
-    matrix A(3,3);  
-    A.multiplicacion(B_t,B);
-
-    A.mostrar();
-    
-    matrix D(3,3);
-    matrix V(3,3);
-    
-
-    A.generacion_U_D(V,D,3);
-    D.mostrar();
-    V.mostrar();
-    
-    matrix S(3,3);
-    S.matriz_Sigma(D);
-    S.mostrar();
-
-    matrix U(5,S.dame_rango());
-    // a la mtrix D tenemos que sacarle la raiz
-    B.conversionUaV(V,S,U);
-    
-    U.mostrar();
-
-
     matrix x(3,1);
-    U = U.trasponer();
-    x.SCML(U,S,V,b);
-
-    x.mostrar();
+    x.Cuadrados_Minimos(B,b);
 
 }
