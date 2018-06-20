@@ -4,24 +4,47 @@
 #include <random>
 #include <fstream>
 #include <stdlib.h>
-#include "../ppmloader/ppmloader.cpp"
+// #include "../ppmloader/ppmloader.cpp"
 #include <cstring>
 float EPSILON = 0.00001;
 
 random_device randomDevice;
 mt19937 generator(randomDevice());
-uniform_real_distribution<float> distribution(-100,100);
-
+float dame_ruido(int distribucion, float param1, float param2){
+  uniform_real_distribution<float> unif((-1)*param1,param2);  // rango [param1,param2]
+  std::normal_distribution<float> norm(param1, param2);      // (mean,desvStandart)
+  std::poisson_distribution<int> poisson(param1);             // lambda = param 1
+  float x =0;
+  switch (distribucion) {
+    case 0:
+    x = norm(randomDevice);
+    break;
+    case 1:
+    x = unif(randomDevice);
+    break;
+    case 2:
+    x = poisson(randomDevice);
+    break;
+  }
+return x;
+}
+matrix matrix::copiar_con_ruido(matrix &A, int tipo_ruido,double param1,double param2){
+  matrix B(A.dame_filas(),A.dame_columnas());
+  for (size_t i = 0; i < A.dame_filas(); i++) {
+    for (size_t j = 0; j < A.dame_columnas(); j++) {
+      float valor = A.dame_elem_matrix(i,j);
+      valor = valor + dame_ruido(tipo_ruido,param1,param2);
+      B.agregar_elemento(i,j,valor);
+    }
+  }
+  return B;
+}
 //funciones auxiliares
-
-
-
 float norma_euclidea_cuadrada(matrix &A, matrix &B) {
   matrix R(1, 1);
   R.multiplicacion(A, B);
   return R.dame_elem_matrix(0, 0);
 }
-
 float norma_2(matrix& A) {
   assert(A.dame_columnas() == 1);
   float sumatoria = 0;
@@ -84,37 +107,37 @@ matrix::matrix(unsigned int filas, unsigned int columnas) {
   this->columnas = columnas;
 }
 
-matrix::matrix(char* nombreArchivo){
-  fstream archivo;
-  archivo.open(nombreArchivo);
-  if(nombreArchivo[strlen(nombreArchivo)-3] == 'c' && nombreArchivo[strlen(nombreArchivo)-2] == 's' && nombreArchivo[strlen(nombreArchivo)-1] == 'v'){ // TODO: ver si hay alguna forma mas copada de ver esto
-    archivo >> filas;
-    columnas = filas;
-    matriz.resize(filas);
-    for (size_t i = 0; i < filas; i++) {
-      for (size_t j = 0; j < columnas; j++) {
-        float actual;
-        archivo >> actual;
-        matriz[i].push_back(actual);
-      }
-    }
-  }else{
-    uchar *data = NULL;
-    int width = 0;
-    int height = 0;
-    PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
-    LoadPPMFile(&data, &width, &height, &pt, nombreArchivo);
-    columnas = width;
-    filas = height;
-    matriz.resize(filas);
-    for (size_t i = 0; i < filas; i++) {
-      for (size_t j = 0; j < columnas; j++) {
-        matriz[i].push_back((float) data[i+j]);
-      }
-    }
-  }
-  archivo.close();
-}
+// matrix::matrix(char* nombreArchivo){
+//   fstream archivo;
+//   archivo.open(nombreArchivo);
+//   if(nombreArchivo[strlen(nombreArchivo)-3] == 'c' && nombreArchivo[strlen(nombreArchivo)-2] == 's' && nombreArchivo[strlen(nombreArchivo)-1] == 'v'){ // TODO: ver si hay alguna forma mas copada de ver esto
+//     archivo >> filas;
+//     columnas = filas;
+//     matriz.resize(filas);
+//     for (size_t i = 0; i < filas; i++) {
+//       for (size_t j = 0; j < columnas; j++) {
+//         float actual;
+//         archivo >> actual;
+//         matriz[i].push_back(actual);
+//       }
+//     }
+//   }else{
+//     uchar *data = NULL;
+//     int width = 0;
+//     int height = 0;
+//     PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
+//     LoadPPMFile(&data, &width, &height, &pt, nombreArchivo);
+//     columnas = width;
+//     filas = height;
+//     matriz.resize(filas);
+//     for (size_t i = 0; i < filas; i++) {
+//       for (size_t j = 0; j < columnas; j++) {
+//         matriz[i].push_back((float) data[i+j]);
+//       }
+//     }
+//   }
+//   archivo.close();
+// }
 
 // matrix::matrix(vector<imagen> imgs){
 //   columnas = imgs[0].tamanio(); // asumo que todas las imagenes tienen el mismo tamaño
@@ -252,6 +275,19 @@ void matrix::restar(matrix&A){
   }
 }
 
+void matrix::suma(matrix&A){
+  assert(dame_filas() == A.dame_filas());
+  assert(dame_columnas() == A.dame_columnas());
+  for (size_t i = 0; i < dame_filas(); i++) {
+    for (size_t j = 0; j < dame_columnas(); j++) {
+      float elemento = A.dame_elem_matrix(i, j);
+      elemento = dame_elem_matrix(i, j) + elemento;
+      agregar_elemento(i, j, elemento);
+    }
+  }
+}
+
+
 void matrix::absoluto(){
   for (size_t i = 0; i < dame_filas(); i++) {
     for (size_t j = 0; j < dame_columnas(); j++) {
@@ -318,7 +354,7 @@ void matrix::conversionUaV(matrix& U,matrix &D,matrix &V) {
     u_i.multiplicacion(U,e_i);
     // u_i.mostrar();
     // D.mostrar();
-    float d_i_i = sqrt(abs(D.dame_elem_matrix(i,i)));
+    float d_i_i = D.dame_elem_matrix(i,i);
     // std::cout << "d " << d_i_i<<'\n';
     // mostrar();
     matrix v_i(dame_filas(),1);
@@ -329,6 +365,38 @@ void matrix::conversionUaV(matrix& U,matrix &D,matrix &V) {
     V.rellenar_columna_con_vector(i,v_i);
   }
 }
+
+//crear la matriz de valores singulares
+void matrix::matriz_Sigma(matrix &D) {
+  for (size_t i = 0; i < this->dame_filas(); i++) {
+      this->agregar_elemento(i, i, sqrt(abs(D.dame_elem_matrix(i,i))));
+  }
+}
+
+int matrix::dame_rango(){
+  int rango = 0;
+  for (size_t i = 0; i < this->dame_filas(); i++) {
+      if(this->dame_elem_matrix(i,i) != 0){
+        rango++;
+      }
+  }
+  return rango;
+}
+//recibe U^t, S, V normal, 
+void matrix::SCML(matrix& U,matrix &S,matrix &V,matrix &b){
+  float lamda = 0;
+  for (int i = 0; i < U.dame_filas(); ++i){
+    lamda = producto_interno(U,b,i,0);
+    lamda = lamda / S.dame_elem_matrix(i,i);
+    matrix  e_i = crear_canonico(V.dame_filas(),i);
+    // e_i.mostrar();
+    matrix v_i(V.dame_filas(),1);
+    v_i.multiplicacion(V,e_i);
+    v_i.multiplicacion_escalar(lamda);
+    suma(v_i);
+  }
+}
+
 
 vector<vector<float>> matrix::dameMatriz(){
   return matriz;
