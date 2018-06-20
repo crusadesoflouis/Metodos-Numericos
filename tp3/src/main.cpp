@@ -25,24 +25,51 @@ int main() {
     // supongo que B = A*A^t entonces B pertenece a R^nxn
     float arr1[] = {1,2,3,
                     2,3,4,
-                    3,4,9};
+                    3,4,9,
+                    2,5,4,
+                    3,1,2};
 
-    matrix B = crear_matriz(3,3,arr1);
+    float arr2[] = {1,
+                    2,
+                    3,
+                    4,
+                    5};                
+
+    matrix b = crear_matriz(5,1,arr2);
+    b.mostrar();
+    matrix B = crear_matriz(5,3,arr1);
     B.mostrar();
-    
-    matrix D(3,3);
-    matrix U(3,3);
-    matrix V(3,3);
-
-    B.generacion_U_D(U,D,3);
     matrix B_t = B.trasponer();
     B_t.mostrar();
+    
+    matrix A(3,3);  
+    A.multiplicacion(B_t,B);
 
+    A.mostrar();
+    
+    matrix D(3,3);
+    matrix V(3,3);
+    
+
+    A.generacion_U_D(V,D,3);
+    D.mostrar();
+    V.mostrar();
+    
+    matrix S(3,3);
+    S.matriz_Sigma(D);
+    S.mostrar();
+
+    matrix U(5,S.dame_rango());
     // a la mtrix D tenemos que sacarle la raiz
-    B_t.conversionUaV(U,D,V);
+    B.conversionUaV(V,S,U);
     
     U.mostrar();
-    V.mostrar();
-    D.mostrar();
+
+
+    matrix x(3,1);
+    U = U.trasponer();
+    x.SCML(U,S,V,b);
+
+    x.mostrar();
 
 }

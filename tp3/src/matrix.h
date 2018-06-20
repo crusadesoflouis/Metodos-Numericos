@@ -21,8 +21,10 @@ public:
     matrix trasponer();
     void multiplicacion(matrix &A,matrix &B);
     void restar(matrix&A);
+    void suma(matrix&A);
     void multiplicacion_escalar(float escalar);
     void division_escalar(float escalar);
+    int dame_rango();
     // normas
     void normalizar_2();
     // funciones para diagonalizar una matriz
@@ -30,12 +32,14 @@ public:
     void deflacion(matrix &autovector, float autovalor);
     void generacion_U_D(matrix& autovectores,matrix& autovalores, int alfa);
     void conversionUaV(matrix& U,matrix &D,matrix &V);
+    void matriz_Sigma(matrix &D); 
     // funciones complementarias
     bool verificacion(matrix autovector, float lambda);
     bool comparar(matrix &b);
     void absoluto();
     void rellenar_columna_con_vector(uint columna, matrix& V);
-
+    //Cuadrados minimos
+    void SCML(matrix& U,matrix &S,matrix &V,matrix &b);
     //nos sirve para poder ver las matrices
     void mostrar();
 private:

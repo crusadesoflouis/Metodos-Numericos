@@ -252,6 +252,19 @@ void matrix::restar(matrix&A){
   }
 }
 
+void matrix::suma(matrix&A){
+  assert(dame_filas() == A.dame_filas());
+  assert(dame_columnas() == A.dame_columnas());
+  for (size_t i = 0; i < dame_filas(); i++) {
+    for (size_t j = 0; j < dame_columnas(); j++) {
+      float elemento = A.dame_elem_matrix(i, j);
+      elemento = dame_elem_matrix(i, j) + elemento;
+      agregar_elemento(i, j, elemento);
+    }
+  }
+}
+
+
 void matrix::absoluto(){
   for (size_t i = 0; i < dame_filas(); i++) {
     for (size_t j = 0; j < dame_columnas(); j++) {
@@ -318,7 +331,7 @@ void matrix::conversionUaV(matrix& U,matrix &D,matrix &V) {
     u_i.multiplicacion(U,e_i);
     // u_i.mostrar();
     // D.mostrar();
-    float d_i_i = sqrt(abs(D.dame_elem_matrix(i,i)));
+    float d_i_i = D.dame_elem_matrix(i,i);
     // std::cout << "d " << d_i_i<<'\n';
     // mostrar();
     matrix v_i(dame_filas(),1);
@@ -329,6 +342,38 @@ void matrix::conversionUaV(matrix& U,matrix &D,matrix &V) {
     V.rellenar_columna_con_vector(i,v_i);
   }
 }
+
+//crear la matriz de valores singulares
+void matrix::matriz_Sigma(matrix &D) {
+  for (size_t i = 0; i < this->dame_filas(); i++) {
+      this->agregar_elemento(i, i, sqrt(abs(D.dame_elem_matrix(i,i))));
+  }
+}
+
+int matrix::dame_rango(){
+  int rango = 0;
+  for (size_t i = 0; i < this->dame_filas(); i++) {
+      if(this->dame_elem_matrix(i,i) != 0){
+        rango++;
+      }
+  }
+  return rango;
+}
+//recibe U^t, S, V normal, 
+void matrix::SCML(matrix& U,matrix &S,matrix &V,matrix &b){
+  float lamda = 0;
+  for (int i = 0; i < U.dame_filas(); ++i){
+    lamda = producto_interno(U,b,i,0);
+    lamda = lamda / S.dame_elem_matrix(i,i);
+    matrix  e_i = crear_canonico(V.dame_filas(),i);
+    // e_i.mostrar();
+    matrix v_i(V.dame_filas(),1);
+    v_i.multiplicacion(V,e_i);
+    v_i.multiplicacion_escalar(lamda);
+    suma(v_i);
+  }
+}
+
 
 vector<vector<float>> matrix::dameMatriz(){
   return matriz;
