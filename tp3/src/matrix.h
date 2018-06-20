@@ -10,7 +10,7 @@ public:
     // funciones esenciales para poder manejarnos con las matrices
     ~matrix();
     matrix(unsigned int n,unsigned int m);
-    matrix(char* nombreArchivo);
+    // matrix(char* nombreArchivo);
     //matrix(vector<imagen> imagenes);
     void agregar_elemento(uint fila, uint columna, float elemento);
     float dame_elem_matrix(unsigned int fila, unsigned int columna);
@@ -35,7 +35,7 @@ public:
     bool comparar(matrix &b);
     void absoluto();
     void rellenar_columna_con_vector(uint columna, matrix& V);
-
+    matrix copiar_con_ruido(matrix &A, int tipo_ruido,double param1,double param2);
     //nos sirve para poder ver las matrices
     void mostrar();
 private:
