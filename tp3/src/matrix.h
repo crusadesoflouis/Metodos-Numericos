@@ -10,7 +10,7 @@ public:
     // funciones esenciales para poder manejarnos con las matrices
     ~matrix();
     matrix(unsigned int n,unsigned int m);
-    // matrix(char* nombreArchivo);
+    matrix(char* nombreArchivo);
     //matrix(vector<imagen> imagenes);
     void agregar_elemento(uint fila, uint columna, float elemento);
     float dame_elem_matrix(unsigned int fila, unsigned int columna);

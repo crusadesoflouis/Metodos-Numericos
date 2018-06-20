@@ -4,7 +4,7 @@
 #include <random>
 #include <fstream>
 #include <stdlib.h>
-// #include "../ppmloader/ppmloader.cpp"
+#include "../ppmloader/ppmloader.cpp"
 #include <cstring>
 float EPSILON = 0.00001;
 
@@ -107,37 +107,37 @@ matrix::matrix(unsigned int filas, unsigned int columnas) {
   this->columnas = columnas;
 }
 
-// matrix::matrix(char* nombreArchivo){
-//   fstream archivo;
-//   archivo.open(nombreArchivo);
-//   if(nombreArchivo[strlen(nombreArchivo)-3] == 'c' && nombreArchivo[strlen(nombreArchivo)-2] == 's' && nombreArchivo[strlen(nombreArchivo)-1] == 'v'){ // TODO: ver si hay alguna forma mas copada de ver esto
-//     archivo >> filas;
-//     columnas = filas;
-//     matriz.resize(filas);
-//     for (size_t i = 0; i < filas; i++) {
-//       for (size_t j = 0; j < columnas; j++) {
-//         float actual;
-//         archivo >> actual;
-//         matriz[i].push_back(actual);
-//       }
-//     }
-//   }else{
-//     uchar *data = NULL;
-//     int width = 0;
-//     int height = 0;
-//     PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
-//     LoadPPMFile(&data, &width, &height, &pt, nombreArchivo);
-//     columnas = width;
-//     filas = height;
-//     matriz.resize(filas);
-//     for (size_t i = 0; i < filas; i++) {
-//       for (size_t j = 0; j < columnas; j++) {
-//         matriz[i].push_back((float) data[i+j]);
-//       }
-//     }
-//   }
-//   archivo.close();
-// }
+matrix::matrix(char* nombreArchivo){
+  fstream archivo;
+  archivo.open(nombreArchivo);
+  if(nombreArchivo[strlen(nombreArchivo)-3] == 'c' && nombreArchivo[strlen(nombreArchivo)-2] == 's' && nombreArchivo[strlen(nombreArchivo)-1] == 'v'){ // TODO: ver si hay alguna forma mas copada de ver esto
+    archivo >> filas;
+    columnas = filas;
+    matriz.resize(filas);
+    for (size_t i = 0; i < filas; i++) {
+      for (size_t j = 0; j < columnas; j++) {
+        float actual;
+        archivo >> actual;
+        matriz[i].push_back(actual);
+      }
+    }
+  }else{
+    uchar *data = NULL;
+    int width = 0;
+    int height = 0;
+    PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
+    LoadPPMFile(&data, &width, &height, &pt, nombreArchivo);
+    columnas = width;
+    filas = height;
+    matriz.resize(filas);
+    for (size_t i = 0; i < filas; i++) {
+      for (size_t j = 0; j < columnas; j++) {
+        matriz[i].push_back((float) data[i+j]);
+      }
+    }
+  }
+  archivo.close();
+}
 
 // matrix::matrix(vector<imagen> imgs){
 //   columnas = imgs[0].tamanio(); // asumo que todas las imagenes tienen el mismo tamaño
@@ -382,7 +382,7 @@ int matrix::dame_rango(){
   }
   return rango;
 }
-//recibe U^t, S, V normal, 
+//recibe U^t, S, V normal,
 void matrix::SCML(matrix& U,matrix &S,matrix &V,matrix &b){
   float lamda = 0;
   for (int i = 0; i < U.dame_filas(); ++i){
@@ -399,20 +399,20 @@ void matrix::SCML(matrix& U,matrix &S,matrix &V,matrix &b){
 void matrix::Cuadrados_Minimos(matrix &B,matrix &b){
     matrix B_t = B.trasponer();
     //B_t.mostrar();
-    
-    matrix A(B_t.dame_filas(),B.dame_columnas());  
+
+    matrix A(B_t.dame_filas(),B.dame_columnas());
     A.multiplicacion(B_t,B);
 
     //A.mostrar();
-    
+
     matrix D(A.dame_filas(),A.dame_columnas());
     matrix V(A.dame_filas(),A.dame_columnas());
-    
+
 
     A.generacion_U_D(V,D,3);
     //D.mostrar();
     //V.mostrar();
-    
+
     matrix S(D.dame_filas(),D.dame_columnas());
     S.matriz_Sigma(D);
     //S.mostrar();
@@ -420,7 +420,7 @@ void matrix::Cuadrados_Minimos(matrix &B,matrix &b){
     matrix U(B.dame_filas(),S.dame_rango());
     // a la mtrix D tenemos que sacarle la raiz
     B.conversionUaV(V,S,U);
-    
+
     //U.mostrar();
     U = U.trasponer();
     SCML(U,S,V,b);
