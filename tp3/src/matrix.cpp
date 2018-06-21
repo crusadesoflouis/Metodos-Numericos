@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "../ppmloader/ppmloader.cpp"
 #include <cstring>
+#include "GeneradorRectas.h"
 float EPSILON = 0.00001;
 
 random_device randomDevice;
@@ -28,11 +29,45 @@ float dame_ruido(int distribucion, float param1, float param2){
   }
 return x;
 }
+
+float matrix::tiempo_recta_matrix(/*GeneradorRectas r*/){
+  float sumatoria = 0;
+  for (int i = 0; i < dame_filas(); i++) {
+    new
+    GeneradorRectas::dame_rectas()
+    //evaluar rint(F(i)) y fijarse si cae en la matrix, si cae ponemos, sumamos ;
+  }
+}
+
+
+
+vector<float> matrix::velocidades_matrix(/*generador de rectas */) {
+  vector<float> velocidades(/*longitud del generador*/);
+  for (int i = 0; i < /*longitud del generador */; i++) {
+    velocidades[i] = this->tiempo_recta_matrix(/*una recta */);
+  }
+  return velocidades;
+}
+
+
+
+void matrix::crear_matriz_distancias(matrix &ruidosa,/*generador de rectas*/) {
+  int n = ruidosa.dame_filas();
+  for (int i = 0; i < /*cantidad de rectas*/; i++) {
+    for (int  j = 0; j < n; j++) {
+      /* si el redondeo de F(j) esta en rango entonces, asignar a la posicion (transformacion de j f(j) a un vector )[j][f(j)] de la matrix A, un 1  */
+    }
+  }
+}
+
+
+
 matrix matrix::copiar_con_ruido(int tipo_ruido,double param1,double param2){
   matrix B(dame_filas(),dame_columnas());
   for (size_t i = 0; i < dame_filas(); i++) {
     for (size_t j = 0; j < dame_columnas(); j++) {
       float valor = dame_elem_matrix(i,j);
+      //TODO redondear a enteros en esta funcion
       valor = valor + dame_ruido(tipo_ruido,param1,param2);
       B.agregar_elemento(i,j,valor);
     }

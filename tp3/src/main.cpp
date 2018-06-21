@@ -25,8 +25,9 @@ int main(int argc, char **argv) {
     // supongo que B = A*A^t entonces B pertenece a R^nxn
     matrix B(argv[1]);
     B.mostrar();
-    matrix A = B.copiar_con_ruido(0,0,0.1);
-    A.mostrar();
+    
+    // matrix A = B.copiar_con_ruido(0,0,0.1);
+    // A.mostrar();
     // float arr1[] = {1,2,3,
     //                 2,3,4,
     //                 3,4,9,
@@ -37,7 +38,7 @@ int main(int argc, char **argv) {
     //                 2,
     //                 3,
     //                 4,
-    //                 5};                
+    //                 5};
 
     // matrix b = crear_matriz(5,1,arr2);
     // b.mostrar();
