@@ -1,12 +1,4 @@
-#include <assert.h>
-#include <cmath>
 #include "matrix.h"
-#include <random>
-#include <fstream>
-#include <stdlib.h>
-#include "../ppmloader/ppmloader.cpp"
-#include <cstring>
-#include "generadorRectas.h"
 float EPSILON = 0.00001;
 
 random_device randomDevice;

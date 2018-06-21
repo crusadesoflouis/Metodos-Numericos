@@ -1,9 +1,14 @@
 #ifndef _matrix_h__
 
 #include <iostream>
-#include <vector>
+#include <fstream>
 #include <stdio.h>
 #include <cstdlib>
+#include <random>
+#include <cstring>
+#include "../ppmloader/ppmloader.h"
+#include "generadorRectas.h"
+
 using namespace std;
 class matrix {
 public:
