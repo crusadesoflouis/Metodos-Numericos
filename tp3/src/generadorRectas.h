@@ -12,6 +12,10 @@ class GeneradorRectas {
 public:
     static void dame_rectas(vector<Recta> &rectas, Punto origen, int densidad, int ancho, int alto);
 
+    static void dame_rectas_sobre_base(vector<Recta> &rectas, int densidad, int distancia_entre_puntos, int alto,
+                                           int ancho);
+
+    static void dame_rectas(vector<Recta> &rectas, vector<Punto> origenes, int densidad, int ancho, int alto);
 private:
     static void recta(Recta &recta, Punto a, Punto b);
 };
