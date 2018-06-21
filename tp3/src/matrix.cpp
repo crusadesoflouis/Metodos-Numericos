@@ -11,7 +11,7 @@ float EPSILON = 0.00001;
 random_device randomDevice;
 mt19937 generator(randomDevice());
 float dame_ruido(int distribucion, float param1, float param2){
-  uniform_real_distribution<float> unif((-1)*param1,param2);  // rango [param1,param2]
+  uniform_real_distribution<float> unif(param1,param2);  // rango [param1,param2]
   std::normal_distribution<float> norm(param1, param2);      // (mean,desvStandart)
   std::poisson_distribution<int> poisson(param1);             // lambda = param 1
   float x =0;
@@ -28,11 +28,11 @@ float dame_ruido(int distribucion, float param1, float param2){
   }
 return x;
 }
-matrix matrix::copiar_con_ruido(matrix &A, int tipo_ruido,double param1,double param2){
-  matrix B(A.dame_filas(),A.dame_columnas());
-  for (size_t i = 0; i < A.dame_filas(); i++) {
-    for (size_t j = 0; j < A.dame_columnas(); j++) {
-      float valor = A.dame_elem_matrix(i,j);
+matrix matrix::copiar_con_ruido(int tipo_ruido,double param1,double param2){
+  matrix B(dame_filas(),dame_columnas());
+  for (size_t i = 0; i < dame_filas(); i++) {
+    for (size_t j = 0; j < dame_columnas(); j++) {
+      float valor = dame_elem_matrix(i,j);
       valor = valor + dame_ruido(tipo_ruido,param1,param2);
       B.agregar_elemento(i,j,valor);
     }

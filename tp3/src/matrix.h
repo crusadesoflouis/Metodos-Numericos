@@ -38,7 +38,7 @@ public:
     bool comparar(matrix &b);
     void absoluto();
     void rellenar_columna_con_vector(uint columna, matrix& V);
-    matrix copiar_con_ruido(matrix &A, int tipo_ruido,double param1,double param2);
+    matrix copiar_con_ruido(int tipo_ruido,double param1,double param2);
     //Cuadrados minimos
     void SCML(matrix& U,matrix &S,matrix &V,matrix &b);
     void Cuadrados_Minimos(matrix &B,matrix &b);
