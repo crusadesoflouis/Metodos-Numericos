@@ -11,7 +11,6 @@ public:
     ~matrix();
     matrix(unsigned int n,unsigned int m);
     matrix(char* nombreArchivo);
-    //matrix(vector<imagen> imagenes);
     void agregar_elemento(uint fila, uint columna, float elemento);
     float dame_elem_matrix(unsigned int fila, unsigned int columna);
     unsigned int dame_columnas();
@@ -25,6 +24,7 @@ public:
     void multiplicacion_escalar(float escalar);
     void division_escalar(float escalar);
     int dame_rango();
+    matrix discretizar();
     // normas
     void normalizar_2();
     // funciones para diagonalizar una matriz

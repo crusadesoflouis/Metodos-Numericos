@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include "../ppmloader/ppmloader.cpp"
 #include <cstring>
-#include "GeneradorRectas.h"
+#include "generadorRectas.h"
 float EPSILON = 0.00001;
 
 random_device randomDevice;
@@ -29,38 +29,6 @@ float dame_ruido(int distribucion, float param1, float param2){
   }
 return x;
 }
-
-float matrix::tiempo_recta_matrix(/*GeneradorRectas r*/){
-  float sumatoria = 0;
-  for (int i = 0; i < dame_filas(); i++) {
-    new
-    GeneradorRectas::dame_rectas()
-    //evaluar rint(F(i)) y fijarse si cae en la matrix, si cae ponemos, sumamos ;
-  }
-}
-
-
-
-vector<float> matrix::velocidades_matrix(/*generador de rectas */) {
-  vector<float> velocidades(/*longitud del generador*/);
-  for (int i = 0; i < /*longitud del generador */; i++) {
-    velocidades[i] = this->tiempo_recta_matrix(/*una recta */);
-  }
-  return velocidades;
-}
-
-
-
-void matrix::crear_matriz_distancias(matrix &ruidosa,/*generador de rectas*/) {
-  int n = ruidosa.dame_filas();
-  for (int i = 0; i < /*cantidad de rectas*/; i++) {
-    for (int  j = 0; j < n; j++) {
-      /* si el redondeo de F(j) esta en rango entonces, asignar a la posicion (transformacion de j f(j) a un vector )[j][f(j)] de la matrix A, un 1  */
-    }
-  }
-}
-
-
 
 matrix matrix::copiar_con_ruido(int tipo_ruido,double param1,double param2){
   matrix B(dame_filas(),dame_columnas());
@@ -161,17 +129,16 @@ matrix::matrix(char* nombreArchivo){
   archivo.close();
 }
 
-// matrix::matrix(vector<imagen> imgs){
-//   columnas = imgs[0].tamanio(); // asumo que todas las imagenes tienen el mismo tamaño
-//   filas = imgs.size();
-//   matriz.resize(imgs.size());
-//   for (size_t i = 0; i < imgs.size(); i++) {
-//     vector<float> actual = imgs[i].data();
-//     for (size_t j = 0; j < imgs[0].tamanio(); j++) {
-//       matriz[i].push_back((float)actual[j]);
-//     }
-//   }
-// }
+matrix matrix::discretizar(){
+  matrix res(filas/2,columnas/2);
+  for (int i = 0; i < filas; i+=2){
+    for (int j = 0; j < columnas; j+=2){
+      float suma = matriz[i][j]+matriz[i+1][j]+matriz[i][j+1]+matriz[i+1][j+1];
+      res.agregar_elemento(i/2,j/2,(int) suma/4);
+    }
+  }
+  return res;
+}
 
 unsigned int matrix::dame_filas() {
   return this->filas;
