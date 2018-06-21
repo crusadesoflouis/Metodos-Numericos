@@ -1,17 +1,21 @@
 #ifndef _matrix_h__
 
 #include <iostream>
-#include <vector>
+#include <fstream>
 #include <stdio.h>
 #include <cstdlib>
+#include <random>
+#include <cstring>
+#include "../ppmloader/ppmloader.h"
+#include "generadorRectas.h"
+
 using namespace std;
 class matrix {
 public:
     // funciones esenciales para poder manejarnos con las matrices
     ~matrix();
     matrix(unsigned int n,unsigned int m);
-    matrix(char* nombreArchivo);
-    //matrix(vector<imagen> imagenes);
+    matrix(string nombreArchivo);
     void agregar_elemento(uint fila, uint columna, float elemento);
     float dame_elem_matrix(unsigned int fila, unsigned int columna);
     unsigned int dame_columnas();
@@ -25,6 +29,7 @@ public:
     void multiplicacion_escalar(float escalar);
     void division_escalar(float escalar);
     int dame_rango();
+    matrix discretizar();
     // normas
     void normalizar_2();
     // funciones para diagonalizar una matriz
@@ -42,7 +47,9 @@ public:
     //Cuadrados minimos
     void SCML(matrix& U,matrix &S,matrix &V,matrix &b);
     void Cuadrados_Minimos(matrix &B,matrix &b);
+    // salida
     void mostrar();
+    void guardarEnImagen(string nombreArchivo);
 private:
     vector<vector <float> > matriz;
     unsigned int filas;

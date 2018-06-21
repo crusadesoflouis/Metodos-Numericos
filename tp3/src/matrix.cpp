@@ -1,12 +1,4 @@
-#include <assert.h>
-#include <cmath>
 #include "matrix.h"
-#include <random>
-#include <fstream>
-#include <stdlib.h>
-#include "../ppmloader/ppmloader.cpp"
-#include <cstring>
-#include "GeneradorRectas.h"
 float EPSILON = 0.00001;
 
 random_device randomDevice;
@@ -29,38 +21,6 @@ float dame_ruido(int distribucion, float param1, float param2){
   }
 return x;
 }
-
-float matrix::tiempo_recta_matrix(/*GeneradorRectas r*/){
-  float sumatoria = 0;
-  for (int i = 0; i < dame_filas(); i++) {
-    new
-    GeneradorRectas::dame_rectas()
-    //evaluar rint(F(i)) y fijarse si cae en la matrix, si cae ponemos, sumamos ;
-  }
-}
-
-
-
-vector<float> matrix::velocidades_matrix(/*generador de rectas */) {
-  vector<float> velocidades(/*longitud del generador*/);
-  for (int i = 0; i < /*longitud del generador */; i++) {
-    velocidades[i] = this->tiempo_recta_matrix(/*una recta */);
-  }
-  return velocidades;
-}
-
-
-
-void matrix::crear_matriz_distancias(matrix &ruidosa,/*generador de rectas*/) {
-  int n = ruidosa.dame_filas();
-  for (int i = 0; i < /*cantidad de rectas*/; i++) {
-    for (int  j = 0; j < n; j++) {
-      /* si el redondeo de F(j) esta en rango entonces, asignar a la posicion (transformacion de j f(j) a un vector )[j][f(j)] de la matrix A, un 1  */
-    }
-  }
-}
-
-
 
 matrix matrix::copiar_con_ruido(int tipo_ruido,double param1,double param2){
   matrix B(dame_filas(),dame_columnas());
@@ -142,36 +102,35 @@ matrix::matrix(unsigned int filas, unsigned int columnas) {
   this->columnas = columnas;
 }
 
-matrix::matrix(char* nombreArchivo){
+matrix::matrix(string nombreArchivo){
   fstream archivo;
   archivo.open(nombreArchivo);
   uchar *data = NULL;
   int width = 0;
   int height = 0;
   PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
-  LoadPPMFile(&data, &width, &height, &pt, nombreArchivo);
+  LoadPPMFile(&data, &width, &height, &pt, nombreArchivo.c_str());
   columnas = width;
   filas = height;
   matriz.resize(filas);
   for (size_t i = 0; i < filas; i++) {
     for (size_t j = 0; j < columnas; j++) {
-      matriz[i].push_back((float) data[i+j]);
+      matriz[i].push_back((float) data[(columnas*i)+j]);
     }
   }
   archivo.close();
 }
 
-// matrix::matrix(vector<imagen> imgs){
-//   columnas = imgs[0].tamanio(); // asumo que todas las imagenes tienen el mismo tamaño
-//   filas = imgs.size();
-//   matriz.resize(imgs.size());
-//   for (size_t i = 0; i < imgs.size(); i++) {
-//     vector<float> actual = imgs[i].data();
-//     for (size_t j = 0; j < imgs[0].tamanio(); j++) {
-//       matriz[i].push_back((float)actual[j]);
-//     }
-//   }
-// }
+matrix matrix::discretizar(){
+  matrix res(filas/2,columnas/2);
+  for (int i = 0; i < filas; i+=2){
+    for (int j = 0; j < columnas; j+=2){
+      float suma = matriz[i][j]+matriz[i+1][j]+matriz[i][j+1]+matriz[i+1][j+1];
+      res.agregar_elemento(i/2,j/2,(int) suma/4);
+    }
+  }
+  return res;
+}
 
 unsigned int matrix::dame_filas() {
   return this->filas;
@@ -452,4 +411,15 @@ void matrix::Cuadrados_Minimos(matrix &B,matrix &b){
 
 vector<vector<float>> matrix::dameMatriz(){
   return matriz;
+}
+
+void matrix::guardarEnImagen(string nombreArchivo){
+  PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_GRAY_8B;
+  uchar* datos = new uchar[filas*columnas];
+  for (int i = 0; i < filas; ++i){
+    for (int j = 0; j < columnas; ++j){
+      datos[(columnas*i)+j] = (uchar) matriz[i][j];
+    }
+  }
+  SavePPMFile(nombreArchivo.c_str(),datos,columnas,filas,pt);
 }
