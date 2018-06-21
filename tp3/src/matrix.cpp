@@ -102,20 +102,20 @@ matrix::matrix(unsigned int filas, unsigned int columnas) {
   this->columnas = columnas;
 }
 
-matrix::matrix(char* nombreArchivo){
+matrix::matrix(string nombreArchivo){
   fstream archivo;
   archivo.open(nombreArchivo);
   uchar *data = NULL;
   int width = 0;
   int height = 0;
   PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_INVALID;
-  LoadPPMFile(&data, &width, &height, &pt, nombreArchivo);
+  LoadPPMFile(&data, &width, &height, &pt, nombreArchivo.c_str());
   columnas = width;
   filas = height;
   matriz.resize(filas);
   for (size_t i = 0; i < filas; i++) {
     for (size_t j = 0; j < columnas; j++) {
-      matriz[i].push_back((float) data[i+j]);
+      matriz[i].push_back((float) data[(columnas*i)+j]);
     }
   }
   archivo.close();
@@ -411,4 +411,15 @@ void matrix::Cuadrados_Minimos(matrix &B,matrix &b){
 
 vector<vector<float>> matrix::dameMatriz(){
   return matriz;
+}
+
+void matrix::guardarEnImagen(string nombreArchivo){
+  PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_GRAY_8B;
+  uchar* datos = new uchar[filas*columnas];
+  for (int i = 0; i < filas; ++i){
+    for (int j = 0; j < columnas; ++j){
+      datos[(columnas*i)+j] = (uchar) matriz[i][j];
+    }
+  }
+  SavePPMFile(nombreArchivo.c_str(),datos,columnas,filas,pt);
 }

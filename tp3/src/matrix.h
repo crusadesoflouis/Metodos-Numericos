@@ -15,7 +15,7 @@ public:
     // funciones esenciales para poder manejarnos con las matrices
     ~matrix();
     matrix(unsigned int n,unsigned int m);
-    matrix(char* nombreArchivo);
+    matrix(string nombreArchivo);
     void agregar_elemento(uint fila, uint columna, float elemento);
     float dame_elem_matrix(unsigned int fila, unsigned int columna);
     unsigned int dame_columnas();
@@ -47,7 +47,9 @@ public:
     //Cuadrados minimos
     void SCML(matrix& U,matrix &S,matrix &V,matrix &b);
     void Cuadrados_Minimos(matrix &B,matrix &b);
+    // salida
     void mostrar();
+    void guardarEnImagen(string nombreArchivo);
 private:
     vector<vector <float> > matriz;
     unsigned int filas;

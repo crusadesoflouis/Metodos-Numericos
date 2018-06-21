@@ -1,26 +1,22 @@
 #include "matrix.h"
-
+#include <string>
 using namespace std;
 
-matrix crear_matriz(int filas, int columnas, float valores[]) {
-    matrix nueva(filas, columnas);
-    int c = 0;
-    for (size_t i = 0; i < filas; i++) {
-        for (size_t j = 0; j < columnas; j++) {
-            nueva.agregar_elemento(i, j, valores[c]);
-            c++;
-        }
-    }
-    return nueva;
-}
-
 int main(int argc, char **argv) {
-    char * nombreImagen = NULL;
+    string nombreImagen;
     cin >> nombreImagen;
     bool hayQueAchicar;
     cin >> hayQueAchicar;
+    int distRuido;
+    cin >> distRuido;
     matrix original = matrix(nombreImagen);
     if (hayQueAchicar){
         original = original.discretizar();
     }
+    // llamar a generar rectas a la matriz originial
+    // proceso tomografico
+    matrix ruido = original.copiar_con_ruido(distRuido, 0.5, 1);
+    // llamar a generar rectas a la matriz de ruido
+    // hacer cuadrados minimos con la matriz de ruido
+    ruido.guardarEnImagen(nombreImagen+".salida");
 }
