@@ -1,7 +1,7 @@
 #include "aplicadorRectas.h"
 
 void
-AplicadorRectas::aplicar_rectas(matrix &imagen, vector<Recta> rectas, vector<float> &velocidades, matrix &destino) {
+AplicadorRectas::aplicar_rectas(matrix &imagen, vector<Recta> &rectas, vector<float> &velocidades, matrix &destino) {
     for (unsigned int i = 0; i < rectas.size(); ++i) {
         aplicar(i, rectas[i], imagen, destino, velocidades);
     }
@@ -15,7 +15,7 @@ void AplicadorRectas::aplicar(unsigned int posicion, Recta &recta, matrix &image
     auto i = (float) origen.second;
     auto j = (float) origen.first;
 
-    while (i < imagen.dame_filas() && j < imagen.dame_columnas()) {
+    while (i < imagen.dame_filas() && 0 <= i && 0<= j && j < imagen.dame_columnas()) {
         u_int i_destino = posicion;
         u_int j_destino = (imagen.dame_columnas() * (unsigned int) i) + (unsigned int) j;
 

@@ -12,7 +12,7 @@ typedef pair<float, Punto> Recta;
 
 class AplicadorRectas {
 public:
-    static void aplicar_rectas(matrix &imagen, vector<Recta> rectas, vector<float> &velocidades, matrix &destino);
+    static void aplicar_rectas(matrix &imagen, vector<Recta> &rectas, vector<float> &velocidades, matrix &destino);
 
 private:
 
