@@ -2,6 +2,7 @@
 #include <vector>
 #include <tuple>
 #include <math.h>
+#include <cassert>
 
 using namespace std;
 
