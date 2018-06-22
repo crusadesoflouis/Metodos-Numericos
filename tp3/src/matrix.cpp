@@ -377,12 +377,14 @@ void matrix::SCML(matrix& U,matrix &S,matrix &V,matrix &b){
     suma(v_i);
   }
 }
-void matrix::Cuadrados_Minimos(matrix &B,matrix &b){
-    matrix B_t = B.trasponer();
+
+matrix matrix::Cuadrados_Minimos(matrix &b){
+
+    matrix B_t = trasponer();
     //B_t.mostrar();
 
-    matrix A(B_t.dame_filas(),B.dame_columnas());
-    A.multiplicacion(B_t,B);
+    matrix A(B_t.dame_filas(),dame_columnas());
+    A.multiplicacion(B_t,*this);
 
     //A.mostrar();
 
@@ -398,19 +400,38 @@ void matrix::Cuadrados_Minimos(matrix &B,matrix &b){
     S.matriz_Sigma(D);
     //S.mostrar();
 
-    matrix U(B.dame_filas(),S.dame_rango());
+    matrix U(dame_filas(),S.dame_rango());
     // a la mtrix D tenemos que sacarle la raiz
-    B.conversionUaV(V,S,U);
+    conversionUaV(V,S,U);
 
     //U.mostrar();
     U = U.trasponer();
-    SCML(U,S,V,b);
-
-    mostrar();
+    matrix res = matrix(dame_columnas(),1);
+    res.SCML(U,S,V,b);
+    return res;
 }
 
 vector<vector<float>> matrix::dameMatriz(){
   return matriz;
+}
+
+void matrix::desaplanar(){
+	vector<vector<float>> nuevaMatriz(sqrt(filas));
+	for (int i = 0; i < filas; ++i){
+		nuevaMatriz[i].resize(sqrt(filas));
+		for (int j = 0; j < columnas; ++j){
+			nuevaMatriz[i][j] = matriz[sqrt(filas)*i+j][0];
+		}
+	}
+	matriz = nuevaMatriz;
+	filas = sqrt(columnas);
+	columnas = filas;
+}
+
+void matrix::pasar_vector_matriz(vector<float> velocidades){
+	for (uint i = 0; i < dame_filas(); ++i){
+		matriz[i][0] = velocidades[i];
+	}
 }
 
 void matrix::guardarEnImagen(string nombreArchivo){

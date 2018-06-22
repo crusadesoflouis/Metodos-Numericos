@@ -46,6 +46,7 @@ public:
     int dame_rango();
 
     matrix discretizar();
+    void pasar_vector_matriz(vector<float> velocidades);
 
     // normas
     void normalizar_2();
@@ -75,7 +76,9 @@ public:
     //Cuadrados minimos
     void SCML(matrix &U, matrix &S, matrix &V, matrix &b);
 
-    void Cuadrados_Minimos(matrix &B, matrix &b);
+    matrix Cuadrados_Minimos(matrix &b);
+
+    void desaplanar();
 
     // salida
     void mostrar();
