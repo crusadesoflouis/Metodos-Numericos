@@ -11,7 +11,7 @@ typedef pair<float, Punto> Recta;
 
 class GeneradorRectas {
 public:
-    static void dame_rectas(vector<Recta> &rectas, Punto origen, int densidad, int ancho, int alto);
+    static void dame_rectas(vector<Recta> &rectas, Punto origen, int densidad, uint ancho, uint alto);
 
     static void dame_rectas_sobre_base(vector<Recta> &rectas, int densidad, int distancia_entre_puntos, int alto,
                                            int ancho);

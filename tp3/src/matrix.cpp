@@ -123,8 +123,8 @@ matrix::matrix(string nombreArchivo){
 
 matrix matrix::discretizar(){
   matrix res(filas/2,columnas/2);
-  for (int i = 0; i < filas; i+=2){
-    for (int j = 0; j < columnas; j+=2){
+  for (uint i = 0; i < filas; i+=2){
+    for (uint j = 0; j < columnas; j+=2){
       float suma = matriz[i][j]+matriz[i+1][j]+matriz[i][j+1]+matriz[i+1][j+1];
       res.agregar_elemento(i/2,j/2,(int) suma/4);
     }
@@ -366,7 +366,7 @@ int matrix::dame_rango(){
 //recibe U^t, S, V normal,
 void matrix::SCML(matrix& U,matrix &S,matrix &V,matrix &b){
   float lamda = 0;
-  for (int i = 0; i < U.dame_filas(); ++i){
+  for (uint i = 0; i < U.dame_filas(); ++i){
     lamda = producto_interno(U,b,i,0);
     lamda = lamda / S.dame_elem_matrix(i,i);
     matrix  e_i = crear_canonico(V.dame_filas(),i);
@@ -416,8 +416,8 @@ vector<vector<float>> matrix::dameMatriz(){
 void matrix::guardarEnImagen(string nombreArchivo){
   PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_GRAY_8B;
   uchar* datos = new uchar[filas*columnas];
-  for (int i = 0; i < filas; ++i){
-    for (int j = 0; j < columnas; ++j){
+  for (uint i = 0; i < filas; ++i){
+    for (uint j = 0; j < columnas; ++j){
       datos[(columnas*i)+j] = (uchar) matriz[i][j];
     }
   }
