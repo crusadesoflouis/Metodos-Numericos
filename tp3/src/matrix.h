@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <random>
 #include <cstring>
+#include <cassert>
 #include "ppmloader.h"
 
 using namespace std;
