@@ -423,7 +423,7 @@ void matrix::desaplanar(){
 			nuevaMatriz[i][j] = matriz[sqrt(filas)*i+j][0];
 		}
 	}
-	matriz = nuevaMatriz;
+  matriz = nuevaMatriz;
 	filas = sqrt(columnas);
 	columnas = filas;
 }

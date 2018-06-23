@@ -45,8 +45,11 @@ int main(int argc, char **argv) {
     cout << destino.dame_filas() << ", " << destino.dame_columnas();
 
     vector<float> velocidades(rectas.size());
-    AplicadorRectas::aplicar_rectas(imagen, rectas, velocidades, destino);
+    Recta patologica = rectas[28];
+    rectas.clear();
+    rectas.push_back(patologica);
 
+    AplicadorRectas::aplicar_rectas(imagen, rectas, velocidades, destino);
 
     mostrar(destino, 0, imagen.dame_columnas());
     return 0;

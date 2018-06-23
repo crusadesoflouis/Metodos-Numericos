@@ -23,7 +23,6 @@ int main(int argc, char **argv) {
     AplicadorRectas::aplicar_rectas(original, rectas, velocidades, destino);
     matrix velocidadesMatriz(velocidades.size(),1);
     velocidadesMatriz.pasar_vector_matriz(velocidades);
-    // hacer cuadrados minimos con la matriz de ruido
     matrix solucion = destino.Cuadrados_Minimos(velocidadesMatriz);
     solucion.desaplanar();
     solucion.guardarEnImagen(nombreImagen+".salida");
