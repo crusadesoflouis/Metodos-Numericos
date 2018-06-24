@@ -78,8 +78,6 @@ public:
 
     matrix Cuadrados_Minimos(matrix &b);
 
-    void desaplanar();
-
     // salida
     void mostrar();
 

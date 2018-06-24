@@ -24,6 +24,5 @@ int main(int argc, char **argv) {
     matrix velocidadesMatriz(velocidades.size(),1);
     velocidadesMatriz.pasar_vector_matriz(velocidades);
     matrix solucion = destino.Cuadrados_Minimos(velocidadesMatriz);
-    solucion.desaplanar();
     solucion.guardarEnImagen(nombreImagen+".salida");
 }

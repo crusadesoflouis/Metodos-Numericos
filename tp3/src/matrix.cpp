@@ -415,19 +415,6 @@ vector<vector<float>> matrix::dameMatriz(){
   return matriz;
 }
 
-void matrix::desaplanar(){
-	vector<vector<float>> nuevaMatriz(sqrt(filas));
-	for (int i = 0; i < filas; ++i){
-		nuevaMatriz[i].resize(sqrt(filas));
-		for (int j = 0; j < columnas; ++j){
-			nuevaMatriz[i][j] = matriz[sqrt(filas)*i+j][0];
-		}
-	}
-  matriz = nuevaMatriz;
-	filas = sqrt(columnas);
-	columnas = filas;
-}
-
 void matrix::pasar_vector_matriz(vector<float> velocidades){
 	for (uint i = 0; i < dame_filas(); ++i){
 		matriz[i][0] = velocidades[i];
