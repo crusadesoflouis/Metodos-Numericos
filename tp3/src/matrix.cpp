@@ -1,5 +1,5 @@
 #include "matrix.h"
-float EPSILON = 0.00001;
+float EPSILON = 0.0001;
 
 random_device randomDevice;
 mt19937 generator(randomDevice());
@@ -297,8 +297,9 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
 
   matrix autovector(dame_filas(),1);
   matrix x_0(dame_filas(),1);
-  for (size_t i = 0; i < alfa; i++) {
-    float autovalor = 0;
+  float autovalor = 1;
+  int i =0;
+  while(i < alfa && sqrt(autovalor) >= EPSILON){   
     //genera vector random
     // TODO: hacer un vector inicial con la media de la matriz
     for (size_t j = 0; j < x_0.dame_filas(); j++) {
@@ -314,6 +315,7 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
     U.rellenar_columna_con_vector(i, autovector);
     D.agregar_elemento(i, i, autovalor);
     this->deflacion(autovector,autovalor);
+    i++;
   }
 }
 
@@ -366,10 +368,10 @@ int matrix::dame_rango(){
 //recibe U^t, S, V normal,
 void matrix::SCML(matrix& U,matrix &S,matrix &V,matrix &b){
   float lamda = 0;
-  for (uint i = 0; i < U.dame_filas(); ++i){
+  for (uint i = 0; i < V.dame_columnas(); ++i){
     lamda = producto_interno(U,b,i,0);
     lamda = lamda / S.dame_elem_matrix(i,i);
-    matrix  e_i = crear_canonico(V.dame_filas(),i);
+    matrix  e_i = crear_canonico(V.dame_columnas(),i);
     // e_i.mostrar();
     matrix v_i(V.dame_filas(),1);
     v_i.multiplicacion(V,e_i);
@@ -383,30 +385,27 @@ matrix matrix::Cuadrados_Minimos(matrix &b){
     matrix B_t = trasponer();
     //B_t.mostrar();
 
-    matrix A(B_t.dame_filas(),dame_columnas());
-    A.multiplicacion(B_t,*this);
-
-    //A.mostrar();
-
+    matrix A(dame_filas(),B_t.dame_columnas());
+    A.multiplicacion(*this,B_t);
     matrix D(A.dame_filas(),A.dame_columnas());
-    matrix V(A.dame_filas(),A.dame_columnas());
+    matrix U(A.dame_filas(),A.dame_columnas());
 
-
-    A.generacion_U_D(V,D,3);
+    A.generacion_U_D(U,D,A.dame_columnas());
     //D.mostrar();
-    //V.mostrar();
+    //U.mostrar();
 
     matrix S(D.dame_filas(),D.dame_columnas());
     S.matriz_Sigma(D);
     //S.mostrar();
 
-    matrix U(dame_filas(),S.dame_rango());
-    // a la mtrix D tenemos que sacarle la raiz
-    conversionUaV(V,S,U);
+    matrix V(dame_columnas(),S.dame_rango());
+    B_t.conversionUaV(U,S,V);
+    //V.mostrar();
 
     //U.mostrar();
     U = U.trasponer();
     matrix res = matrix(dame_columnas(),1);
+    cout << "fase solucion" << endl;
     res.SCML(U,S,V,b);
     return res;
 }

@@ -30,27 +30,23 @@ void mostrar(matrix &matriz, u_int fila, u_int cantidadColumnas) {
 }
 
 
-int main(int argc, char **argv) {
-    matrix imagen(argv[1]);
-    //imagen.mostrar();
+int main() {
 
-    u_int ancho = imagen.dame_columnas();
-    u_int alto = imagen.dame_filas();
+    float arr1[] = {10,15,23,4,3,2,9,15,
+                    31,12,26,15,11,16,21,9,
+                    21,10,4,9,11,15,9,8,
+                    12,21,15,33,15,11,21,31};
 
-    vector<Recta> rectas;
-    GeneradorRectas::dame_rectas_sobre_base(rectas, 20, 20, alto, ancho);
+    float arr2[] = {2,
+                    1,
+                    3,
+                    5};
 
-    //(n, n*m)
-    matrix destino(rectas.size(), imagen.dame_filas() * imagen.dame_columnas());
-    cout << destino.dame_filas() << ", " << destino.dame_columnas();
+    matrix B = crear_matriz(4,8,arr1);
+    matrix b = crear_matriz(4,1,arr2);
+    B.mostrar();
+    b.mostrar();
+    matrix solucion = B.Cuadrados_Minimos(b);
+    solucion.mostrar();                
 
-    vector<float> velocidades(rectas.size());
-    Recta patologica = rectas[28];
-    rectas.clear();
-    rectas.push_back(patologica);
-
-    AplicadorRectas::aplicar_rectas(imagen, rectas, velocidades, destino);
-
-    mostrar(destino, 0, imagen.dame_columnas());
-    return 0;
 }
