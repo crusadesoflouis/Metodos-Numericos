@@ -77,6 +77,7 @@ public:
     void SCML(matrix &U, matrix &S, matrix &V, matrix &b);
 
     matrix Cuadrados_Minimos(matrix &b);
+    float ECM(matrix &solucion,matrix &vel_original);
 
     // salida
     void mostrar();

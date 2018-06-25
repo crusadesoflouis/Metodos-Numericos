@@ -299,7 +299,8 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
   matrix x_0(dame_filas(),1);
   float autovalor = EPSILON;
   int i =0;
-  while(i < alfa){   
+  bool salir = true;
+  while(i < alfa && salir){   
     //genera vector random
     // TODO: hacer un vector inicial con la media de la matriz
     for (size_t j = 0; j < x_0.dame_filas(); j++) {
@@ -314,8 +315,10 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
       U.rellenar_columna_con_vector(i, autovector);
       D.agregar_elemento(i, i, autovalor);
       this->deflacion(autovector,autovalor);
+      i++;
+    }else{
+      salir = false;
     }
-    i++;
   }
 }
 
@@ -409,6 +412,19 @@ matrix matrix::Cuadrados_Minimos(matrix &b){
     res.SCML(U,S,V,b);
     return res;
 }
+
+float matrix::ECM(matrix &solucion,matrix &vel_original){
+  float res =0;
+  matrix vector_error(vel_original.dame_filas(),1);
+  vector_error.multiplicacion(*this,solucion);
+  vector_error.restar(vel_original);
+  matrix vector_error_t(1,vel_original.dame_filas());
+  vector_error_t = vector_error.trasponer();
+  res = producto_interno(vector_error_t,vector_error,0,0);
+  res = res/dame_columnas();
+  return res;
+}
+
 
 vector<vector<float>> matrix::dameMatriz(){
   return matriz;

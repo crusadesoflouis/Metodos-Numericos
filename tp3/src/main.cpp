@@ -16,8 +16,9 @@ int main(int argc, char **argv) {
     u_int alto = original.dame_filas();
     vector<Recta> rectas;
     cout << "primera fase" << endl;
-    GeneradorRectas::dame_rectas_sobre_base(rectas, 20, 20, alto, ancho);
+    GeneradorRectas::dame_rectas_sobre_base(rectas, 32768, 1, alto, ancho);
     matrix destino(rectas.size(), alto*ancho);
+    cout << "cantidad de rectas es " << rectas.size() << endl;
     vector<float> velocidades(rectas.size());
     cout << "face rectas" << endl;
     AplicadorRectas::aplicar_rectas(original, rectas, velocidades, destino);
@@ -26,6 +27,8 @@ int main(int argc, char **argv) {
     velocidadesMatriz.pasar_vector_matriz(velocidades);
     cout << "Cuadrados_Minimos" << endl;
     matrix solucion = destino.Cuadrados_Minimos(velocidadesMatriz);
-    solucion.mostrar();
-    solucion.guardarEnImagen(nombreImagen+".salida");
+    float error = destino.ECM(solucion,velocidadesMatriz);
+    cout << "error cuadratico medio es " << error << endl;
+
+    //solucion.guardarEnImagen(nombreImagen+".salida");
 }
