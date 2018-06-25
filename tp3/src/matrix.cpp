@@ -297,9 +297,9 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
 
   matrix autovector(dame_filas(),1);
   matrix x_0(dame_filas(),1);
-  float autovalor = 1;
+  float autovalor = EPSILON;
   int i =0;
-  while(i < alfa && sqrt(autovalor) >= EPSILON){   
+  while(i < alfa){   
     //genera vector random
     // TODO: hacer un vector inicial con la media de la matriz
     for (size_t j = 0; j < x_0.dame_filas(); j++) {
@@ -308,13 +308,13 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
     x_0.normalizar_2();
 
     autovalor = this->metodo_potencia(x_0,500,autovector);
-
     //si no son parecidos, cambiamos la semilla del vector
     //hacer deflacion
-
-    U.rellenar_columna_con_vector(i, autovector);
-    D.agregar_elemento(i, i, autovalor);
-    this->deflacion(autovector,autovalor);
+    if(sqrt(autovalor) > EPSILON){
+      U.rellenar_columna_con_vector(i, autovector);
+      D.agregar_elemento(i, i, autovalor);
+      this->deflacion(autovector,autovalor);
+    }
     i++;
   }
 }

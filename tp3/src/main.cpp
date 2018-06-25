@@ -26,5 +26,6 @@ int main(int argc, char **argv) {
     velocidadesMatriz.pasar_vector_matriz(velocidades);
     cout << "Cuadrados_Minimos" << endl;
     matrix solucion = destino.Cuadrados_Minimos(velocidadesMatriz);
+    solucion.mostrar();
     solucion.guardarEnImagen(nombreImagen+".salida");
 }
