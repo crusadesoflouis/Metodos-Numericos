@@ -45,7 +45,7 @@ public:
 
     int dame_rango();
 
-    matrix discretizar();
+    matrix reducir_tamano();
     void pasar_vector_matriz(vector<float> velocidades);
 
     // normas

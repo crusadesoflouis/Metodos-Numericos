@@ -121,7 +121,7 @@ matrix::matrix(string nombreArchivo){
   archivo.close();
 }
 
-matrix matrix::discretizar(){
+matrix matrix::reducir_tamano(){
   matrix res(filas/2,columnas/2);
   for (uint i = 0; i < filas; i+=2){
     for (uint j = 0; j < columnas; j+=2){

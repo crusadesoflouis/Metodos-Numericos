@@ -9,14 +9,14 @@ int main(int argc, char **argv) {
     cin >> hayQueAchicar;
     matrix original = matrix(nombreImagen);
     if (hayQueAchicar){
-        original = original.discretizar();
+        original = original.reducir_tamano();
     }
     // llamar a generar rectas a la matriz originial
     u_int ancho = original.dame_columnas();
     u_int alto = original.dame_filas();
     vector<Recta> rectas;
     cout << "primera fase" << endl;
-    GeneradorRectas::dame_rectas_sobre_base(rectas, 32768, 1, alto, ancho);
+    GeneradorRectas::dame_rectas_sobre_base(rectas, 20, 1, alto, ancho);
     matrix destino(rectas.size(), alto*ancho);
     cout << "cantidad de rectas es " << rectas.size() << endl;
     vector<float> velocidades(rectas.size());
