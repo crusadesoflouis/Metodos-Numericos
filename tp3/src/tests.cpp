@@ -32,23 +32,14 @@ void mostrar(matrix &matriz, u_int fila, u_int cantidadColumnas) {
 
 int main() {
 
-    float arr1[] = {3,3,5,
-                    2,2,7,
-                    3,3,9,
-                    10,10,1,
-                    5,5,6};
+    float arr1[] = {0,1,0,1,0,3,2,1,2,0,1,3,4,5,3,6,
+                    2,2,1,0,1,2,1,3,1,0,1,3,4,5,4,1,
+                    3,3,9,2,1,2,3,1,2,1,3,1,2,3,1,2,
+                    1,1,1,0,1,0,1,2,0,3,1,0,2,1,0,3,
+                    5,5,6,1,0,2,1,2,3,1,4,1,2,5,1,2};
 
-    float arr2[] = {2,
-                    1,
-                    3,
-                    5,
-                    6};
-
-    matrix B = crear_matriz(5,3,arr1);
-    matrix b = crear_matriz(5,1,arr2);
+    matrix B = crear_matriz(5,16,arr1);
     B.mostrar();
-    b.mostrar();
-    matrix solucion = B.Cuadrados_Minimos(b);
-    solucion.mostrar();                
-
+    matrix matriz_discre = B.discretizacion();
+    matriz_discre.mostrar();
 }

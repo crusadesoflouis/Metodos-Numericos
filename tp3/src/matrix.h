@@ -45,8 +45,14 @@ public:
 
     int dame_rango();
 
+    //reduciones de matrices y discretizaciones
+    matrix discretizacion();
+
     matrix reducir_tamano();
-    void pasar_vector_matriz(vector<float> velocidades);
+
+    void pasar_vector_matriz(vector<float>& velocidades);
+
+    void pasar_matriz_vector(matrix &imagen_ori);
 
     // normas
     void normalizar_2();
@@ -77,7 +83,7 @@ public:
     void SCML(matrix &U, matrix &S, matrix &V, matrix &b);
 
     matrix Cuadrados_Minimos(matrix &b);
-    float ECM(matrix &solucion,matrix &vel_original);
+    float ECM(matrix &vel_discreta);
 
     // salida
     void mostrar();

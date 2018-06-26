@@ -132,6 +132,26 @@ matrix matrix::reducir_tamano(){
   return res;
 }
 
+matrix matrix::discretizacion(){
+  int n = sqrt(dame_columnas());
+  matrix A(dame_filas(),(dame_columnas()/2));
+  for (uint i = 0; i < dame_filas(); ++i){
+    for (uint j = 0; j < dame_columnas(); j+=2){
+      A.agregar_elemento(i,j/2,(dame_elem_matrix(i,j) + dame_elem_matrix(i,j+1)));
+    }
+  }
+  matrix B(dame_filas(),dame_columnas()/4);
+  for (uint i = 0; i < A.dame_filas(); ++i){
+    for (uint j = 0; j < n/2; j++ ){
+      for (uint k = 0; k < n/2; ++k){
+      B.agregar_elemento(i,(n/2)*j+k,A.dame_elem_matrix(i,n*j+k) + A.dame_elem_matrix(i,(n*j)+k+(n/2)));
+      }
+    }
+  }
+  return B;
+}
+
+
 unsigned int matrix::dame_filas() {
   return this->filas;
 }
@@ -413,15 +433,13 @@ matrix matrix::Cuadrados_Minimos(matrix &b){
     return res;
 }
 
-float matrix::ECM(matrix &solucion,matrix &vel_original){
+float matrix::ECM(matrix &vel_discreta){
   float res =0;
-  matrix vector_error(vel_original.dame_filas(),1);
-  vector_error.multiplicacion(*this,solucion);
-  vector_error.restar(vel_original);
-  matrix vector_error_t(1,vel_original.dame_filas());
-  vector_error_t = vector_error.trasponer();
-  res = producto_interno(vector_error_t,vector_error,0,0);
-  res = res/dame_columnas();
+  restar(vel_discreta);
+  matrix vector_error_t(1,dame_filas());
+  vector_error_t = trasponer();
+  res = producto_interno(vector_error_t,*this,0,0);
+  res = res/dame_filas();
   return res;
 }
 
@@ -430,10 +448,18 @@ vector<vector<float>> matrix::dameMatriz(){
   return matriz;
 }
 
-void matrix::pasar_vector_matriz(vector<float> velocidades){
+void matrix::pasar_vector_matriz(vector<float>& velocidades){
 	for (uint i = 0; i < dame_filas(); ++i){
 		matriz[i][0] = velocidades[i];
 	}
+}
+
+void matrix::pasar_matriz_vector(matrix &imagen_ori){
+  for (uint i = 0; i < imagen_ori.dame_filas(); ++i){
+    for (uint j = 0; j < imagen_ori.dame_columnas(); ++j){
+    matriz[(imagen_ori.dame_filas()*i)+j][0] = imagen_ori.dame_elem_matrix(i,j);
+    }
+  }
 }
 
 void matrix::guardarEnImagen(string nombreArchivo){

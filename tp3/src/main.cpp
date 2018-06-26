@@ -5,30 +5,38 @@ using namespace std;
 int main(int argc, char **argv) {
     string nombreImagen;
     cin >> nombreImagen;
-    bool hayQueAchicar;
-    cin >> hayQueAchicar;
+    // bool hayQueAchicar;
+    // cin >> hayQueAchicar;
     matrix original = matrix(nombreImagen);
-    if (hayQueAchicar){
-        original = original.reducir_tamano();
-    }
+    matrix original_reduc = original.reducir_tamano();
+    // if (hayQueAchicar){
+    //     matrix original_reduc = original.reducir_tamano();
+    // }
     // llamar a generar rectas a la matriz originial
     u_int ancho = original.dame_columnas();
     u_int alto = original.dame_filas();
     vector<Recta> rectas;
-    cout << "primera fase" << endl;
-    GeneradorRectas::dame_rectas_sobre_base(rectas, 20, 1, alto, ancho);
+    GeneradorRectas::dame_rectas_sobre_base(rectas, 20, 20, alto, ancho);
     matrix destino(rectas.size(), alto*ancho);
     cout << "cantidad de rectas es " << rectas.size() << endl;
-    vector<float> velocidades(rectas.size());
-    cout << "face rectas" << endl;
-    AplicadorRectas::aplicar_rectas(original, rectas, velocidades, destino);
-    cout << "segunda fase" << endl;
-    matrix velocidadesMatriz(velocidades.size(),1);
-    velocidadesMatriz.pasar_vector_matriz(velocidades);
-    cout << "Cuadrados_Minimos" << endl;
-    matrix solucion = destino.Cuadrados_Minimos(velocidadesMatriz);
-    float error = destino.ECM(solucion,velocidadesMatriz);
+    vector<float> tiempos(rectas.size());
+    AplicadorRectas::aplicar_rectas(original, rectas, tiempos, destino);
+    matrix matriz_discre = destino.discretizacion();
+    cout << "primera discretizacion " << matriz_discre.dame_filas() << ", " << matriz_discre.dame_columnas() << endl;
+    matrix tiemposMatriz(tiempos.size(),1);
+    tiemposMatriz.pasar_vector_matriz(tiempos);
+    cout << "Cuadrados_Minimos de la discretizacion" << endl;
+    matrix velocidades_discre = matriz_discre.Cuadrados_Minimos(tiemposMatriz);
+    cout << "calulo velocidad original" << endl;
+    matrix velocidades_ori(original_reduc.dame_filas()*original_reduc.dame_columnas(),1);
+    velocidades_ori.pasar_matriz_vector(original_reduc);
+    float error = velocidades_ori.ECM(velocidades_discre);
     cout << "error cuadratico medio es " << error << endl;
 
     //solucion.guardarEnImagen(nombreImagen+".salida");
+
+
+
+    // error cuadratico medio es 1.29119e+06 cuadrilla igual a la imagen
+    // error cuadratico medio es 4.10889e+06 cuadrilla tamaño 128x128
 }
