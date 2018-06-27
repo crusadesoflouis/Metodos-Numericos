@@ -467,8 +467,9 @@ void matrix::guardarEnImagen(string nombreArchivo){
   uchar* datos = new uchar[filas*columnas];
   for (uint i = 0; i < filas; ++i){
     for (uint j = 0; j < columnas; ++j){
-      datos[(columnas*i)+j] = (uchar) matriz[i][j];
+      uchar actual = (matriz[i][j] <= 255)?((matriz[i][j] >= 0)?(uchar)matriz[i][j]:0):255;
+      datos[(columnas*i)+j] = actual;
     }
   }
-  SavePPMFile(nombreArchivo.c_str(),datos,columnas,filas,pt);
+  SavePPMFile(nombreArchivo.c_str(),datos,sqrt(filas),sqrt(filas),pt);
 }
