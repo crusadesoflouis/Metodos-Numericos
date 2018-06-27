@@ -9,9 +9,9 @@ void GeneradorRectas::recta(Recta &recta, Punto a, Punto b) {
     recta = make_pair(m, b);
 }
 
-void GeneradorRectas::dame_rectas(vector<Recta> &rectas, Punto origen, int densidad, uint ancho, uint alto) {
+void GeneradorRectas::dame_rectas(vector<Recta> &rectas, Punto origen, int densidad, unsigned int ancho, unsigned int alto) {
     assert(origen.second == 0);
-    for (uint i = 0; i <= alto - 2; i = i + densidad) {
+    for (unsigned int i = 0; i <= alto - 2; i = i + densidad) {
         Punto nuevo_izq = make_pair(0, i);
         Punto nuevo_der = make_pair(ancho - 1, i);
 
@@ -29,7 +29,7 @@ void GeneradorRectas::dame_rectas(vector<Recta> &rectas, Punto origen, int densi
     }
 
     for (int i = ancho - 1; i >= 0; i = i - densidad) {
-        if (origen.first != (uint) i) {
+        if (origen.first != (unsigned int) i) {
             Punto nuevo = make_pair(i, alto - 1);
             Recta r;
             recta(r, nuevo, origen);
