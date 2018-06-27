@@ -18,7 +18,7 @@ matrix crear_matriz(int filas, int columnas, float valores[]) {
 }
 
 void mostrar(matrix &matriz, u_int fila, u_int cantidadColumnas) {
-    std::cout << '\n';
+    std::cout << fila << ' tuvieja\n';
     for (unsigned int i = 0; i < cantidadColumnas; i++) {
         for (unsigned int j = 0; j < cantidadColumnas; j++) {
             float elem = matriz.dame_elem_matrix(fila, i + j * cantidadColumnas);
@@ -30,16 +30,25 @@ void mostrar(matrix &matriz, u_int fila, u_int cantidadColumnas) {
 }
 
 
-int main() {
+int main(int argc, char **argv) {
+matrix imagen(argv[1]);
+//imagen.mostrar();
 
-    float arr1[] = {0,1,0,1,0,3,2,1,2,0,1,3,4,5,3,6,
-                    2,2,1,0,1,2,1,3,1,0,1,3,4,5,4,1,
-                    3,3,9,2,1,2,3,1,2,1,3,1,2,3,1,2,
-                    1,1,1,0,1,0,1,2,0,3,1,0,2,1,0,3,
-                    5,5,6,1,0,2,1,2,3,1,4,1,2,5,1,2};
+u_int ancho = imagen.dame_columnas();
+u_int alto = imagen.dame_filas();
 
-    matrix B = crear_matriz(5,16,arr1);
-    B.mostrar();
-    matrix matriz_discre = B.discretizacion();
-    matriz_discre.mostrar();
+vector<Recta> rectas;
+GeneradorRectas::dame_rectas_sobre_base(rectas, 20, 20, alto, ancho);
+
+//(n, n*m)
+matrix destino(rectas.size(), imagen.dame_filas() * imagen.dame_columnas());
+cout << destino.dame_filas() << ", " << destino.dame_columnas();
+
+vector<float> velocidades(rectas.size());
+
+AplicadorRectas::aplicar_rectas(imagen, rectas, velocidades, destino);
+for (int i = 0; i < rectas.size(); ++i){
+    mostrar(destino, i, imagen.dame_columnas());
+}
+return 0;
 }
