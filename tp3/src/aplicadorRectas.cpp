@@ -12,10 +12,10 @@ void AplicadorRectas::aplicar(unsigned int posicion, Recta &recta, matrix &image
     float velocidad = 0;
 
     Punto origen = recta.second;
-    auto i = (float) origen.second;
-    auto j = (float) origen.first;
+    auto i = (float) origen.first;
+    auto j = (float) origen.second;
 
-    while (i < imagen.dame_filas() && 0 <= i && 0<= j && j < imagen.dame_columnas()) {
+    while (i < imagen.dame_filas() && 0 <= i && 0 <= j && j < imagen.dame_columnas()) {
         u_int i_destino = posicion;
         u_int j_destino = (imagen.dame_columnas() * (unsigned int) i) + (unsigned int) j;
 
@@ -29,7 +29,7 @@ void AplicadorRectas::aplicar(unsigned int posicion, Recta &recta, matrix &image
 
 void AplicadorRectas::dame_proximo_punto(Recta &recta, float &i, float &j) {
     float m = recta.first;
-    i++;
-    j = j + m;
+    (m >= 0) ? i++ : i--;
+    j = j + abs(m);
 }
 
