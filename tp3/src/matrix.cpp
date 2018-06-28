@@ -1,5 +1,5 @@
 #include "matrix.h"
-float EPSILON = 0.0001;
+float EPSILON = 0.0000000000001;
 
 random_device randomDevice;
 mt19937 generator(randomDevice());
@@ -335,7 +335,7 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
       U.rellenar_columna_con_vector(i, autovector);
       D.agregar_elemento(i, i, autovalor);
       this->deflacion(autovector,autovalor);
-      cout << i << endl;
+      //cout << i << endl;
       i++;
     }else{
       salir = false;
