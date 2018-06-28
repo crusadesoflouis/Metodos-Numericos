@@ -82,7 +82,7 @@ public:
     //Cuadrados minimos
     void SCML(matrix &U, matrix &S, matrix &V, matrix &b);
 
-    matrix Cuadrados_Minimos(matrix &b);
+    void Cuadrados_Minimos(matrix &b, matrix &res);
     float ECM(matrix &vel_discreta);
 
     // salida
@@ -90,6 +90,7 @@ public:
 
     void guardarEnImagen(string nombreArchivo);
 
+    void archivoCSV(string nombreArchivo);
 private:
     vector<vector<float> > matriz;
     unsigned int filas;

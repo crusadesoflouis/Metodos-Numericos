@@ -335,6 +335,7 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
       U.rellenar_columna_con_vector(i, autovector);
       D.agregar_elemento(i, i, autovalor);
       this->deflacion(autovector,autovalor);
+      cout << i << endl;
       i++;
     }else{
       salir = false;
@@ -403,7 +404,7 @@ void matrix::SCML(matrix& U,matrix &S,matrix &V,matrix &b){
   }
 }
 
-matrix matrix::Cuadrados_Minimos(matrix &b){
+void matrix::Cuadrados_Minimos(matrix &b, matrix &res){
 
     matrix B_t = trasponer();
     //B_t.mostrar();
@@ -427,10 +428,9 @@ matrix matrix::Cuadrados_Minimos(matrix &b){
 
     //U.mostrar();
     U = U.trasponer();
-    matrix res = matrix(dame_columnas(),1);
+    
     cout << "fase solucion" << endl;
     res.SCML(U,S,V,b);
-    return res;
 }
 
 float matrix::ECM(matrix &vel_discreta){
@@ -451,7 +451,7 @@ vector<vector<float>> matrix::dameMatriz(){
 void matrix::pasar_vector_matriz(vector<float>& velocidades){
 	for (uint i = 0; i < dame_filas(); ++i){
 		matriz[i][0] = velocidades[i];
-	}
+	} 
 }
 
 void matrix::pasar_matriz_vector(matrix &imagen_ori){
@@ -472,4 +472,18 @@ void matrix::guardarEnImagen(string nombreArchivo){
     }
   }
   SavePPMFile(nombreArchivo.c_str(),datos,sqrt(filas),sqrt(filas),pt);
+}
+
+void matrix::archivoCSV(string nombreArchivo){
+  fstream archivo(nombreArchivo, ios::out);
+  for (int i = 0; i < filas; ++i){
+    for (int j = 0; j < columnas; ++j){
+      if(j != 0){
+        archivo << ",";
+      }
+      archivo << matriz[i][j];
+    }
+    archivo << endl;
+  }
+  archivo.close();
 }

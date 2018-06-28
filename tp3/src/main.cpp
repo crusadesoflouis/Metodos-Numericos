@@ -9,6 +9,8 @@ int main(int argc, char **argv) {
     // cin >> hayQueAchicar;
     matrix original = matrix(nombreImagen);
     //matrix original_reduc = original.reducir_tamano();
+    //original_reduc = original_reduc.reducir_tamano();
+    //original_reduc = original_reduc.reducir_tamano();
     // if (hayQueAchicar){
     //     matrix original_reduc = original.reducir_tamano();
     // }
@@ -17,20 +19,29 @@ int main(int argc, char **argv) {
     u_int alto = original.dame_filas();
     vector<Recta> rectas;
     //generar_rectas(rectas, densidad, distancia entre puntos, alto, ancho)
-    GeneradorRectas::dame_rectas_sobre_base(rectas, 5, 20, alto, ancho);
+    GeneradorRectas::dame_rectas_sobre_base(rectas, 20, 20, alto, ancho);
     matrix destino(rectas.size(), alto*ancho);
     cout << "cantidad de rectas es " << rectas.size() << endl;
     vector<float> tiempos(rectas.size());
     AplicadorRectas::aplicar_rectas(original, rectas, tiempos, destino);
-    //matrix matriz_discre = destino.discretizacion();
-    //cout << "primera discretizacion " << matriz_discre.dame_filas() << ", " << matriz_discre.dame_columnas() << endl;
+    //destino.archivoCSV("destino.csv");
+    /*matrix matriz_discre = destino.discretizacion();
+    matriz_discre = matriz_discre.discretizacion();
+    matriz_discre = matriz_discre.discretizacion();*/
+    //cout << "primera discretizacion " << destino.dame_filas() << ", " << destino.dame_columnas() << endl;
     matrix tiemposMatriz(tiempos.size(),1);
     tiemposMatriz.pasar_vector_matriz(tiempos);
+    //tiemposMatriz.archivoCSV("tiempo.csv");
     cout << "Cuadrados_Minimos de la discretizacion" << endl;
-    matrix velocidades_discre = destino.Cuadrados_Minimos(tiemposMatriz);
+
+    matrix velocidades_discre(destino.dame_columnas(), 1);
+    destino.Cuadrados_Minimos(tiemposMatriz, velocidades_discre);
+    velocidades_discre.mostrar();
     cout << "calulo velocidad original" << endl;
+    
     matrix velocidades_ori(original.dame_filas()*original.dame_columnas(),1);
     velocidades_ori.pasar_matriz_vector(original);
+    //velocidades_ori.guardarEnImagen(nombreImagen+".salidaori");
     float error = velocidades_ori.ECM(velocidades_discre);
     cout << "error cuadratico medio es " << error << endl;
     velocidades_discre.guardarEnImagen(nombreImagen+".salida");
