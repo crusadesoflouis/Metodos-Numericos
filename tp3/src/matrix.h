@@ -28,7 +28,7 @@ public:
 
     unsigned int dame_filas();
 
-    vector<vector<float>> dameMatriz();
+    vector< vector <float> > dameMatriz();
 
     // funciones que operan con matrices
     matrix trasponer();
