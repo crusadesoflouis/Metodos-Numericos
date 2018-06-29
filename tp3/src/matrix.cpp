@@ -1,5 +1,5 @@
 #include "matrix.h"
-float EPSILON = 0.0000000000001;
+float EPSILON = 0.0001;
 
 random_device randomDevice;
 mt19937 generator(randomDevice());
@@ -315,7 +315,7 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
   assert(D.dame_filas() == D.dame_columnas());
   assert(D.dame_filas() == U.dame_columnas());
 
-  matrix autovector(dame_filas(),1);
+  matrix autovector(U.dame_filas(),1);
   matrix x_0(dame_filas(),1);
   float autovalor = EPSILON;
   int i =0;
@@ -328,14 +328,14 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
     }
     x_0.normalizar_2();
 
-    autovalor = this->metodo_potencia(x_0,500,autovector);
+    autovalor = this->metodo_potencia(x_0,50,autovector);
     //si no son parecidos, cambiamos la semilla del vector
     //hacer deflacion
     if(sqrt(autovalor) > EPSILON){
       U.rellenar_columna_con_vector(i, autovector);
       D.agregar_elemento(i, i, autovalor);
       this->deflacion(autovector,autovalor);
-      //cout << i << endl;
+      cout << i << endl;
       i++;
     }else{
       salir = false;
@@ -347,29 +347,32 @@ void matrix::rellenar_columna_con_vector(uint columna, matrix& V){
   //asume que X (this) viene ya traspuesto
   V.normalizar_2();
   assert(V.dame_columnas() == 1);
-  assert(V.dame_filas() == dame_filas());
+  if(V.dame_filas() != dame_filas()){
+    cout << "la cant filas de V " << V.dame_filas() << " y la del this " << dame_filas();
+    assert(V.dame_filas() == dame_filas());
+  }
   for (size_t i = 0; i < dame_filas(); i++) {
     agregar_elemento(i, columna, V.dame_elem_matrix(i, 0));
   }
 }
 //devuelve una matrix de nxm
-void matrix::conversionUaV(matrix& U,matrix &D,matrix &V) {
-  for (size_t i = 0; i < V.dame_columnas(); i++) {
-    matrix  e_i = crear_canonico(U.dame_filas(),i);
+void matrix::conversionUaV(matrix& V,matrix &D,matrix &U) {
+  for (size_t i = 0; i < U.dame_columnas(); i++) {
+    matrix e_i = crear_canonico(V.dame_filas(),i);
     // e_i.mostrar();
-    matrix u_i(U.dame_filas(),1);
-    u_i.multiplicacion(U,e_i);
+    matrix v_i(V.dame_filas(),1);
+    v_i.multiplicacion(V,e_i);
     // u_i.mostrar();
     // D.mostrar();
     float d_i_i = D.dame_elem_matrix(i,i);
     // std::cout << "d " << d_i_i<<'\n';
     // mostrar();
-    matrix v_i(dame_filas(),1);
-    v_i.multiplicacion((*this),u_i);
+    matrix u_i(dame_filas(),1);
+    u_i.multiplicacion((*this),v_i);
     // v_i.mostrar();
-    v_i.division_escalar(d_i_i);
+    u_i.division_escalar(d_i_i);
     //v_i.normalizar_2();
-    V.rellenar_columna_con_vector(i,v_i);
+    U.rellenar_columna_con_vector(i,u_i);
   }
 }
 
@@ -392,7 +395,7 @@ int matrix::dame_rango(){
 //recibe U^t, S, V normal,
 void matrix::SCML(matrix& U,matrix &S,matrix &V,matrix &b){
   float lamda = 0;
-  for (uint i = 0; i < V.dame_columnas(); ++i){
+  for (uint i = 0; i < U.dame_columnas(); ++i){
     lamda = producto_interno(U,b,i,0);
     lamda = lamda / S.dame_elem_matrix(i,i);
     matrix  e_i = crear_canonico(V.dame_columnas(),i);
@@ -409,12 +412,13 @@ void matrix::Cuadrados_Minimos(matrix &b, matrix &res){
     matrix B_t = trasponer();
     //B_t.mostrar();
 
-    matrix A(dame_filas(),B_t.dame_columnas());
-    A.multiplicacion(*this,B_t);
+    matrix A(B_t.dame_filas(),dame_columnas());
+    A.multiplicacion(B_t,*this);
     matrix D(A.dame_filas(),A.dame_columnas());
-    matrix U(A.dame_filas(),A.dame_columnas());
+    matrix V(A.dame_filas(),A.dame_columnas());
 
-    A.generacion_U_D(U,D,A.dame_columnas());
+    A.generacion_U_D(V,D,A.dame_columnas());
+
     //D.mostrar();
     //U.mostrar();
 
@@ -422,8 +426,8 @@ void matrix::Cuadrados_Minimos(matrix &b, matrix &res){
     S.matriz_Sigma(D);
     //S.mostrar();
 
-    matrix V(dame_columnas(),S.dame_rango());
-    B_t.conversionUaV(U,S,V);
+    matrix U(dame_columnas(),S.dame_rango());
+    conversionUaV(V,S,U);
     //V.mostrar();
 
     //U.mostrar();
