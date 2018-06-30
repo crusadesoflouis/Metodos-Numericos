@@ -1,5 +1,5 @@
 #include "matrix.h"
-float EPSILON = 0.0001;
+float EPSILON = 0.00001;
 
 random_device randomDevice;
 mt19937 generator(randomDevice());
@@ -315,7 +315,7 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
   assert(D.dame_filas() == D.dame_columnas());
   assert(D.dame_filas() == U.dame_columnas());
 
-  matrix autovector(U.dame_filas(),1);
+  matrix autovector(dame_filas(),1);
   matrix x_0(dame_filas(),1);
   float autovalor = EPSILON;
   int i =0;
@@ -328,7 +328,7 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
     }
     x_0.normalizar_2();
 
-    autovalor = this->metodo_potencia(x_0,50,autovector);
+    autovalor = this->metodo_potencia(x_0,500,autovector);
     //si no son parecidos, cambiamos la semilla del vector
     //hacer deflacion
     if(sqrt(autovalor) > EPSILON){
@@ -345,15 +345,13 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
 
 void matrix::rellenar_columna_con_vector(uint columna, matrix& V){
   //asume que X (this) viene ya traspuesto
+  //cout << "filas de V " << V.dame_filas() << "filas de this " << this->dame_filas() << endl;
   V.normalizar_2();
   assert(V.dame_columnas() == 1);
-  if(V.dame_filas() != dame_filas()){
-    cout << "la cant filas de V " << V.dame_filas() << " y la del this " << dame_filas();
-    assert(V.dame_filas() == dame_filas());
-  }
+  assert(V.dame_filas() == dame_filas());
   for (size_t i = 0; i < dame_filas(); i++) {
     agregar_elemento(i, columna, V.dame_elem_matrix(i, 0));
-  }
+}
 }
 //devuelve una matrix de nxm
 void matrix::conversionUaV(matrix& V,matrix &D,matrix &U) {
@@ -395,7 +393,7 @@ int matrix::dame_rango(){
 //recibe U^t, S, V normal,
 void matrix::SCML(matrix& U,matrix &S,matrix &V,matrix &b){
   float lamda = 0;
-  for (uint i = 0; i < U.dame_columnas(); ++i){
+  for (uint i = 0; i < U.dame_filas(); ++i){
     lamda = producto_interno(U,b,i,0);
     lamda = lamda / S.dame_elem_matrix(i,i);
     matrix  e_i = crear_canonico(V.dame_columnas(),i);
@@ -416,7 +414,6 @@ void matrix::Cuadrados_Minimos(matrix &b, matrix &res){
     A.multiplicacion(B_t,*this);
     matrix D(A.dame_filas(),A.dame_columnas());
     matrix V(A.dame_filas(),A.dame_columnas());
-
     A.generacion_U_D(V,D,A.dame_columnas());
 
     //D.mostrar();
@@ -426,7 +423,9 @@ void matrix::Cuadrados_Minimos(matrix &b, matrix &res){
     S.matriz_Sigma(D);
     //S.mostrar();
 
-    matrix U(dame_columnas(),S.dame_rango());
+    matrix U(dame_filas(),S.dame_rango());
+
+    cout << "conversionUaV" << endl;
     conversionUaV(V,S,U);
     //V.mostrar();
 
