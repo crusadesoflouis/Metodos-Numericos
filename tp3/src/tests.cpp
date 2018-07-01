@@ -61,7 +61,8 @@ for (int i = 0; i < rectas.size(); ++i){
 }
 matrix tiemposMatriz(velocidades.size(),1);
 tiemposMatriz.pasar_vector_matriz(velocidades);
-matrix velocidades_dis = destino.Cuadrados_Minimos(tiemposMatriz);   
+matrix velocidades_dis(destino.dame_columnas(),1); 
+destino.Cuadrados_Minimos(tiemposMatriz,velocidades_dis);   
 matrix velocidades_ori(49,1);
 velocidades_ori.pasar_matriz_vector(imagen);
 float error = velocidades_ori.ECM(velocidades_dis);
@@ -69,6 +70,5 @@ cout << "error cuadratico medio es " << error << endl;
 destino.mostrar();
 velocidades_dis.mostrar();
 //velocidades_discre.guardarEnImagen(nombreImagen+".salida");
-
 return 0;
 }
