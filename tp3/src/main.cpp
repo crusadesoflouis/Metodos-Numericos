@@ -24,15 +24,15 @@ int main(int argc, char **argv) {
     cout << "cantidad de rectas es " << rectas.size() << endl;
     vector<float> tiempos(rectas.size());
     AplicadorRectas::aplicar_rectas(original_reduc, rectas, tiempos, destino);
-    //destino.archivoCSV("destino.csv");
+    destino.archivoCSV("destino.csv");
     /*matrix matriz_discre = destino.discretizacion();
     matriz_discre = matriz_discre.discretizacion();
     matriz_discre = matriz_discre.discretizacion();*/
     //cout << "primera discretizacion " << destino.dame_filas() << ", " << destino.dame_columnas() << endl;
     matrix tiemposMatriz(tiempos.size(),1);
     tiemposMatriz.pasar_vector_matriz(tiempos);
-    //tiemposMatriz.archivoCSV("tiempo.csv");
-    cout << "Cuadrados_Minimos de la discretizacion" << endl;
+    tiemposMatriz.archivoCSV("tiempo.csv");
+    /*cout << "Cuadrados_Minimos de la discretizacion" << endl;
 
     matrix velocidades_discre(destino.dame_columnas(), 1);
     destino.Cuadrados_Minimos(tiemposMatriz, velocidades_discre);
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
     //velocidades_ori.guardarEnImagen(nombreImagen+".salidaori");
     float error = velocidades_ori.ECM(velocidades_discre);
     cout << "error cuadratico medio es " << error << endl;
-    velocidades_discre.guardarEnImagen(nombreImagen+".salida");
+    velocidades_discre.guardarEnImagen(nombreImagen+".salida");*/
 
 
 
