@@ -14,7 +14,6 @@ int main(int argc, char **argv) {
     original_reduc = original_reduc.reducir_tamano();
     original_reduc = original_reduc.reducir_tamano();
     if (param == 0) {
-  
         u_int ancho = original_reduc.dame_columnas();
         u_int alto = original_reduc.dame_filas();
         vector<Recta> rectas;
@@ -33,14 +32,13 @@ int main(int argc, char **argv) {
         tiemposMatriz.pasar_vector_matriz(tiempos);
         tiemposMatriz.archivoCSV("tiempo.csv");
     }else{
-
-    
-        char* nombreCSV;
-        char* nombreDim;
+        string nombreCSV;
         cin >> nombreCSV;
+        string nombreDim;
         cin >> nombreDim; 
         matrix v(nombreCSV,nombreDim);
-        v.guardarEnImagen(nombreImagen+".salida")
+        v.mostrar();
+        v.guardarEnImagen(nombreImagen+".salida");
     }
     /*cout << "Cuadrados_Minimos de la discretizacion" << endl;
 
