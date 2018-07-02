@@ -20,6 +20,8 @@ public:
 
     matrix(string nombreArchivo);
 
+    matrix(char* matrizArchivo, char* dimensionArchivo);
+
     void agregar_elemento(uint fila, uint columna, float elemento);
 
     float dame_elem_matrix(unsigned int fila, unsigned int columna);

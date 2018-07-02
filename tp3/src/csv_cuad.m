@@ -6,7 +6,7 @@ function ret = csv_cuad(A,B)
   D = D';
   uint8(D);
   csvwrite('resultado.csv',D);
-  imwrite(D,"img_solucion",'gif');
+  csvwrite('dimension.csv',n);
   ret = 1
   toc
 endfunction

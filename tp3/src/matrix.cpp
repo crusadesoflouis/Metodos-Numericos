@@ -490,3 +490,23 @@ void matrix::archivoCSV(string nombreArchivo){
   }
   archivo.close();
 }
+
+matrix::matrix(char* matrizArchivo, char* dimensionArchivo){
+  fstream archivo_matriz;
+  fstream archivo_dimension;
+  archivo_matriz.open(matrizArchivo);
+  archivo_dimension.open(dimensionArchivo);  
+  archivo_dimension >> filas;
+  columnas = filas;
+    matriz.resize(filas);
+    for (size_t i = 0; i < filas; i++) {
+      for (size_t j = 0; j < columnas; j++) {
+        float actual;
+        matrizArchivo >> actual;
+        matriz[i].push_back(actual);
+      }
+    }
+
+  archivo_matriz.close();
+  archivo_dimension.close();
+}

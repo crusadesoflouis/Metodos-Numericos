@@ -3,6 +3,8 @@
 using namespace std;
 
 int main(int argc, char **argv) {
+    int param;
+    cin >> param;
     string nombreImagen;
     cin >> nombreImagen;
     // bool hayQueAchicar;
@@ -11,27 +13,35 @@ int main(int argc, char **argv) {
     matrix original_reduc = original.reducir_tamano();
     original_reduc = original_reduc.reducir_tamano();
     original_reduc = original_reduc.reducir_tamano();
-    // if (hayQueAchicar){
-    //     matrix original_reduc = original.reducir_tamano();
-    // }
-    // llamar a generar rectas a la matriz originial
-    u_int ancho = original_reduc.dame_columnas();
-    u_int alto = original_reduc.dame_filas();
-    vector<Recta> rectas;
-    //generar_rectas(rectas, densidad, distancia entre puntos, alto, ancho)
-    GeneradorRectas::dame_rectas_sobre_base(rectas, 1, 1, alto, ancho);
-    matrix destino(rectas.size(), alto*ancho);
-    cout << "cantidad de rectas es " << rectas.size() << endl;
-    vector<float> tiempos(rectas.size());
-    AplicadorRectas::aplicar_rectas(original_reduc, rectas, tiempos, destino);
-    destino.archivoCSV("destino.csv");
-    /*matrix matriz_discre = destino.discretizacion();
-    matriz_discre = matriz_discre.discretizacion();
-    matriz_discre = matriz_discre.discretizacion();*/
-    //cout << "primera discretizacion " << destino.dame_filas() << ", " << destino.dame_columnas() << endl;
-    matrix tiemposMatriz(tiempos.size(),1);
-    tiemposMatriz.pasar_vector_matriz(tiempos);
-    tiemposMatriz.archivoCSV("tiempo.csv");
+    if (param == 0) {
+  
+        u_int ancho = original_reduc.dame_columnas();
+        u_int alto = original_reduc.dame_filas();
+        vector<Recta> rectas;
+        //generar_rectas(rectas, densidad, distancia entre puntos, alto, ancho)
+        GeneradorRectas::dame_rectas_sobre_base(rectas, 1, 1, alto, ancho);
+        matrix destino(rectas.size(), alto*ancho);
+        cout << "cantidad de rectas es " << rectas.size() << endl;
+        vector<float> tiempos(rectas.size());
+        AplicadorRectas::aplicar_rectas(original_reduc, rectas, tiempos, destino);
+        destino.archivoCSV("destino.csv");
+        /*matrix matriz_discre = destino.discretizacion();
+        matriz_discre = matriz_discre.discretizacion();
+        matriz_discre = matriz_discre.discretizacion();*/
+        //cout << "primera discretizacion " << destino.dame_filas() << ", " << destino.dame_columnas() << endl;
+        matrix tiemposMatriz(tiempos.size(),1);
+        tiemposMatriz.pasar_vector_matriz(tiempos);
+        tiemposMatriz.archivoCSV("tiempo.csv");
+    }else{
+
+    
+        char* nombreCSV;
+        char* nombreDim;
+        cin >> nombreCSV;
+        cin >> nombreDim; 
+        matrix v(nombreCSV,nombreDim);
+        v.guardarEnImagen(nombreImagen+".salida")
+    }
     /*cout << "Cuadrados_Minimos de la discretizacion" << endl;
 
     matrix velocidades_discre(destino.dame_columnas(), 1);
