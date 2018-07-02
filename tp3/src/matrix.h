@@ -20,7 +20,7 @@ public:
 
     matrix(string nombreArchivo);
 
-    matrix(char* matrizArchivo, char* dimensionArchivo);
+    matrix(string matrizArchivo, string dimensionArchivo);
 
     void agregar_elemento(uint fila, uint columna, float elemento);
 
