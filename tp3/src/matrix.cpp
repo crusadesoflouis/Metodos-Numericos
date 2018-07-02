@@ -1,5 +1,5 @@
 #include "matrix.h"
-float EPSILON = 0.00001;
+float EPSILON = 0.000000000000001;
 
 random_device randomDevice;
 mt19937 generator(randomDevice());
@@ -94,12 +94,17 @@ matrix::matrix(string matrizArchivo, string dimensionArchivo){
   archivo_dimension.open(dimensionArchivo);  
   archivo_dimension >> filas;
   columnas = filas;
+  string valor;
     matriz.resize(filas);
     for (size_t i = 0; i < filas; i++) {
       for (size_t j = 0; j < columnas; j++) {
-        float actual;
-        archivo_matriz >> actual;
-        matriz[i].push_back(actual);
+        if(j != columnas - 1){
+          getline (archivo_matriz,valor, ',' );
+          matriz[i].push_back((float) atof(valor.c_str()));
+        }else{
+          getline (archivo_matriz,valor, '\n' );
+          matriz[i].push_back((float) atof(valor.c_str()));
+        }
       }
     }
 
@@ -511,4 +516,13 @@ void matrix::archivoCSV(string nombreArchivo){
   archivo.close();
 }
 
+
+void matrix::vector_matriz(matrix &imagen_ori){
+  int n = filas;
+  int resto = 0;
+  for (int i = 0; i < imagen_ori.dame_filas(); ++i){
+    resto = i/n;
+    matriz[resto][i - (n*resto)] = imagen_ori.dame_elem_matrix(i,0);
+  }
+}
 

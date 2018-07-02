@@ -31,14 +31,25 @@ int main(int argc, char **argv) {
         matrix tiemposMatriz(tiempos.size(),1);
         tiemposMatriz.pasar_vector_matriz(tiempos);
         tiemposMatriz.archivoCSV("tiempo.csv");
+        cout << "Cuadrados_Minimos de la discretizacion" << endl;
+        matrix velocidades_discre(destino.dame_columnas(), 1);
+        destino.Cuadrados_Minimos(tiemposMatriz, velocidades_discre);
+        matrix velocidad_final(sqrt(velocidades_discre.dame_filas()), sqrt(velocidades_discre.dame_filas()));
+        velocidad_final.vector_matriz(velocidades_discre);
+        velocidad_final.archivoCSV("velocidad_c++.csv");
+        cout << "calulo velocidad original" << endl;
+        matrix velocidades_ori(ancho*alto,1);
+        velocidades_ori.pasar_matriz_vector(original_reduc);
+        //velocidades_ori.guardarEnImagen(nombreImagen+".salidaori");
+        float error = velocidades_ori.ECM(velocidades_discre);
+        cout << "error cuadratico medio es " << error << endl;
     }else{
         string nombreCSV;
         cin >> nombreCSV;
         string nombreDim;
         cin >> nombreDim; 
         matrix v(nombreCSV,nombreDim);
-        v.mostrar();
-        v.guardarEnImagen(nombreImagen+".salida");
+
     }
     /*cout << "Cuadrados_Minimos de la discretizacion" << endl;
 
