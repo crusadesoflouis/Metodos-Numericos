@@ -9,9 +9,10 @@ void GeneradorRectas::recta(Recta &recta, Punto a, Punto b) {
     recta = make_pair(m, b);
 }
 
-void GeneradorRectas::dame_rectas(vector<Recta> &rectas, Punto origen, int densidad, unsigned int ancho, unsigned int alto) {
+void
+GeneradorRectas::dame_rectas(vector<Recta> &rectas, Punto origen, int densidad, unsigned int ancho, unsigned int alto) {
     assert(origen.second == 0);
-    for (unsigned int i = 1; i <= alto - 2; i = i + densidad) {
+    for (unsigned int i = origen.first + 1; i <= alto - 2; i = i + densidad) {
         Punto nuevo_izq = make_pair(0, i);
         Punto nuevo_der = make_pair(ancho - 1, i);
 
@@ -38,17 +39,29 @@ void GeneradorRectas::dame_rectas(vector<Recta> &rectas, Punto origen, int densi
     }
 }
 
-void GeneradorRectas::dame_rectas(vector<Recta> &rectas, vector<Punto> &origenes, int densidad, int ancho, int alto) {
+void GeneradorRectas::dame_rectas(vector<Recta> &rectas, vector<Punto> &origenes, int densidad, unsigned int ancho, unsigned int alto) {
     for (Punto origen : origenes) {
         dame_rectas(rectas, origen, densidad, alto, ancho);
     }
 }
 
-void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad, int distancia_entre_puntos, int alto,
-                                             int ancho) {
+void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad, int distancia_entre_puntos, unsigned int alto,
+                                             unsigned int ancho) {
     vector<Punto> puntos;
     for (int i = 0; i < ancho; i = i + distancia_entre_puntos) {
         puntos.emplace_back(i, 0);
+    }
+
+    dame_rectas(rectas, puntos, densidad, ancho, alto);
+}
+
+void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad, int distancia_entre_puntos,
+                                             int distancia_entre_bases, unsigned int alto, unsigned int ancho) {
+    vector<Punto> puntos;
+    for (int j = 0; j < alto; j = j + distancia_entre_bases) {
+        for (int i = 0; i < ancho; i = i + distancia_entre_puntos) {
+            puntos.emplace_back(i, j);
+        }
     }
 
     dame_rectas(rectas, puntos, densidad, ancho, alto);
