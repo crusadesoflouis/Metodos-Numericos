@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
         vector<Recta> rectas;
         //generar_rectas(rectas, densidad, distancia entre puntos, alto, ancho)
         GeneradorRectas::dame_rectas_sobre_base_cuadratica(rectas, 3, 3, alto, ancho);
-        matrix destino(rectas.size(), alto*ancho);
+        matrix destino((unsigned int) rectas.size(), alto*ancho);
         cout << "cantidad de rectas es " << rectas.size() << endl;
         vector<double> tiempos(rectas.size());
         AplicadorRectas::aplicar_rectas(original_reduc, rectas, tiempos, destino);
@@ -28,17 +28,28 @@ int main(int argc, char **argv) {
         matriz_discre = matriz_discre.discretizacion();
         matriz_discre = matriz_discre.discretizacion();*/
         //cout << "primera discretizacion " << destino.dame_filas() << ", " << destino.dame_columnas() << endl;
-        matrix tiemposMatriz(tiempos.size(),1);
+        matrix tiemposMatriz((unsigned int) tiempos.size(),1);
         tiemposMatriz.pasar_vector_matriz(tiempos);
         tiemposMatriz.archivoCSV("tiempo.csv");
+        cout << "Cuadrados_Minimos de la discretizacion" << endl;
+        matrix velocidades_discre(destino.dame_columnas(), 1);
+        destino.Cuadrados_Minimos(tiemposMatriz, velocidades_discre);
+        matrix velocidad_final((unsigned int) sqrt(velocidades_discre.dame_filas()), (unsigned int) sqrt(velocidades_discre.dame_filas()));
+        velocidad_final.vector_matriz(velocidades_discre);
+        velocidad_final.archivoCSV("velocidad_c++.csv");
+        cout << "calulo velocidad original" << endl;
+        matrix velocidades_ori(ancho*alto,1);
+        velocidades_ori.pasar_matriz_vector(original_reduc);
+        //velocidades_ori.guardarEnImagen(nombreImagen+".salidaori");
+        double error = velocidades_ori.ECM(velocidades_discre);
+        cout << "error cuadratico medio es " << error << endl;
     }else{
         string nombreCSV;
         cin >> nombreCSV;
         string nombreDim;
         cin >> nombreDim; 
         matrix v(nombreCSV,nombreDim);
-        v.mostrar();
-        v.guardarEnImagen(nombreImagen+".salida");
+
     }
     /*cout << "Cuadrados_Minimos de la discretizacion" << endl;
 

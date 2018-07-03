@@ -111,6 +111,28 @@ matrix::matrix(string matrizArchivo, string dimensionArchivo) {
     archivo_dimension.close();
 }
 
+/*
+  matrix::matrix(string matrizArchivo, string dimensionArchivo){
+  fstream archivo_matriz;
+  fstream archivo_dimension;
+  archivo_matriz.open(matrizArchivo);
+  archivo_dimension.open(dimensionArchivo);
+  archivo_dimension >> filas;
+  columnas = filas;
+  string valor;
+    matriz.resize(filas);
+    for (size_t i = 0; i < filas; i++) {
+      for (size_t j = 0; j < columnas; j++) {
+        if(j != columnas - 1){
+          getline (archivo_matriz,valor, ',' );
+          matriz[i].push_back((float) atof(valor.c_str()));
+        }else{
+          getline (archivo_matriz,valor, '\n' );
+          matriz[i].push_back((float) atof(valor.c_str()));
+        }
+      }
+ */
+
 matrix::matrix(unsigned int filas, unsigned int columnas) {
 
     matriz.resize(filas);
@@ -519,4 +541,13 @@ void matrix::archivoCSV(string nombreArchivo) {
     archivo.close();
 }
 
+
+void matrix::vector_matriz(matrix &imagen_ori) {
+    int n = filas;
+    int resto = 0;
+    for (int i = 0; i < imagen_ori.dame_filas(); ++i) {
+        resto = i / n;
+        matriz[resto][i - (n * resto)] = imagen_ori.dame_elem_matrix(i, 0);
+    }
+}
 

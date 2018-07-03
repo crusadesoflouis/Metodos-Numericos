@@ -56,6 +56,8 @@ public:
 
     void pasar_matriz_vector(matrix &imagen_ori);
 
+    void vector_matriz(matrix &imagen_ori);
+
     // normas
     void normalizar_2();
 

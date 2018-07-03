@@ -6,6 +6,7 @@ function ret = MinCuadr(U,V,S,b)
       x = A(i,:)*b;
       x = x/S(i,i);
       ret = ret + (V(:,i)*x);
+      csvwrite('resultado_svd.csv',ret);
     endfor 
     toc
 endfunction
