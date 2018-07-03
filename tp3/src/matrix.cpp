@@ -1,6 +1,6 @@
 #include "matrix.h"
 
-double EPSILON = 0.00001;
+double EPSILON = 1e-10;
 
 random_device randomDevice;
 mt19937 generator(randomDevice());
@@ -91,27 +91,6 @@ double matrix::metodo_potencia(matrix &x, int repeticiones, matrix &autovector) 
 
 matrix::~matrix() {}
 
-matrix::matrix(string matrizArchivo, string dimensionArchivo) {
-    fstream archivo_matriz;
-    fstream archivo_dimension;
-    archivo_matriz.open(matrizArchivo);
-    archivo_dimension.open(dimensionArchivo);
-    archivo_dimension >> filas;
-    columnas = filas;
-    matriz.resize(filas);
-    for (size_t i = 0; i < filas; i++) {
-        for (size_t j = 0; j < columnas; j++) {
-            double actual;
-            archivo_matriz >> actual;
-            matriz[i].push_back(actual);
-        }
-    }
-
-    archivo_matriz.close();
-    archivo_dimension.close();
-}
-
-/*
   matrix::matrix(string matrizArchivo, string dimensionArchivo){
   fstream archivo_matriz;
   fstream archivo_dimension;
@@ -125,13 +104,17 @@ matrix::matrix(string matrizArchivo, string dimensionArchivo) {
       for (size_t j = 0; j < columnas; j++) {
         if(j != columnas - 1){
           getline (archivo_matriz,valor, ',' );
-          matriz[i].push_back((float) atof(valor.c_str()));
+          matriz[i].push_back((double) atof(valor.c_str()));
         }else{
           getline (archivo_matriz,valor, '\n' );
-          matriz[i].push_back((float) atof(valor.c_str()));
+          matriz[i].push_back((double) atof(valor.c_str()));
         }
       }
- */
+    }
+    archivo_matriz.close();
+    archivo_dimension.close();
+ }     
+ 
 
 matrix::matrix(unsigned int filas, unsigned int columnas) {
 
@@ -365,17 +348,16 @@ void matrix::generacion_U_D(matrix &U, matrix &D, int alfa) {
 
     matrix autovector(dame_filas(), 1);
     matrix x_0(dame_filas(), 1);
+    for (size_t j = 0; j < x_0.dame_filas(); j++) {
+        x_0.agregar_elemento(j, 0, 1);
+    }
+    x_0.normalizar_2();
     double autovalor;
     int i = 0;
     bool salir = true;
     while (i < alfa && salir) {
         //genera vector random
         // TODO: hacer un vector inicial con la media de la matriz
-        for (size_t j = 0; j < x_0.dame_filas(); j++) {
-            x_0.agregar_elemento(j, 0, rand() % 100 + 1);
-        }
-        x_0.normalizar_2();
-
         autovalor = this->metodo_potencia(x_0, 500, autovector);
         //si no son parecidos, cambiamos la semilla del vector
         //hacer deflacion

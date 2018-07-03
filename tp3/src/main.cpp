@@ -11,14 +11,14 @@ int main(int argc, char **argv) {
     // cin >> hayQueAchicar;
     matrix original = matrix(nombreImagen);
     matrix original_reduc = original.reducir_tamano();
-    //original_reduc = original_reduc.reducir_tamano();
-    //original_reduc = original_reduc.reducir_tamano();
+    original_reduc = original_reduc.reducir_tamano();
+    original_reduc = original_reduc.reducir_tamano();
     if (param == 0) {
         u_int ancho = original_reduc.dame_columnas();
         u_int alto = original_reduc.dame_filas();
         vector<Recta> rectas;
         //generar_rectas(rectas, densidad, distancia entre puntos, alto, ancho)
-        GeneradorRectas::dame_rectas_sobre_base_cuadratica(rectas, 3, 3, alto, ancho);
+        GeneradorRectas::dame_rectas_sobre_base_cuadratica(rectas, 2, 2, alto, ancho);
         matrix destino((unsigned int) rectas.size(), alto*ancho);
         cout << "cantidad de rectas es " << rectas.size() << endl;
         vector<double> tiempos(rectas.size());
@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
         string nombreDim;
         cin >> nombreDim; 
         matrix v(nombreCSV,nombreDim);
-
+        v.mostrar();
     }
     /*cout << "Cuadrados_Minimos de la discretizacion" << endl;
 
