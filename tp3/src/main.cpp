@@ -11,17 +11,17 @@ int main(int argc, char **argv) {
     // cin >> hayQueAchicar;
     matrix original = matrix(nombreImagen);
     matrix original_reduc = original.reducir_tamano();
-    original_reduc = original_reduc.reducir_tamano();
-    original_reduc = original_reduc.reducir_tamano();
+    //original_reduc = original_reduc.reducir_tamano();
+    //original_reduc = original_reduc.reducir_tamano();
     if (param == 0) {
         u_int ancho = original_reduc.dame_columnas();
         u_int alto = original_reduc.dame_filas();
         vector<Recta> rectas;
         //generar_rectas(rectas, densidad, distancia entre puntos, alto, ancho)
-        GeneradorRectas::dame_rectas_sobre_base(rectas, 1, 1, alto, ancho);
+        GeneradorRectas::dame_rectas_sobre_base_cuadratica(rectas, 3, 3, alto, ancho);
         matrix destino(rectas.size(), alto*ancho);
         cout << "cantidad de rectas es " << rectas.size() << endl;
-        vector<float> tiempos(rectas.size());
+        vector<double> tiempos(rectas.size());
         AplicadorRectas::aplicar_rectas(original_reduc, rectas, tiempos, destino);
         destino.archivoCSV("destino.csv");
         /*matrix matriz_discre = destino.discretizacion();

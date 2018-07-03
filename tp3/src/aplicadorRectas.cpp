@@ -1,19 +1,19 @@
 #include "aplicadorRectas.h"
 
 void
-AplicadorRectas::aplicar_rectas(matrix &imagen, vector<Recta> &rectas, vector<float> &velocidades, matrix &destino) {
+AplicadorRectas::aplicar_rectas(matrix &imagen, vector<Recta> &rectas, vector<double> &velocidades, matrix &destino) {
     for (unsigned int i = 0; i < rectas.size(); ++i) {
         aplicar(i, rectas[i], imagen, destino, velocidades);
     }
 }
 
 void AplicadorRectas::aplicar(unsigned int posicion, Recta &recta, matrix &imagen, matrix &destino,
-                              vector<float> &velocidades) {
-    float velocidad = 0;
+                              vector<double> &velocidades) {
+    double velocidad = 0;
 
     Punto origen = recta.second;
-    auto i = (float) origen.first;
-    auto j = (float) origen.second;
+    auto i = (double) origen.first;
+    auto j = (double) origen.second;
 
     while (i < imagen.dame_filas() && 0 <= i && 0 <= j && j < imagen.dame_columnas()) {
         u_int i_destino = posicion;
@@ -27,8 +27,8 @@ void AplicadorRectas::aplicar(unsigned int posicion, Recta &recta, matrix &image
     velocidades[posicion] = velocidad;
 }
 
-void AplicadorRectas::dame_proximo_punto(Recta &recta, float &i, float &j) {
-    float m = recta.first;
+void AplicadorRectas::dame_proximo_punto(Recta &recta, double &i, double &j) {
+    double m = recta.first;
     (m >= 0) ? i++ : i--;
     j = j + abs(m);
 }

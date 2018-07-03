@@ -22,15 +22,15 @@ public:
 
     matrix(string matrizArchivo, string dimensionArchivo);
 
-    void agregar_elemento(uint fila, uint columna, float elemento);
+    void agregar_elemento(uint fila, uint columna, double elemento);
 
-    float dame_elem_matrix(unsigned int fila, unsigned int columna);
+    double dame_elem_matrix(unsigned int fila, unsigned int columna);
 
     unsigned int dame_columnas();
 
     unsigned int dame_filas();
 
-    vector< vector <float> > dameMatriz();
+    vector<vector<double>> dameMatriz();
 
     // funciones que operan con matrices
     matrix trasponer();
@@ -41,9 +41,9 @@ public:
 
     void suma(matrix &A);
 
-    void multiplicacion_escalar(float escalar);
+    void multiplicacion_escalar(double escalar);
 
-    void division_escalar(float escalar);
+    void division_escalar(double escalar);
 
     int dame_rango();
 
@@ -52,7 +52,7 @@ public:
 
     matrix reducir_tamano();
 
-    void pasar_vector_matriz(vector<float>& velocidades);
+    void pasar_vector_matriz(vector<double> &velocidades);
 
     void pasar_matriz_vector(matrix &imagen_ori);
 
@@ -60,9 +60,9 @@ public:
     void normalizar_2();
 
     // funciones para diagonalizar una matriz
-    float metodo_potencia(matrix &x, int repeticiones, matrix &autovector);
+    double metodo_potencia(matrix &x, int repeticiones, matrix &autovector);
 
-    void deflacion(matrix &autovector, float autovalor);
+    void deflacion(matrix &autovector, double autovalor);
 
     void generacion_U_D(matrix &autovectores, matrix &autovalores, int alfa);
 
@@ -71,7 +71,7 @@ public:
     void matriz_Sigma(matrix &D);
 
     // funciones complementarias
-    bool verificacion(matrix autovector, float lambda);
+    bool verificacion(matrix autovector, double lambda);
 
     bool comparar(matrix &b);
 
@@ -85,7 +85,8 @@ public:
     void SCML(matrix &U, matrix &S, matrix &V, matrix &b);
 
     void Cuadrados_Minimos(matrix &b, matrix &res);
-    float ECM(matrix &vel_discreta);
+
+    double ECM(matrix &vel_discreta);
 
     // salida
     void mostrar();
@@ -93,8 +94,9 @@ public:
     void guardarEnImagen(string nombreArchivo);
 
     void archivoCSV(string nombreArchivo);
+
 private:
-    vector<vector<float> > matriz;
+    vector<vector<double>> matriz;
     unsigned int filas;
     unsigned int columnas;
 };

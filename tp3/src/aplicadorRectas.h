@@ -8,15 +8,15 @@
 using namespace std;
 
 typedef pair<unsigned int, unsigned int> Punto;
-typedef pair<float, Punto> Recta;
+typedef pair<double, Punto> Recta;
 
 class AplicadorRectas {
 public:
-    static void aplicar_rectas(matrix &imagen, vector<Recta> &rectas, vector<float> &velocidades, matrix &destino);
+    static void aplicar_rectas(matrix &imagen, vector<Recta> &rectas, vector<double> &velocidades, matrix &destino);
 
 private:
 
-    static void aplicar(uint posicion, Recta &recta, matrix &imagen, matrix &destino, vector<float> &velocidades);
+    static void aplicar(uint posicion, Recta &recta, matrix &imagen, matrix &destino, vector<double> &velocidades);
 
-    static void dame_proximo_punto(Recta &recta, float &i, float &j);
+    static void dame_proximo_punto(Recta &recta, double &i, double &j);
 };

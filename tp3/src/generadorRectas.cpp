@@ -5,13 +5,12 @@ using namespace std;
 void GeneradorRectas::recta(Recta &recta, Punto a, Punto b) {
     int delta_y = (a.second - b.second);
     int delta_x = (a.first - b.first);
-    float m = (float) delta_y / (float) delta_x;
+    double m = (double) delta_y / (double) delta_x;
     recta = make_pair(m, b);
 }
 
 void
 GeneradorRectas::dame_rectas(vector<Recta> &rectas, Punto origen, int densidad, unsigned int ancho, unsigned int alto) {
-    assert(origen.second == 0);
     for (unsigned int i = origen.first + 1; i <= alto - 2; i = i + densidad) {
         Punto nuevo_izq = make_pair(0, i);
         Punto nuevo_der = make_pair(ancho - 1, i);
@@ -39,13 +38,15 @@ GeneradorRectas::dame_rectas(vector<Recta> &rectas, Punto origen, int densidad, 
     }
 }
 
-void GeneradorRectas::dame_rectas(vector<Recta> &rectas, vector<Punto> &origenes, int densidad, unsigned int ancho, unsigned int alto) {
+void GeneradorRectas::dame_rectas(vector<Recta> &rectas, vector<Punto> &origenes, int densidad, unsigned int ancho,
+                                  unsigned int alto) {
     for (Punto origen : origenes) {
         dame_rectas(rectas, origen, densidad, alto, ancho);
     }
 }
 
-void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad, int distancia_entre_puntos, unsigned int alto,
+void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad, int distancia_entre_puntos,
+                                             unsigned int alto,
                                              unsigned int ancho) {
     vector<Punto> puntos;
     for (int i = 0; i < ancho; i = i + distancia_entre_puntos) {
@@ -67,3 +68,14 @@ void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad
     dame_rectas(rectas, puntos, densidad, ancho, alto);
 }
 
+void GeneradorRectas::dame_rectas_sobre_base_cuadratica(vector<Recta> &rectas, int densidad, int distancia_entre_puntos,
+                                                        unsigned int alto, unsigned int ancho) {
+    vector<Punto> puntos;
+    for (int j = 0; j < alto; j = (j + 1) * (j + 1)) {
+        for (int i = 0; i < ancho; i = i + distancia_entre_puntos) {
+            puntos.emplace_back(i, j);
+        }
+    }
+
+    dame_rectas(rectas, puntos, densidad, ancho, alto);
+}
