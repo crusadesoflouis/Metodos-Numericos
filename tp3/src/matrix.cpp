@@ -97,7 +97,7 @@ matrix::~matrix() {}
   archivo_matriz.open(matrizArchivo);
   archivo_dimension.open(dimensionArchivo);
   archivo_dimension >> filas;
-  columnas = filas;
+  columnas = 1;
   string valor;
     matriz.resize(filas);
     for (size_t i = 0; i < filas; i++) {
@@ -113,8 +113,8 @@ matrix::~matrix() {}
     }
     archivo_matriz.close();
     archivo_dimension.close();
- }     
- 
+ }
+
 
 matrix::matrix(unsigned int filas, unsigned int columnas) {
 
@@ -532,4 +532,3 @@ void matrix::vector_matriz(matrix &imagen_ori) {
         matriz[resto][i - (n * resto)] = imagen_ori.dame_elem_matrix(i, 0);
     }
 }
-
