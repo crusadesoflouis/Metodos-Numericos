@@ -37,6 +37,16 @@ matrix matrix::copiar_con_ruido(int tipo_ruido, double param1, double param2) {
     return B;
 }
 
+unsigned long int matrix::media_matrix(){
+  unsigned long int sumatoria = 0;
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      sumatoria += matriz[i][j];
+    }
+  }
+  return sumatoria/(filas*columnas);
+}
+
 //funciones auxiliares
 double norma_euclidea_cuadrada(matrix &A, matrix &B) {
     matrix R(1, 1);

@@ -58,6 +58,7 @@ public:
 
     void vector_matriz(matrix &imagen_ori);
 
+    unsigned long int  media_matrix();
     // normas
     void normalizar_2();
 
