@@ -5,15 +5,15 @@ using namespace std;
 
 void experimentarConRuido(int argc, char **argv) {
   //experimento con lena reduciendo minimo 1 vez para que no explote
-  string nombreImagen = argv[3];
+  string nombreImagen = argv[1];
   matrix original = matrix(nombreImagen);
-  int tipo_ruido = atoi(argv[4]);
-  int desvioStandard = atoi(argv[5]);
-  int densidad = atoi(argv[6]);
-  int distancia_entre_puntos = atoi(argv[7]);
+  //int tipo_ruido = atoi(argv[4]);
+  //int desvioStandard = atoi(argv[5]);
+  int densidad = atoi(argv[3]);
+  int distancia_entre_puntos = atoi(argv[4]);
   unsigned long int media = original.media_matrix();
-  matrix original_con_ruido = original.copiar_con_ruido(tipo_ruido,media,desvioStandard);
-  original_con_ruido.archivoCSV("_originalconruidored.csv");
+  matrix original_con_ruido = original.copiar_con_ruido(0,0,100);
+  original_con_ruido.archivoCSV(nombreImagen+"originalconruidored.csv");
   matrix original_reducida_con_ruido(1,1);
   matrix original_reduc(1,1);
   for (int i = 0; i < atoi(argv[2]); i++) {
@@ -36,7 +36,7 @@ void experimentarConRuido(int argc, char **argv) {
   cout << "cantidad de rectas es " << rectas.size() << endl;
   vector<double> tiempos(rectas.size());
   AplicadorRectas::aplicar_rectas(original_reducida_con_ruido, rectas, tiempos, destino);
-  destino.archivoCSV("tipo_ruido "+to_string(tipo_ruido)+" densidad " +to_string(densidad) +" matriz_rectas.csv");
+  destino.archivoCSV(nombreImagen +"_densidad_" +to_string(densidad) +"_matriz_rectas.csv");
   matrix tiemposMatriz((unsigned int) tiempos.size(),1);
   tiemposMatriz.pasar_vector_matriz(tiempos);
   tiemposMatriz.archivoCSV(nombreImagen+"_tiempos.csv");
