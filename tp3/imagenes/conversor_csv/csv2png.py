@@ -6,8 +6,9 @@ import csv
 import pydicom
 from tifffile import imsave
 if len(sys.argv) < 2:
-    print("Correr python csv_converter.py <carpeta_imagenes> <carpeta_output>.")
-    print("Por ejemplo: python csv_converter.py imagenes/ imagenes_convertidas/")
+    print("Correr python csv2png.py <carpeta_imagenes>.")
+    print("Por ejemplo: python csv2png.py csv/")
+    print("Aclaracion: las imagenes van a estar en el directorio pasado como parametro")
     exit(0)
 input_folder = sys.argv[1]
 # output_folder = sys.argv[2]
