@@ -53,6 +53,8 @@ class imagen{
     }
 
     void setData(vector<vector<float>> M_datos){
+      height = M_datos.size();
+      width = M_datos[0].size();
       for (unsigned int i = 0; i < M_datos.size(); ++i){
         for (unsigned int j = 0; j < M_datos[i].size(); ++j){
           datos[i+j] = M_datos[i][j];
