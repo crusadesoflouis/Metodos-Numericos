@@ -4,6 +4,8 @@
 #include <vector>
 #include <stdio.h>
 #include <cstdlib>
+#include "imagen.h"
+
 using namespace std;
 class matrix {
 public:

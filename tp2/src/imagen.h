@@ -1,7 +1,9 @@
 #ifndef _imagen_h__
 
 #include <math.h>
-#include "../ppmloader/ppmloader.cpp"
+#include <string>
+#include <vector>
+#include "ppmloader.h"
 
 using namespace std;
 
