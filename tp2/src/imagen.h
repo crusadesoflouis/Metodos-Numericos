@@ -38,13 +38,13 @@ class imagen{
 
     float distancia(imagen img){
       float respuesta = 0;
-      for (size_t i = 0; i < this->tamanio(); i++) {
+      for (unsigned int i = 0; i < this->tamanio(); i++) {
         respuesta += (img.datos[i]-this->datos[i])*(img.datos[i]-this->datos[i]);
       }
       return sqrt(respuesta);
     }
 
-    int tamanio(){
+    unsigned int tamanio(){
       return height*width;
     }
 
@@ -53,15 +53,15 @@ class imagen{
     }
 
     void setData(vector<vector<float>> M_datos){
-      for (int i = 0; i < M_datos.size(); ++i){
-        for (int j = 0; j < M_datos[i].size(); ++j){
+      for (unsigned int i = 0; i < M_datos.size(); ++i){
+        for (unsigned int j = 0; j < M_datos[i].size(); ++j){
           datos[i+j] = M_datos[i][j];
         }
       }
     }
 
     void calcularXRaya(vector<float> mu,int cantidadDeImagenes){
-      for(int i = 0; i < this->tamanio(); ++i){
+      for(unsigned int i = 0; i < this->tamanio(); ++i){
         datos[i] = (datos[i]-mu[i])/sqrt(cantidadDeImagenes-1);
       }
     }

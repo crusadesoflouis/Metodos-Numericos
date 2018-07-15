@@ -38,11 +38,11 @@ void insertarOrdenado(vector<tuple<id,dist>>& masCercanos, tuple<id,dist> nuevoE
   }
 }
 
-vector<tuple<string,int>> knn(vector<imagen> baseDeDatos, vector<imagen> nueva, int k){
+vector<tuple<string,int>> knn(vector<imagen> baseDeDatos, vector<imagen> nueva, unsigned int k){
   vector<tuple<string,int>> respuesta;
-  for (size_t i = 0; i < nueva.size(); i++) {
+  for (unsigned int i = 0; i < nueva.size(); i++) {
     vector<tuple<id,dist>> masCercanos;
-    for (size_t j = 0; j < baseDeDatos.size(); j++) {
+    for (unsigned int j = 0; j < baseDeDatos.size(); j++) {
       if(masCercanos.size() < k){ // si todavia no llene el vector agrego la imagen directamente
         insertarOrdenado(masCercanos,make_tuple(baseDeDatos[j].getId(),baseDeDatos[j].distancia(nueva[i])));
       }else{
@@ -135,8 +135,8 @@ void escribirArchivo(char* nombreArchivo, vector<tuple<string,int>> solucion){
 matrix crear_matriz(int filas, int columnas, float valores[]) {
     matrix nueva(filas, columnas);
     int c = 0;
-    for (size_t i = 0; i < filas; i++) {
-        for (size_t j = 0; j < columnas; j++) {
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
             nueva.agregar_elemento(i, j, valores[c]);
             c++;
         }
@@ -197,14 +197,14 @@ int main(int argc, char **argv) {
       }
 
       // aplico el cambio de base a las imagenes
-      for(int i = 0; i < imagenesParaEntrenar.size(); i++){
+      for(unsigned int i = 0; i < imagenesParaEntrenar.size(); i++){
         imagenesParaEntrenar[i].calcularXRaya(mu,imagenesParaEntrenar.size());
       	// aplico tc
         // tc alpha x 1
       	matrix tc = aplicarTc(imagenesParaEntrenar[i], v);
       	imagenesParaEntrenar[i].setData(tc.dameMatriz());
       }
-      for (int i = 0; i < imagenesAClasificar.size(); i++){
+      for (unsigned int i = 0; i < imagenesAClasificar.size(); i++){
       	// calculo x(raya)*
         imagenesAClasificar[i].calcularXRaya(mu,imagenesParaEntrenar.size());
         // aplico tc

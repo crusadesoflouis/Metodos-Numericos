@@ -45,7 +45,7 @@ matrix crear_canonico(uint filas,uint i){
 
 float matrix::metodo_potencia(matrix &x, int repeticiones, matrix &autovector) {
   matrix v = x;
-  unsigned int i = 0;
+  int i = 0;
   float autovalor = 0;
   do{
 
@@ -76,6 +76,7 @@ float dame_random() {
   do {
     random = distribution(generator);
   } while(abs(random) <= EPSILON);
+  return random;
 }
 
 // constructor de una matrix de tamaño n llena de ceros
@@ -286,7 +287,7 @@ void matrix::generacion_U_D(matrix& U,matrix& D, int alfa){
 
   matrix autovector(dame_filas(),1);
   matrix x_0(dame_filas(),1);
-  for (size_t i = 0; i < alfa; i++) {
+  for (int i = 0; i < alfa; i++) {
     float autovalor = 0;
     //genera vector random
     // TODO: hacer un vector inicial con la media de la matriz
