@@ -55,38 +55,38 @@ def plot_confusion_matrix(cm, classes,
     plt.xlabel('Predicted label')
 
 
-
-acurracy    =  []
-recall      =  []
-precision   =  []
-
-for k in range(1,10):
-    acy_prom  = []
-    recl_prom = []
-    prec_prom = []
-    iteracion = 5
-    true = []
-    pred = []
-    menos = 10-k
-    with open('k_'+str(k)+'_test_'+str(menos)+'_it'+str(iteracion)+'.csv', 'rb') as csvfile:
-        reader = csv.reader(csvfile,delimiter= ',', quotechar='|')
-        try:
-            row = reader.next()
-            while True:
-                true.append(int(row[1]))
-                row = reader.next()
-        except StopIteration:
-            print ""
-
-            with open('k_'+str(k)+'_pred_'+str(menos)+'_it'+str(iteracion)+'.csv', 'rb') as csvfile:
-                reader = csv.reader(csvfile,delimiter= ',', quotechar='|')
-                try:
-                    row = reader.next()
-                    while True:
-                        pred.append(int(row[1]))
-                        row = reader.next()
-                except StopIteration:
-                    print ""
+#
+# acurracy    =  []
+# recall      =  []
+# precision   =  []
+#
+# for k in range(1,10):
+#     acy_prom  = []
+#     recl_prom = []
+#     prec_prom = []
+#     iteracion = 5
+#     true = []
+#     pred = []
+#     menos = 10-k
+#     with open('k_'+str(k)+'_test_'+str(menos)+'_it'+str(iteracion)+'.csv', 'rb') as csvfile:
+#         reader = csv.reader(csvfile,delimiter= ',', quotechar='|')
+#         try:
+#             row = reader.next()
+#             while True:
+#                 true.append(int(row[1]))
+#                 row = reader.next()
+#         except StopIteration:
+#             print ""
+#
+#             with open('k_'+str(k)+'_pred_'+str(menos)+'_it'+str(iteracion)+'.csv', 'rb') as csvfile:
+#                 reader = csv.reader(csvfile,delimiter= ',', quotechar='|')
+#                 try:
+#                     row = reader.next()
+#                     while True:
+#                         pred.append(int(row[1]))
+#                         row = reader.next()
+#                 except StopIteration:
+#                     print ""
 
     # Compute confusion matrix
     cnf_matrix = confusion_matrix(true, pred)

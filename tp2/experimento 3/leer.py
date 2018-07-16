@@ -11,14 +11,13 @@ acurracy    =  []
 recall      =  []
 precision   =  []
 
-for k in range(1,10):
-    print k
+for k in range(1,6):
     true = []
     pred = []
     acy_prom = []
     recl_prom = []
     prec_prom = []
-    with open('true_'+str(k)+'.csv', 'rb') as csvfile:
+    with open('test_elements_'+str(k)+'.csv', 'rb') as csvfile:
         reader = csv.reader(csvfile,delimiter= ',', quotechar='|')
         try:
             row = reader.next()
@@ -27,7 +26,7 @@ for k in range(1,10):
                 row = reader.next()
         except StopIteration:
             print ""
-    with open('pred_'+str(k)+'.csv', 'rb') as csvfile:
+    with open('result_'+str(k)+'.csv', 'rb') as csvfile:
         reader = csv.reader(csvfile,delimiter= ',', quotechar='|')
         try:
             row = reader.next()
@@ -48,21 +47,23 @@ for k in range(1,10):
         precision.append(prec_prom[0])
 
 
-# print "acurracy"
-
-acurracy.reverse()
-recall.reverse()
-precision.reverse()
-print acurracy
-print recall
-print precision
+print np.mean(acurracy)
+print np.mean(recall)
+print np.mean(precision)
 
 
-# print np.mean(acurracy)
-# print np.mean(recall)
-# print np.mean(precision)
+# recall.append(np.mean(recl_prom))
+# precision.append(np.mean(prec_prom))
+# acurracy.append(np.mean(acy_prom))
 
-N = 9
+        # acurracy.append(np.mean(acy_prom))
+# print acurracy.reverse()
+# print recall.reverse()
+# print precision.reverse()
+
+
+
+N = 5
 ind = np.arange(N)  # the x locations for the groups
 width = 0.27       # the width of the bars
 fig = plt.figure()
@@ -74,9 +75,8 @@ rects2 = ax.bar(ind+width, zvals, width, color='#72bac3')
 kvals = recall
 rects3 = ax.bar(ind+width*2, kvals, width, color='#de511c')
 ax.set_ylabel('%')
-ax.set_xlabel('cantidad de elementos de entrenamiento')
+ax.set_xlabel('fold')
 ax.set_xticks(ind+width)
-ax.set_xticklabels( ('9', '8', '7', '6', '5','4', '3', '2', '1') )
+ax.set_xticklabels( ('1', '2', '3', '4', '5') )
 ax.legend( (rects1[0], rects2[0], rects3[0]), ('acurracy', 'precision', 'recall') )
 plt.show()
-#
