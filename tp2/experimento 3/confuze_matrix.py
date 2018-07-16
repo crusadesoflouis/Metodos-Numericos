@@ -54,12 +54,21 @@ def plot_confusion_matrix(cm, classes,
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
 
+
+
+acurracy    =  []
+recall      =  []
+precision   =  []
+
 for k in range(1,10):
-    print k
-    cnf_matrix  =  []
+    acy_prom  = []
+    recl_prom = []
+    prec_prom = []
+    iteracion = 5
     true = []
     pred = []
-    with open('true_'+str(k)+'.csv', 'rb') as csvfile:
+    menos = 10-k
+    with open('k_'+str(k)+'_test_'+str(menos)+'_it'+str(iteracion)+'.csv', 'rb') as csvfile:
         reader = csv.reader(csvfile,delimiter= ',', quotechar='|')
         try:
             row = reader.next()
@@ -68,24 +77,24 @@ for k in range(1,10):
                 row = reader.next()
         except StopIteration:
             print ""
-    with open('pred_'+str(k)+'.csv', 'rb') as csvfile:
-        reader = csv.reader(csvfile,delimiter= ',', quotechar='|')
-        try:
-            row = reader.next()
-            while True:
-                pred.append(int(row[1]))
-                row = reader.next()
-        except StopIteration:
-            print ""
-    if len(cnf_matrix) == 0:
-        cnf_matrix =confusion_matrix(true, pred)
-    else:
-        cnf_matrix =cnf_matrix + confusion_matrix(true, pred)
+
+            with open('k_'+str(k)+'_pred_'+str(menos)+'_it'+str(iteracion)+'.csv', 'rb') as csvfile:
+                reader = csv.reader(csvfile,delimiter= ',', quotechar='|')
+                try:
+                    row = reader.next()
+                    while True:
+                        pred.append(int(row[1]))
+                        row = reader.next()
+                except StopIteration:
+                    print ""
+
+    # Compute confusion matrix
+    cnf_matrix = confusion_matrix(true, pred)
     np.set_printoptions(precision=2)
 
     # Plot non-normalized confusion matrix
     plt.figure()
-    plot_confusion_matrix(cnf_matrix, classes=class_names,normalize=True,
+    plot_confusion_matrix(cnf_matrix, classes=class_names,
                           title='Matriz de confusion para '+str(k)+' Imagenes de entrenamiento')
 
     # Plot normalized confusion matrix
@@ -93,5 +102,5 @@ for k in range(1,10):
     # plot_confusion_matrix(cnf_matrix, classes=class_names, normalize=True,
     # title='Normalized confusion matrix')
 
-    plt.savefig(str(k)+'_xp_plot.png')
-    plt.show()
+    plt.savefig(str(k)+'plot.png')
+    # plt.show()
