@@ -508,12 +508,31 @@ void matrix::pasar_matriz_vector(matrix &imagen_ori) {
 }
 
 void matrix::guardarEnImagen(string nombreArchivo) {
+    double min = matriz[0][0];
+    double max = matriz[0][0];
+    for (int i = 0; i < filas; ++i){
+        for (int j = 0; j < columnas; ++j){
+            if (min > matriz[i][j]){
+                min = matriz[i][j];
+            }
+            if (max < matriz[i][j]){
+                max = matriz[i][j];
+            }
+        }
+    }
+    double diferencia = max-min;
+    for (int i = 0; i < filas; ++i){
+        for (int j = 0; j < columnas; ++j){
+            matriz[i][j] -= min;
+            matriz[i][j] /= diferencia;
+            matriz[i][j] *= 255;
+        }
+    }
     PPM_LOADER_PIXEL_TYPE pt = PPM_LOADER_PIXEL_TYPE_GRAY_8B;
     auto *datos = new uchar[filas * columnas];
     for (uint i = 0; i < filas; ++i) {
         for (uint j = 0; j < columnas; ++j) {
-            uchar actual = (matriz[i][j] <= 255) ? ((matriz[i][j] >= 0) ? (uchar) matriz[i][j] : 0) : 255;
-            datos[(columnas * i) + j] = actual;
+            datos[(columnas * i) + j] = (uchar) matriz[i][j];
         }
     }
     SavePPMFile(nombreArchivo.c_str(), datos, sqrt(filas), sqrt(filas), pt);

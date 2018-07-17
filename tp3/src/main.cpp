@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
     matrix original = matrix(nombreImagen);
     matrix original_reduc = original.reducir_tamano();
     original_reduc = original_reduc.reducir_tamano();
-    original_reduc = original_reduc.reducir_tamano();
+    //original_reduc = original_reduc.reducir_tamano();
     if (param == 0) {
         u_int ancho = original_reduc.dame_columnas();
         u_int alto = original_reduc.dame_filas();
@@ -39,8 +39,8 @@ int main(int argc, char **argv) {
         velocidad_final.archivoCSV("velocidad_c++.csv");
         cout << "calulo velocidad original" << endl;
         matrix velocidades_ori(ancho*alto,1);
-        velocidades_ori.pasar_matriz_vector(original_reduc);
-        //velocidades_ori.guardarEnImagen(nombreImagen+".salidaori");
+        velocidades_ori.pasar_matriz_vector(velocidad_final);
+        velocidades_ori.guardarEnImagen(nombreImagen+".salidaori");
         double error = velocidades_ori.ECM(velocidades_discre);
         cout << "error cuadratico medio es " << error << endl;
     }else{
