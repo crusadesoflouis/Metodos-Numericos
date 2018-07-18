@@ -4,12 +4,14 @@ using namespace std;
 
 int main(int argc, char **argv) {
     /* Inicio de lectura de parametros*/
-    int cant_reduccion;
+    uint cant_reduccion;
     cin >> cant_reduccion;
-    int cant_discretizacion;
+    uint cant_discretizacion;
     cin >> cant_discretizacion;
     string nombreImagen;
     cin >> nombreImagen;
+    int cant_rectas;
+    cin >> cant_rectas;
     /* Fin*/
 
     matrix original = matrix(nombreImagen);

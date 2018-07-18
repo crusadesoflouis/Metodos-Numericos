@@ -28,7 +28,7 @@ GeneradorRectas::dame_rectas(vector<Recta> &rectas, Punto origen, int densidad, 
         }
     }
 
-    for (int i = ancho - 1; i >= 0; i = i - densidad) {
+    for (uint i = ancho - 1; i >= 0; i = i - densidad) {
         if (origen.first != (unsigned int) i) {
             Punto nuevo = make_pair(i, alto - 1);
             Recta r;
@@ -49,7 +49,7 @@ void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad
                                              unsigned int alto,
                                              unsigned int ancho) {
     vector<Punto> puntos;
-    for (int i = 0; i < ancho; i = i + distancia_entre_puntos) {
+    for (uint i = 0; i < ancho; i = i + distancia_entre_puntos) {
         puntos.emplace_back(i, 0);
     }
 
@@ -59,8 +59,8 @@ void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad
 void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad, int distancia_entre_puntos,
                                              int distancia_entre_bases, unsigned int alto, unsigned int ancho) {
     vector<Punto> puntos;
-    for (int j = 0; j < alto; j = j + distancia_entre_bases) {
-        for (int i = 0; i < ancho; i = i + distancia_entre_puntos) {
+    for (uint j = 0; j < alto; j = j + distancia_entre_bases) {
+        for (uint i = 0; i < ancho; i = i + distancia_entre_puntos) {
             puntos.emplace_back(i, j);
         }
     }
@@ -71,8 +71,8 @@ void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad
 void GeneradorRectas::dame_rectas_sobre_base_cuadratica(vector<Recta> &rectas, int densidad, int distancia_entre_puntos,
                                                         unsigned int alto, unsigned int ancho) {
     vector<Punto> puntos;
-    for (int j = 0; j < alto; j = (j + 1) * (j + 1)) {
-        for (int i = 0; i < ancho; i = i + distancia_entre_puntos) {
+    for (uint j = 0; j < alto; j = (j + 1) * (j + 1)) {
+        for (uint i = 0; i < ancho; i = i + distancia_entre_puntos) {
             puntos.emplace_back(i, j);
         }
     }
