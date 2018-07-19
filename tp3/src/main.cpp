@@ -4,12 +4,14 @@ using namespace std;
 
 int main(int argc, char **argv) {
     /* Inicio de lectura de parametros*/
-    int cant_reduccion;
+    uint cant_reduccion;
     cin >> cant_reduccion;
-    int cant_discretizacion;
+    uint cant_discretizacion;
     cin >> cant_discretizacion;
     string nombreImagen;
     cin >> nombreImagen;
+    int cant_rectas;
+    cin >> cant_rectas;
     /* Fin*/
 
     matrix original = matrix(nombreImagen);
@@ -23,7 +25,11 @@ int main(int argc, char **argv) {
 
     vector<Recta> rectas;
     //generar_rectas(rectas, densidad, distancia entre puntos, alto, ancho)
+<<<<<<< HEAD
     GeneradorRectas::dame_rectas_sobre_base_cuadratica(rectas, 1, 1, alto, ancho);
+=======
+    GeneradorRectas::dame_rectas_sobre_base_cuadratica(rectas, 3, 3, alto, ancho);
+>>>>>>> a0fe169baf6ae89874fa81417e96f3cf64d52ac8
     cout << "cantidad de rectas es " << rectas.size() << endl; 
     /* Fin*/
 
@@ -53,6 +59,17 @@ int main(int argc, char **argv) {
     destino.Cuadrados_Minimos(tiemposMatriz, velocidades_discre);
     /*Fin*/
 
+    matrix velocidades_ori(ancho*alto,1);
+    velocidades_ori.pasar_matriz_vector(original);
+
+    /* Guardado de la imagen y muestro del ECM*/
+        velocidades_discre.guardarEnImagen(nombreImagen+".salidaori");
+        double error = velocidades_ori.ECM(velocidades_discre);
+        cout << "error cuadratico medio es " << error << endl;
+    /*FIn*/    
+
+    ancho = original.dame_columnas();
+    alto = original.dame_filas();
     matrix velocidades_ori(ancho*alto,1);
     velocidades_ori.pasar_matriz_vector(original);
 

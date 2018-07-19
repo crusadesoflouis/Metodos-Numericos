@@ -40,8 +40,8 @@ matrix matrix::copiar_con_ruido(int tipo_ruido, double param1, double param2) {
 
 unsigned long int matrix::media_matrix(){
   unsigned long int sumatoria = 0;
-  for (int i = 0; i < filas; i++) {
-    for (int j = 0; j < columnas; j++) {
+  for (uint i = 0; i < filas; i++) {
+    for (uint j = 0; j < columnas; j++) {
       sumatoria += matriz[i][j];
     }
   }
@@ -72,7 +72,7 @@ matrix crear_canonico(uint filas, uint i) {
 
 double matrix::metodo_potencia(matrix &x, int repeticiones, matrix &autovector) {
     matrix v = x;
-    unsigned int i = 0;
+    int i = 0;
     double autovalor = 0;
     do {
 
@@ -174,7 +174,7 @@ matrix matrix::reducir_tamano() {
 }
 
 matrix matrix::discretizacion() {
-    auto n = (int) sqrt(dame_columnas());
+    uint n = sqrt(dame_columnas());
     matrix A(dame_filas(), (dame_columnas() / 2));
     for (uint i = 0; i < dame_filas(); ++i) {
         for (uint j = 0; j < dame_columnas(); j += 2) {
@@ -511,8 +511,8 @@ void matrix::pasar_matriz_vector(matrix &imagen_ori) {
 void matrix::guardarEnImagen(string nombreArchivo) {
     double min = matriz[0][0];
     double max = matriz[0][0];
-    for (int i = 0; i < filas; ++i){
-        for (int j = 0; j < columnas; ++j){
+    for (uint i = 0; i < filas; ++i){
+        for (uint j = 0; j < columnas; ++j){
             if (min > matriz[i][j]){
                 min = matriz[i][j];
             }
@@ -522,8 +522,8 @@ void matrix::guardarEnImagen(string nombreArchivo) {
         }
     }
     double diferencia = max-min;
-    for (int i = 0; i < filas; ++i){
-        for (int j = 0; j < columnas; ++j){
+    for (uint i = 0; i < filas; ++i){
+        for (uint j = 0; j < columnas; ++j){
             matriz[i][j] -= min;
             matriz[i][j] /= diferencia;
             matriz[i][j] *= 255;
@@ -541,8 +541,8 @@ void matrix::guardarEnImagen(string nombreArchivo) {
 
 void matrix::archivoCSV(string nombreArchivo) {
     fstream archivo(nombreArchivo, ios::out);
-    for (int i = 0; i < filas; ++i) {
-        for (int j = 0; j < columnas; ++j) {
+    for (uint i = 0; i < filas; ++i) {
+        for (uint j = 0; j < columnas; ++j) {
             if (j != 0) {
                 archivo << ",";
             }
@@ -557,7 +557,7 @@ void matrix::archivoCSV(string nombreArchivo) {
 void matrix::vector_matriz(matrix &imagen_ori) {
     int n = filas;
     int resto = 0;
-    for (int i = 0; i < imagen_ori.dame_filas(); ++i) {
+    for (uint i = 0; i < imagen_ori.dame_filas(); ++i) {
         resto = i / n;
         matriz[resto][i - (n * resto)] = imagen_ori.dame_elem_matrix(i, 0);
     }
