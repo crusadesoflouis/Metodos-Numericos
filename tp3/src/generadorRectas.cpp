@@ -28,7 +28,7 @@ GeneradorRectas::dame_rectas(vector<Recta> &rectas, Punto origen, int densidad, 
         }
     }
 
-    for (uint i = ancho - 1; i >= 0; i = i - densidad) {
+    for (int i = ancho - 1; i >= 0; i = i - densidad) {
         if (origen.first != (unsigned int) i) {
             Punto nuevo = make_pair(i, alto - 1);
             Recta r;
