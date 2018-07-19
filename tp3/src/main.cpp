@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
 
     vector<Recta> rectas;
     //generar_rectas(rectas, densidad, distancia entre puntos, alto, ancho)
-    GeneradorRectas::dame_rectas_sobre_base_cuadratica(rectas, 1, 1, alto, ancho);
+    GeneradorRectas::dame_rectas_sobre_base_cuadratica(rectas, 3, 3, alto, ancho);
     cout << "cantidad de rectas es " << rectas.size() << endl; 
     /* Fin*/
 
@@ -55,6 +55,9 @@ int main(int argc, char **argv) {
     destino.Cuadrados_Minimos(tiemposMatriz, velocidades_discre);
     /*Fin*/
 
+
+    ancho = original.dame_columnas();
+    alto = original.dame_filas();
     matrix velocidades_ori(ancho*alto,1);
     velocidades_ori.pasar_matriz_vector(original);
 
