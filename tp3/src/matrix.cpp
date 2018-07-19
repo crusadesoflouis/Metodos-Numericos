@@ -6,6 +6,7 @@ random_device randomDevice;
 mt19937 generator(randomDevice());
 
 double dame_ruido(int distribucion, double param1, double param2) {
+
     uniform_real_distribution<double> unif(param1, param2);  // rango [param1,param2]
     std::normal_distribution<double> norm(param1, param2);      // (mean,desvStandart)
     std::poisson_distribution<int> poisson(param1);             // lambda = param 1
