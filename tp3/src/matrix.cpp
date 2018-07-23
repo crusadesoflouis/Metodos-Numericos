@@ -6,7 +6,6 @@ random_device randomDevice;
 mt19937 generator(randomDevice());
 
 double dame_ruido(int distribucion, double param1, double param2) {
-
     uniform_real_distribution<double> unif(param1, param2);  // rango [param1,param2]
     std::normal_distribution<double> norm(param1, param2);      // (mean,desvStandart)
     std::poisson_distribution<int> poisson(param1);             // lambda = param 1
@@ -376,7 +375,7 @@ void matrix::generacion_U_D(matrix &U, matrix &D, int alfa) {
             U.rellenar_columna_con_vector(i, autovector);
             D.agregar_elemento(i, i, autovalor);
             this->deflacion(autovector, autovalor);
-            cout << i << endl;
+            //cout << i << endl;
             i++;
         } else {
             salir = false;
@@ -468,14 +467,14 @@ void matrix::Cuadrados_Minimos(matrix &b, matrix &res) {
 
     matrix U(dame_filas(), S.dame_rango());
 
-    cout << "conversionUaV" << endl;
+    //cout << "conversionUaV" << endl;
     conversionUaV(V, S, U);
     //V.mostrar();
 
     //U.mostrar();
     U = U.trasponer();
 
-    cout << "fase solucion" << endl;
+    //cout << "fase solucion" << endl;
     res.SCML(U, S, V, b);
 }
 
