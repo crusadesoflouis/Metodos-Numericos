@@ -3,7 +3,7 @@
 
 using namespace std;
 
-random_device randomDevice;
+random_device randomDeviceS;
 
 void GeneradorRectas::recta(Recta &recta, Punto a, Punto b) {
     int delta_y = (a.second - b.second);
@@ -61,22 +61,22 @@ void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad
 
 void GeneradorRectas::dame_rectas_con_cantidad(vector<Recta> &rectas, int cantidad_de_rectas, unsigned int alto,
                                                unsigned int ancho) {
-    assert(cantidad_de_rectas % 4 == 0);
-    uniform_int_distribution x0(0, ancho - 1);  // rango [param1,param2]
-    uniform_int_distribution x1(0, ancho - 1);
-    uniform_int_distribution y1(0, ancho - 1);
-
-    while (rectas.size() < cantidad_de_rectas) {
-        Punto origen = make_pair(x0(randomDevice), 0);
-        Punto destino = make_pair(x1(randomDevice), y1(randomDevice));
-
-        //TODO: revisar si hay alguna otra razon por la cual no querramos crear una recta con esos dos puntos.
-        if (origen.first - destino.first != 0) {
-            Recta r;
-            recta(r, destino, origen);
-            rectas.push_back(r);
-        }
-    }
+    // assert(cantidad_de_rectas % 4 == 0);
+    // uniform_int_distribution x0(0, ancho - 1);  // rango [param1,param2]
+    // uniform_int_distribution x1(0, ancho - 1);
+    // uniform_int_distribution y1(0, ancho - 1);
+    //
+    // while (rectas.size() < cantidad_de_rectas) {
+    //     Punto origen = make_pair(x0(randomDeviceS), 0);
+    //     Punto destino = make_pair(x1(randomDeviceS), y1(randomDeviceS));
+    //
+    //     //TODO: revisar si hay alguna otra razon por la cual no querramos crear una recta con esos dos puntos.
+    //     if (origen.first - destino.first != 0) {
+    //         Recta r;
+    //         recta(r, destino, origen);
+    //         rectas.push_back(r);
+    //     }
+    // }
 }
 
 void GeneradorRectas::dame_rectas_sobre_base(vector<Recta> &rectas, int densidad, int distancia_entre_puntos,
