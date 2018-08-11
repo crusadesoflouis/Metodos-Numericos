@@ -1,4 +1,4 @@
-# TPS_MET_NUM
+#MÉTODOS NUMÉRICOS
 
 TPs Métodos Numéricos - 1 cuatrimestre 2018 universidad de Buenos Aires Facultad de Ciencias Exactas y Naturales
 
